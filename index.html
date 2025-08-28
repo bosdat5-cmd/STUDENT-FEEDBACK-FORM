@@ -155,8 +155,52 @@ function validateFeedback(){
   const faculty = document.getElementById("facultySelect").value;
   completedFaculties.push(faculty);
 
-  alert("✅ Feedback submitted for "+faculty);
+ // ✅ Prepare payload for Google Sheet
+  const payload = {
+    timestamp: new Date().toISOString(),
+    studentName: document.getElementById("studentName").value.trim(),
+    regNumber: document.getElementById("regNumber").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    mobile: document.getElementById("mobile").value.trim(),
+    faculty,
+    batchId,
+    quizMarks: Number(quizMarks),
+    weightage: parseFloat(document.getElementById("weightageScore").innerText),
+    grade: document.getElementById("grade").innerText,
+    answers: questions.map((q,i)=>document.getElementById("q"+i).value)
+  };
 
+// ✅ Send data to Google Sheet
+fetch("https://script.google.com/macros/s/AKfycbwFoCXaitd0DO6obxsE8s4PSEMwD_9c6Zc2c7ol-y55LoOjpH2BOtk_qMdUlLcNE9np/exec", {
+  method: "POST",
+  body: JSON.stringify(payload)
+})
+.then(res => res.json())
+.then(res => {
+  if(res.status === "success"){
+    completedFaculties.push(faculty); // mark as completed
+    alert("✅ Feedback submitted for " + faculty);
+
+    resetFeedbackForm();
+
+    if(completedFaculties.length < faculties.length){
+      loadFaculties();
+      showPage(2);
+    } else {
+      document.querySelectorAll(".form-page").forEach(p => p.style.display = "none");
+      const container = document.querySelector(".max-w-3xl");
+      const done = document.createElement("div");
+      done.innerHTML = `<h2 class="text-2xl font-bold mb-4">Thank you!</h2><p>All feedback submitted.</p>`;
+      container.appendChild(done);
+    }
+  } else {
+    alert("⚠️ Error saving data. Try again.");
+  }
+})
+.catch(err => {
+  console.error(err);
+  alert("⚠️ Connection error. Data not saved.");
+});
   resetFeedbackForm();
 
   if(completedFaculties.length<faculties.length){
@@ -169,7 +213,6 @@ function validateFeedback(){
     done.innerHTML = `<h2 class="text-2xl font-bold mb-4">Thank you!</h2><p>All feedback submitted.</p>`;
     container.appendChild(done);
   }
-}
 
 function loadFaculties(){
   const select = document.getElementById("facultySelect");
