@@ -1,92 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Feedback Form</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    .form-page { display: none; transition: all 0.3s ease; }
-    .active-page { display: block; }
-    .card { background: #fff; border-radius: 0.75rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); padding: 2rem; margin-bottom: 2rem; }
-    .btn-primary { background-color: #2563eb; color: #fff; padding: 0.6rem 1.5rem; border-radius: 0.5rem; font-weight: 600; transition: all 0.2s; }
-    .btn-primary:hover { background-color: #1e40af; }
-    .btn-secondary { background-color: #6b7280; color: #fff; padding: 0.6rem 1.5rem; border-radius: 0.5rem; font-weight: 600; }
-    .btn-secondary:hover { background-color: #4b5563; }
+    body { font-family: Arial, sans-serif; background: #f9fafb; padding: 20px; }
+    .form-page { display: none; }
+    .form-section { margin-bottom: 15px; }
+    .form-section label { display: block; font-weight: bold; margin-bottom: 5px; }
+    input, select { width: 100%; padding: 8px; margin-bottom: 10px; }
+    button { background: #2563eb; color: #fff; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; }
+    button:disabled { background: #9ca3af; cursor: not-allowed; }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body>
 
-  <!-- Header -->
-  <div class="text-center py-6 bg-blue-900 text-white shadow-lg">
-    <h1 class="text-2xl font-bold uppercase">THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</h1>
-    <p class="text-lg mt-1">Student Feedback Form</p>
+<div class="max-w-3xl mx-auto p-6 bg-white shadow rounded">
+  <h2 class="text-2xl font-bold mb-4">Student Feedback Form</h2>
+
+  <!-- Page 1 -->
+  <div class="form-page" id="page1">
+    <div class="form-section">
+      <label>Student Name</label>
+      <input type="text" id="studentName">
+    </div>
+    <div class="form-section">
+      <label>Registration Number</label>
+      <input type="text" id="regNumber" placeholder="e.g. CRO1234567">
+    </div>
+    <div class="form-section">
+      <label>Email</label>
+      <input type="email" id="email">
+    </div>
+    <div class="form-section">
+      <label>Mobile Number</label>
+      <input type="text" id="mobile" maxlength="10">
+    </div>
+    <button onclick="validatePage1()">Next →</button>
   </div>
 
-  <div class="max-w-3xl mx-auto mt-6 bg-white p-8 rounded-2xl shadow-lg">
-
-    <!-- Page 1: Basic Info -->
-    <div id="page1" class="form-page active-page card">
-      <h2 class="text-2xl font-semibold mb-4 text-blue-700">Basic Information</h2>
-      <p class="text-gray-500 mb-6">Please fill in your details to proceed with feedback.</p>
-
-      <label class="block mb-2 font-medium">Student Name <span class="text-red-500">*</span></label>
-      <input id="studentName" type="text" class="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Your full name">
-
-      <label class="block mb-2 font-medium">Registration Number <span class="text-red-500">*</span></label>
-      <input id="regNumber" type="text" class="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="e.g. CRO1234567">
-
-      <label class="block mb-2 font-medium">Email <span class="text-red-500">*</span></label>
-      <input id="email" type="email" class="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="example@email.com">
-
-      <label class="block mb-2 font-medium">Mobile Number <span class="text-red-500">*</span></label>
-      <input id="mobile" type="tel" class="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="10 digit number">
-
-      <div class="flex justify-end mt-6">
-        <button type="button" class="btn-primary" onclick="validatePage1()">Next →</button>
-      </div>
-    </div>  
-
-    <!-- Page 2: Faculty Selection -->
-    <div id="page2" class="form-page card">
-      <h2 class="text-2xl font-semibold mb-4 text-blue-700">Select Faculty</h2>
-      <select id="facultySelect" class="w-full p-2 border rounded mb-6"></select>
-
-      <div class="flex justify-between mt-6">
-        <button type="button" class="btn-secondary" onclick="showPage(1)">← Back</button>
-        <button type="button" class="btn-primary" onclick="validatePage2()">Next →</button>
-      </div>
+  <!-- Page 2 -->
+  <div class="form-page" id="page2">
+    <div class="form-section">
+      <label>Select Faculty</label>
+      <select id="facultySelect"></select>
     </div>
-
-    <!-- Page 3: Feedback -->
-    <div id="page3" class="form-page card">
-      <h2 class="text-2xl font-semibold mb-4 text-blue-700">Faculty Feedback</h2>
-
-      <label class="block mb-2">Batch ID <span class="text-red-500">*</span></label>
-      <input id="batchId" type="text" class="w-full p-2 border rounded mb-4">
-
-      <div id="questionsContainer"></div>
-
-      <label class="block mt-4 mb-2">Quiz Marks <span class="text-red-500">*</span></label>
-      <input id="quizMarks" type="number" min="0" max="100" class="w-full p-2 border rounded mb-4" oninput="calculateScore()">
-
-      <div class="p-4 bg-gray-50 rounded border mt-4">
-        <p><b>Weightage Score:</b> <span id="weightageScore">0.00</span></p>
-        <p><b>Grade:</b> <span id="grade">-</span></p>
-      </div>
-
-      <div class="flex justify-between mt-6">
-        <button type="button" class="btn-secondary" onclick="showPage(2)">← Back</button>
-        <button id="submitBtn" type="button" class="btn-primary" onclick="validateFeedback()">✅ Submit Feedback</button>
-      </div>
-    </div>
-
+    <button onclick="validatePage2()">Next →</button>
   </div>
+
+  <!-- Page 3 -->
+  <div class="form-page" id="page3">
+    <div class="form-section">
+      <label>Batch ID</label>
+      <input type="text" id="batchId">
+    </div>
+    <div class="form-section">
+      <label>Quiz Marks</label>
+      <input type="number" id="quizMarks">
+    </div>
+
+    <div id="questionsContainer"></div>
+
+    <div class="form-section">
+      <label>Weighted Score</label>
+      <span id="weightageScore">0</span>
+    </div>
+    <div class="form-section">
+      <label>Grade</label>
+      <span id="grade">-</span>
+    </div>
+
+    <button id="submitBtn" onclick="validateFeedback()">Submit</button>
+  </div>
+</div>
 
 <script>
-/* ======= Cleaned JS for multi-page form (no nested <script> tags) ======= */
+/* ======= Cleaned JS ======= */
 
 const faculties = ["Sandeep Agarwal","Bhanu Dhir","Shekhar Sharma","Anju Gupta","Preeti Goel","Rohit Agarwal","Sunita Rathore"];
 let completedFaculties = [];
@@ -133,8 +123,20 @@ function validatePage1(){
     return;
   }
 
-  // ✅ Only move if all checks pass
   showPage(2);  
+}
+
+function loadFaculties() {
+  const sel = document.getElementById("facultySelect");
+  sel.innerHTML = `<option value="">-- Select Faculty --</option>`;
+  faculties.forEach(f => {
+    if(!completedFaculties.includes(f)){
+      const opt = document.createElement("option");
+      opt.value = f;
+      opt.textContent = f;
+      sel.appendChild(opt);
+    }
+  });
 }
 
 function validatePage2() {
@@ -146,12 +148,49 @@ function validatePage2() {
   showPage(3);
 }
 
+function loadQuestions() {
+  const container = document.getElementById("questionsContainer");
+  container.innerHTML = "";
+  questions.forEach((q,i)=>{
+    const div = document.createElement("div");
+    div.className="form-section";
+    div.innerHTML = `
+      <label>${q}</label>
+      <select id="q${i}" onchange="updateScore()">
+        <option value="">-- Select --</option>
+        <option value="1">1 - Poor</option>
+        <option value="2">2 - Fair</option>
+        <option value="3">3 - Good</option>
+        <option value="4">4 - Very Good</option>
+        <option value="5">5 - Excellent</option>
+      </select>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function updateScore() {
+  let total=0, count=0;
+  questions.forEach((q,i)=>{
+    const v = Number(document.getElementById("q"+i).value);
+    if(v){ total+=v; count++; }
+  });
+  const avg = count ? (total/count).toFixed(2) : 0;
+  document.getElementById("weightageScore").innerText = avg;
+  let grade="-";
+  if(avg>=4.5) grade="A+";
+  else if(avg>=4.0) grade="A";
+  else if(avg>=3.5) grade="B+";
+  else if(avg>=3.0) grade="B";
+  else grade="C";
+  document.getElementById("grade").innerText=grade;
+}
+
 async function validateFeedback() {
   const submitBtn = document.getElementById("submitBtn"); 
   const batchId = document.getElementById("batchId").value.trim();
   const quizMarks = document.getElementById("quizMarks").value.trim();
 
-  // --- Validation ---
   if (!batchId || quizMarks === "") {
     alert("⚠️ Fill Batch ID & Quiz Marks");
     return;
@@ -161,14 +200,12 @@ async function validateFeedback() {
   questions.forEach((q, i) => {
     if (!document.getElementById("q" + i)?.value) unanswered.push(i + 1);
   });
-
   if (unanswered.length > 0) {
     alert("⚠️ Answer all questions. Missing Qs: " + unanswered.join(","));
     return;
   }
 
   const faculty = document.getElementById("facultySelect").value;
-
   const payload = {
     timestamp: new Date().toISOString(),
     studentName: document.getElementById("studentName").value.trim(),
@@ -184,7 +221,6 @@ async function validateFeedback() {
   };
 
   try {
-    // --- Disable button & show loading ---
     if (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.innerText = "Submitting... ⏳";
@@ -209,7 +245,10 @@ async function validateFeedback() {
         document.querySelectorAll(".form-page").forEach(p => p.style.display = "none");
         const container = document.querySelector(".max-w-3xl");
         const done = document.createElement("div");
-        done.innerHTML = `<h2 class="text-2xl font-bold mb-4">Thank you!</h2><p>All feedback submitted.</p>`;
+        done.innerHTML = `
+          <h2 class="text-2xl font-bold mb-4">Thank you!</h2>
+          <p>All feedback submitted.</p>
+        `;
         container.appendChild(done);
       }
     } else {
@@ -219,84 +258,23 @@ async function validateFeedback() {
     console.error(err);
     alert("⚠️ Connection error. Data not saved.");
   } finally {
-    // --- Always restore button ---
     if (submitBtn) {
       submitBtn.disabled = false;
-      submitBtn.innerText = "✅ Submit Feedback";
+      submitBtn.innerText = "Submit";
     }
   }
 }
 
-function loadFaculties(){
-  const select = document.getElementById("facultySelect");
-  select.innerHTML = `<option value="">-- Select Faculty --</option>`;
-  const available = faculties.filter(f=>!completedFaculties.includes(f));
-  if(available.length===0){
-    select.innerHTML=`<option value="">No faculties left</option>`;
-    select.disabled=true;
-  }else{
-    available.forEach(f=>{
-      const opt = document.createElement("option");
-      opt.value = f;
-      opt.textContent = f;
-      select.appendChild(opt);
-    });
-    select.disabled=false;
-  }
-}
-
-function loadQuestions(){
-  const container = document.getElementById("questionsContainer");
-  container.innerHTML = "";
-  questions.forEach((q,i)=>{
-    container.innerHTML += `<div class="mb-4">
-      <label class="block mb-1">${q} <span class="text-red-500">*</span></label>
-      <select id="q${i}" class="w-full p-2 border rounded" onchange="calculateScore()">
-        <option value="">--Select--</option>
-        <option value="20">1. POOR</option>
-        <option value="40">2. BELOW AVERAGE</option>
-        <option value="60">3. AVERAGE</option>
-        <option value="80">4. GOOD</option>
-        <option value="100">5. EXCELLENT</option>
-      </select>
-    </div>`;
-  });
-  document.getElementById("weightageScore").innerText="0.00";
-  document.getElementById("grade").innerText="-";
-}
-
-function calculateScore(){
-  let total=0,count=0;
-  questions.forEach((q,i)=>{
-    const val = parseInt(document.getElementById("q"+i)?.value||0,10);
-    if(val){ total+=val; count++; }
-  });
-  const avg = count>0 ? total/count : 0;
-  const quiz = parseFloat(document.getElementById("quizMarks")?.value||0);
-  const weightage = (avg+quiz)/2;
-  document.getElementById("weightageScore").innerText=weightage.toFixed(2);
-
-  let grade="C";
-  if(weightage>=85) grade="A+";
-  else if(weightage>=70) grade="A";
-  else if(weightage>=50) grade="B+";
-  else if(weightage>=30) grade="B";
-  document.getElementById("grade").innerText=grade;
-}
-
-function resetFeedbackForm(){
+function resetFeedbackForm() {
   document.getElementById("batchId").value="";
   document.getElementById("quizMarks").value="";
-  document.getElementById("weightageScore").innerText="0.00";
+  questions.forEach((q,i)=>document.getElementById("q"+i).value="");
+  document.getElementById("weightageScore").innerText="0";
   document.getElementById("grade").innerText="-";
-  document.querySelectorAll("#questionsContainer select").forEach(s=>{ s.value=""; });
 }
 
-/* Initialize after DOM ready */
-document.addEventListener('DOMContentLoaded', () => {
-  showPage(1);
-  // (faculties/questions are loaded automatically when you land on their pages)
-});
+/* Default page */
+showPage(1);
 </script>
 </body>
 </html>
