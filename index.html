@@ -114,9 +114,6 @@ function validatePage1(){
     return;
   }
 
-  showPage(2);  // ✅ move to faculty selection page
-}
-
   const regPattern = /^(CRO|NRO|FRO|SRO|ERO|WRO)\d{7}$/i;
   if(!regPattern.test(regNumber)){
     alert("⚠️ Invalid Registration Number format!");
@@ -133,9 +130,9 @@ function validatePage1(){
     return;
   }
 
-  showPage(2);
+  // ✅ Only move if all checks pass
+  showPage(2);  
 }
-
 function validatePage2() {
   const faculty = document.getElementById("facultySelect").value;
   if(!faculty){ 
@@ -276,6 +273,7 @@ showPage(1);
 </script>
 </body>
 </html>
+
 
 
 
