@@ -143,10 +143,7 @@ function validatePage2() {
 }
 
 async function validateFeedback() {
-  const submitBtn = document.getElementById("submitBtn");
-  const btnText = submitBtn.querySelector(".btn-text");
-  const spinner = submitBtn.querySelector(".spinner");
-
+  const submitBtn = document.getElementById("submitBtn"); // make sure your button has this ID
   const batchId = document.getElementById("batchId").value.trim();
   const quizMarks = document.getElementById("quizMarks").value.trim();
 
@@ -160,6 +157,7 @@ async function validateFeedback() {
   questions.forEach((q, i) => {
     if (!document.getElementById("q" + i)?.value) unanswered.push(i + 1);
   });
+
   if (unanswered.length > 0) {
     alert("⚠️ Answer all questions. Missing Qs: " + unanswered.join(","));
     return;
@@ -182,10 +180,11 @@ async function validateFeedback() {
   };
 
   try {
-    // --- Show spinner & disable button ---
-    submitBtn.disabled = true;
-    btnText.textContent = "Submitting...";
-    spinner.classList.remove("hidden");
+    // --- Disable button & show loading ---
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Submitting... ⏳";
+    }
 
     const response = await fetch(
       "https://script.google.com/macros/s/AKfycbwFoCXaitd0DO6obxsE8s4PSEMwD_9c6Zc2c7ol-y55LoOjpH2BOtk_qMdUlLcNE9np/exec",
@@ -200,7 +199,6 @@ async function validateFeedback() {
     if (res.status === "success") {
       completedFaculties.push(faculty);
       alert("✅ Feedback submitted for " + faculty);
-
       resetFeedbackForm();
 
       if (completedFaculties.length < faculties.length) {
@@ -219,7 +217,9 @@ async function validateFeedback() {
   } catch (err) {
     console.error(err);
     alert("⚠️ Connection error. Data not saved.");
-  } finally {
+  }
+}
+} finally {
     // --- Reset button state ---
     submitBtn.disabled = false;
     btnText.textContent = "Submit Feedback";
