@@ -143,7 +143,10 @@ function validatePage2() {
 }
 
 async function validateFeedback() {
-  const submitBtn = document.getElementById("submitBtn"); // make sure your button has this ID
+  const submitBtn = document.getElementById("submitBtn");
+  const btnText = submitBtn.querySelector(".btn-text");
+  const spinner = submitBtn.querySelector(".spinner");
+
   const batchId = document.getElementById("batchId").value.trim();
   const quizMarks = document.getElementById("quizMarks").value.trim();
 
@@ -179,11 +182,10 @@ async function validateFeedback() {
   };
 
   try {
-    // --- Disable button & show loading ---
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.innerText = "Submitting... ⏳";
-    }
+    // --- Show spinner & disable button ---
+    submitBtn.disabled = true;
+    btnText.textContent = "Submitting...";
+    spinner.classList.remove("hidden");
 
     const response = await fetch(
       "https://script.google.com/macros/s/AKfycbwFoCXaitd0DO6obxsE8s4PSEMwD_9c6Zc2c7ol-y55LoOjpH2BOtk_qMdUlLcNE9np/exec",
@@ -217,6 +219,14 @@ async function validateFeedback() {
   } catch (err) {
     console.error(err);
     alert("⚠️ Connection error. Data not saved.");
+  } finally {
+    // --- Reset button state ---
+    submitBtn.disabled = false;
+    btnText.textContent = "Submit Feedback";
+    spinner.classList.add("hidden");
+  }
+}
+
   } finally {
     // --- Always restore button ---
     if (submitBtn) {
@@ -277,6 +287,7 @@ showPage(1);
 </script>
 </body>
 </html>
+
 
 
 
