@@ -135,7 +135,10 @@ function validatePage1() {
 
 function validatePage2() {
   const faculty = document.getElementById("facultySelect").value;
-  if(!faculty){ alert("⚠️ Please select a faculty!"); return; }
+  if(!faculty){ 
+    alert("⚠️ Please select a faculty!"); 
+    return; 
+  }
   showPage(3);
 }
 
@@ -143,19 +146,22 @@ function validateFeedback(){
   const batchId = document.getElementById("batchId").value.trim();
   const quizMarks = document.getElementById("quizMarks").value.trim();
 
-  if(!batchId || quizMarks===""){ alert("⚠️ Fill Batch ID & Quiz Marks"); return; }
+  if(!batchId || quizMarks===""){ 
+    alert("⚠️ Fill Batch ID & Quiz Marks"); 
+    return; 
+  }
 
   const unanswered = [];
   questions.forEach((q,i)=>{
     if(!document.getElementById("q"+i)?.value) unanswered.push(i+1);
   });
-  if(unanswered.length>0){ alert("⚠️ Answer all questions. Missing Qs: "+unanswered.join(",")); return; }
+  if(unanswered.length>0){ 
+    alert("⚠️ Answer all questions. Missing Qs: "+unanswered.join(",")); 
+    return; 
+  }
 
-  // Mark faculty completed
   const faculty = document.getElementById("facultySelect").value;
-  completedFaculties.push(faculty);
 
- // ✅ Prepare payload for Google Sheet
   const payload = {
     timestamp: new Date().toISOString(),
     studentName: document.getElementById("studentName").value.trim(),
@@ -170,51 +176,38 @@ function validateFeedback(){
     answers: questions.map((q,i)=>document.getElementById("q"+i).value)
   };
 
-// ✅ Send data to Google Sheet
-fetch("https://script.google.com/macros/s/AKfycbwFoCXaitd0DO6obxsE8s4PSEMwD_9c6Zc2c7ol-y55LoOjpH2BOtk_qMdUlLcNE9np/exec", {
-  method: "POST",
-  body: JSON.stringify(payload)
-})
-.then(res => res.json())
-.then(res => {
-  if(res.status === "success"){
-    completedFaculties.push(faculty); // mark as completed
-    alert("✅ Feedback submitted for " + faculty);
+  fetch("https://script.google.com/macros/s/AKfycbwFoCXaitd0DO6obxsE8s4PSEMwD_9c6Zc2c7ol-y55LoOjpH2BOtk_qMdUlLcNE9np/exec", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  })
+  .then(res => res.json())
+  .then(res => {
+    if(res.status === "success"){
+      completedFaculties.push(faculty);
+      alert("✅ Feedback submitted for " + faculty);
 
-    resetFeedbackForm();
+      resetFeedbackForm();
 
-    if(completedFaculties.length < faculties.length){
-      loadFaculties();
-      showPage(2);
+      if(completedFaculties.length < faculties.length){
+        loadFaculties();
+        showPage(2);
+      } else {
+        document.querySelectorAll(".form-page").forEach(p => p.style.display = "none");
+        const container = document.querySelector(".max-w-3xl");
+        const done = document.createElement("div");
+        done.innerHTML = `<h2 class="text-2xl font-bold mb-4">Thank you!</h2><p>All feedback submitted.</p>`;
+        container.appendChild(done);
+      }
     } else {
-      document.querySelectorAll(".form-page").forEach(p => p.style.display = "none");
-      const container = document.querySelector(".max-w-3xl");
-      const done = document.createElement("div");
-      done.innerHTML = `<h2 class="text-2xl font-bold mb-4">Thank you!</h2><p>All feedback submitted.</p>`;
-      container.appendChild(done);
+      alert("⚠️ Error saving data. Try again.");
     }
-  } else {
-    alert("⚠️ Error saving data. Try again.");
-  }
-})
-.catch(err => {
-  console.error(err);
-  alert("⚠️ Connection error. Data not saved.");
-});
+  })
+  .catch(err => {
+    console.error(err);
+    alert("⚠️ Connection error. Data not saved.");
+  });
 }
-  resetFeedbackForm();
 
-  if(completedFaculties.length<faculties.length){
-    loadFaculties();
-    showPage(2);
-  }else{
-    document.querySelectorAll(".form-page").forEach(p=>p.style.display="none");
-    const container = document.querySelector(".max-w-3xl");
-    const done = document.createElement("div");
-    done.innerHTML = `<h2 class="text-2xl font-bold mb-4">Thank you!</h2><p>All feedback submitted.</p>`;
-    container.appendChild(done);
-  }
-}
 function loadFaculties(){
   const select = document.getElementById("facultySelect");
   select.innerHTML = "";
@@ -280,6 +273,7 @@ showPage(1);
 </script>
 </body>
 </html>
+
 
 
 
