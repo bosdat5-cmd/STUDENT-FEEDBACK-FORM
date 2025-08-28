@@ -103,16 +103,19 @@ function showPage(n) {
   if(n===3) loadQuestions();
 }
 
-function validatePage1() {
+function validatePage1(){
   const studentName = document.getElementById("studentName").value.trim();
   const regNumber = document.getElementById("regNumber").value.trim();
   const email = document.getElementById("email").value.trim();
   const mobile = document.getElementById("mobile").value.trim();
 
   if(!studentName || !regNumber || !email || !mobile){
-    alert("⚠️ Please fill all fields!");
+    alert("⚠️ Please fill all fields");
     return;
   }
+
+  showPage(2);  // ✅ move to faculty selection page
+}
 
   const regPattern = /^(CRO|NRO|FRO|SRO|ERO|WRO)\d{7}$/i;
   if(!regPattern.test(regNumber)){
@@ -273,6 +276,7 @@ showPage(1);
 </script>
 </body>
 </html>
+
 
 
 
