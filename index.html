@@ -19,7 +19,6 @@
 </head>
 <body>
 
-  <!-- Header -->
   <div class="gform-header text-center">
     <h1 class="text-2xl font-bold">THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</h1>
     <p class="text-lg mt-1">Student Feedback Form</p>
@@ -27,55 +26,41 @@
 
   <div class="max-w-3xl mx-auto p-6">
 
-    <!-- Page 1: Basic Info -->
     <div id="page1" class="form-page active-page gform-card">
       <h2 class="text-xl font-semibold mb-4">Basic Information</h2>
-
       <label class="block mb-2">Student Name *</label>
       <input id="studentName" type="text" class="w-full p-2 border rounded mb-4">
-
       <label class="block mb-2">Registration Number *</label>
       <input id="regNumber" type="text" class="w-full p-2 border rounded mb-4">
-
       <label class="block mb-2">Email *</label>
       <input id="email" type="email" class="w-full p-2 border rounded mb-4">
-
       <label class="block mb-2">Mobile Number *</label>
       <input id="mobile" type="tel" class="w-full p-2 border rounded mb-4">
-
       <div class="flex justify-end">
         <button type="button" class="btn-primary" onclick="validatePage1()">Next</button>
       </div>
     </div>  
 
-    <!-- Page 2: Faculty Selection -->
     <div id="page2" class="form-page gform-card">
       <h2 class="text-xl font-semibold mb-4">Select Faculty</h2>
       <select id="facultySelect" class="w-full p-2 border rounded mb-6"></select>
-
       <div class="flex justify-between">
         <button type="button" class="btn-secondary" onclick="showPage(1)">Back</button>
         <button type="button" class="btn-primary" onclick="validatePage2()">Next</button>
       </div>
     </div>
 
-    <!-- Page 3: Feedback -->
     <div id="page3" class="form-page gform-card">
       <h2 class="text-xl font-semibold mb-4">Faculty Feedback</h2>
-
       <label class="block mb-2">Batch ID *</label>
       <input id="batchId" type="text" class="w-full p-2 border rounded mb-4">
-
       <div id="questionsContainer"></div>
-
       <label class="block mt-4 mb-2">Quiz Marks *</label>
       <input id="quizMarks" type="number" min="0" max="100" class="w-full p-2 border rounded mb-4" oninput="calculateScore()">
-
       <div class="p-4 bg-gray-50 rounded border mt-4">
         <p><b>Weightage Score:</b> <span id="weightageScore">0.00</span></p>
         <p><b>Grade:</b> <span id="grade">-</span></p>
       </div>
-
       <div class="flex justify-between mt-6">
         <button type="button" class="btn-secondary" onclick="showPage(2)">Back</button>
         <button id="submitBtn" type="button" class="btn-primary" onclick="validateFeedback()">Submit</button>
@@ -85,7 +70,6 @@
   </div>
 
 <script>
-// ---------- Same working JS (from your code) ----------
 const faculties = ["Sandeep Agarwal","Bhanu Dhir","Shekhar Sharma","Anju Gupta","Preeti Goel","Rohit Agarwal","Sunita Rathore"];
 let completedFaculties = [];
 const questions = [
@@ -94,10 +78,7 @@ const questions = [
   "Analytical Thinking","Creativity & Innovation","Professional Ethics Awareness","Emotional Intelligence","Overall Engagement"
 ];
 
-let currentPage = 1;
-
 function showPage(n) {
-  currentPage = n;
   document.querySelectorAll(".form-page").forEach(p => p.style.display = "none");
   document.getElementById("page"+n).style.display = "block";
   if(n===2) loadFaculties();
@@ -109,127 +90,22 @@ function validatePage1(){
   const regNumber = document.getElementById("regNumber").value.trim();
   const email = document.getElementById("email").value.trim();
   const mobile = document.getElementById("mobile").value.trim();
-
-  if(!studentName || !regNumber || !email || !mobile){
-    alert("⚠️ Please fill all fields");
-    return;
-  }
+  if(!studentName || !regNumber || !email || !mobile){ alert("⚠️ Please fill all fields"); return; }
   showPage(2);  
 }
 
 function validatePage2() {
   const faculty = document.getElementById("facultySelect").value;
-  if(!faculty){ 
-    alert("⚠️ Please select a faculty!"); 
-    return; 
-  }
+  if(!faculty){ alert("⚠️ Please select a faculty!"); return; }
   showPage(3);
 }
 
-async function validateFeedback() {
-  const submitBtn = document.getElementById("submitBtn"); 
-  const batchId = document.getElementById("batchId").value.trim();
-  const quizMarks = document.getElementById("quizMarks").value.trim();
-
-  if (!batchId || quizMarks === "") {
-    alert("⚠️ Fill Batch ID & Quiz Marks");
-    return;
-  }
-
-  // Check if all questions answered
-  const unanswered = [];
-  questions.forEach((q, i) => {
-    if (!document.getElementById("q" + i)?.value) unanswered.push(i + 1);
-  });
-
-  if (unanswered.length > 0) {
-    alert("⚠️ Answer all questions. Missing Qs: " + unanswered.join(","));
-    return;
-  }
-
-  const faculty = document.getElementById("facultySelect").value;
-  const studentName = document.getElementById("studentName").value.trim();
-  const regNumber = document.getElementById("regNumber").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const mobile = document.getElementById("mobile").value.trim();
-
-  // Collect answers and calculate weighted score
-  const answers = {};
-  let totalScore = 0;
-  questions.forEach((q,i)=>{
-    const val = parseInt(document.getElementById("q"+i).value,10);
-    answers[q] = val;
-    totalScore += val;
-  });
-  const avgQuestions = totalScore / questions.length;
-  const quiz = parseFloat(quizMarks);
-  const weightedScore = (avgQuestions + quiz)/2;
-
-  // Determine grade
-  let grade = "C";
-  if(weightedScore >= 85) grade="A+";
-  else if(weightedScore >= 70) grade="A";
-  else if(weightedScore >= 50) grade="B+";
-  else if(weightedScore >= 30) grade="B";
-
-  const payload = {
-    studentName,
-    regNumber,
-    email,
-    mobile,
-    faculty,
-    batchId,
-    answers,
-    quizMarks: quiz,
-    weightedScore,
-    grade
-  };
-
-  try {
-    submitBtn.disabled = true;
-    submitBtn.innerText = "Submitting...";
-
-    await fetch("https://script.google.com/macros/s/AKfycbwFoCXaitd0DO6obxsE8s4PSEMwD_9c6Zc2c7ol-y55LoOjpH2BOtk_qMdUlLcNE9np/exec", {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    // Save completed faculty and reset form
-    completedFaculties.push(faculty);
-    alert("✅ Feedback submitted for " + faculty);
-    resetFeedbackForm();
-
-    if (completedFaculties.length < faculties.length) {
-      loadFaculties();
-      showPage(2);
-    } else {
-      document.querySelectorAll(".form-page").forEach(p => p.style.display = "none");
-      const container = document.querySelector(".max-w-3xl");
-      const done = document.createElement("div");
-      done.className="gform-card";
-      done.innerHTML = `<h2 class="text-2xl font-bold mb-4">Thank you!</h2><p>All feedback submitted.</p>`;
-      container.appendChild(done);
-    }
-
-    submitBtn.disabled = false;
-    submitBtn.innerText = "Submit";
-
-  } catch(err) {
-    alert("⚠️ Error saving data.");
-    submitBtn.disabled = false;
-    submitBtn.innerText = "Submit";
-  }
-}
 function loadFaculties(){
   const select = document.getElementById("facultySelect");
   select.innerHTML = `<option value="">-- Select Faculty --</option>`;
-  const available = faculties.filter(f=>!completedFaculties.includes(f));
-  available.forEach(f=>{
+  faculties.filter(f=>!completedFaculties.includes(f)).forEach(f=>{
     const opt = document.createElement("option");
-    opt.value = f;
-    opt.textContent = f;
+    opt.value=f; opt.textContent=f;
     select.appendChild(opt);
   });
 }
@@ -255,12 +131,12 @@ function loadQuestions(){
 function calculateScore(){
   let total=0,count=0;
   questions.forEach((q,i)=>{
-    const val = parseInt(document.getElementById("q"+i)?.value||0,10);
+    const val=parseInt(document.getElementById("q"+i)?.value||0,10);
     if(val){ total+=val; count++; }
   });
   const avg = count>0 ? total/count : 0;
-  const quiz = parseFloat(document.getElementById("quizMarks")?.value||0);
-  const weightage = (avg+quiz)/2;
+  const quiz=parseFloat(document.getElementById("quizMarks")?.value||0);
+  const weightage=(avg+quiz)/2;
   document.getElementById("weightageScore").innerText=weightage.toFixed(2);
 
   let grade="C";
@@ -271,6 +147,71 @@ function calculateScore(){
   document.getElementById("grade").innerText=grade;
 }
 
+async function validateFeedback(){
+  const submitBtn=document.getElementById("submitBtn");
+  const batchId=document.getElementById("batchId").value.trim();
+  const quizMarks=document.getElementById("quizMarks").value.trim();
+
+  if(!batchId || quizMarks===""){ alert("⚠️ Fill Batch ID & Quiz Marks"); return; }
+
+  const unanswered=[];
+  questions.forEach((q,i)=>{ if(!document.getElementById("q"+i)?.value) unanswered.push(i+1); });
+  if(unanswered.length>0){ alert("⚠️ Answer all questions. Missing Qs: "+unanswered.join(",")); return; }
+
+  const studentName=document.getElementById("studentName").value.trim();
+  const regNumber=document.getElementById("regNumber").value.trim();
+  const email=document.getElementById("email").value.trim();
+  const mobile=document.getElementById("mobile").value.trim();
+  const faculty=document.getElementById("facultySelect").value;
+
+  // collect answers and calculate weighted score
+  const answers={};
+  let totalScore=0;
+  questions.forEach((q,i)=>{
+    const val=parseInt(document.getElementById("q"+i).value,10);
+    answers[q]=val;
+    totalScore+=val;
+  });
+  const avgQuestions=totalScore/questions.length;
+  const quiz=parseFloat(quizMarks);
+  const weightedScore=(avgQuestions+quiz)/2;
+
+  // grade
+  let grade="C";
+  if(weightedScore>=85) grade="A+";
+  else if(weightedScore>=70) grade="A";
+  else if(weightedScore>=50) grade="B+";
+  else if(weightedScore>=30) grade="B";
+
+  const payload={studentName, regNumber, email, mobile, faculty, batchId, answers, quizMarks:quiz, weightedScore, grade};
+
+  try{
+    submitBtn.disabled=true; submitBtn.innerText="Submitting...";
+    await fetch("YOUR_WEB_APP_URL", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload) });
+
+    completedFaculties.push(faculty);
+    alert("✅ Feedback submitted for "+faculty);
+    resetFeedbackForm();
+
+    if(completedFaculties.length<faculties.length){
+      loadFaculties(); showPage(2);
+    }else{
+      document.querySelectorAll(".form-page").forEach(p=>p.style.display="none");
+      const container=document.querySelector(".max-w-3xl");
+      const done=document.createElement("div");
+      done.className="gform-card";
+      done.innerHTML=`<h2 class="text-2xl font-bold mb-4">Thank you!</h2><p>All feedback submitted.</p>`;
+      container.appendChild(done);
+    }
+
+    submitBtn.disabled=false; submitBtn.innerText="Submit";
+
+  }catch(err){
+    alert("⚠️ Error saving data: "+err);
+    submitBtn.disabled=false; submitBtn.innerText="Submit";
+  }
+}
+
 function resetFeedbackForm(){
   document.getElementById("batchId").value="";
   document.getElementById("quizMarks").value="";
@@ -279,6 +220,6 @@ function resetFeedbackForm(){
   document.querySelectorAll("#questionsContainer select").forEach(s=>{ s.value=""; });
 }
 </script>
+
 </body>
 </html>
-
