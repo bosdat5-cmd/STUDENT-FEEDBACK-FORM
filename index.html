@@ -187,7 +187,7 @@ async function validateFeedback(){
 
   try{
     submitBtn.disabled=true; submitBtn.innerText="Submitting...";
-    await fetch("YOUR_WEB_APP_URL", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload) });
+    await fetch("https://script.google.com/macros/s/AKfycbwFoCXaitd0DO6obxsE8s4PSEMwD_9c6Zc2c7ol-y55LoOjpH2BOtk_qMdUlLcNE9np/exec", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload) });
 
     completedFaculties.push(faculty);
     alert("✅ Feedback submitted for "+faculty);
@@ -223,3 +223,4 @@ function resetFeedbackForm(){
 
 </body>
 </html>
+
