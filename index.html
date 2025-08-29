@@ -136,6 +136,7 @@ async function validateFeedback() {
     return;
   }
 
+  // Check if all questions answered
   const unanswered = [];
   questions.forEach((q, i) => {
     if (!document.getElementById("q" + i)?.value) unanswered.push(i + 1);
@@ -147,41 +148,80 @@ async function validateFeedback() {
   }
 
   const faculty = document.getElementById("facultySelect").value;
-  const payload = { faculty, batchId, quizMarks };
+  const studentName = document.getElementById("studentName").value.trim();
+  const regNumber = document.getElementById("regNumber").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const mobile = document.getElementById("mobile").value.trim();
+
+  // Collect answers and calculate weighted score
+  const answers = {};
+  let totalScore = 0;
+  questions.forEach((q,i)=>{
+    const val = parseInt(document.getElementById("q"+i).value,10);
+    answers[q] = val;
+    totalScore += val;
+  });
+  const avgQuestions = totalScore / questions.length;
+  const quiz = parseFloat(quizMarks);
+  const weightedScore = (avgQuestions + quiz)/2;
+
+  // Determine grade
+  let grade = "C";
+  if(weightedScore >= 85) grade="A+";
+  else if(weightedScore >= 70) grade="A";
+  else if(weightedScore >= 50) grade="B+";
+  else if(weightedScore >= 30) grade="B";
+
+  const payload = {
+    studentName,
+    regNumber,
+    email,
+    mobile,
+    faculty,
+    batchId,
+    answers,
+    quizMarks: quiz,
+    weightedScore,
+    grade
+  };
 
   try {
     submitBtn.disabled = true;
     submitBtn.innerText = "Submitting...";
 
-    // fake success (replace with fetch to Google Apps Script)
-    setTimeout(()=>{
-      completedFaculties.push(faculty);
-      alert("✅ Feedback submitted for " + faculty);
-      resetFeedbackForm();
+    await fetch("https://script.google.com/macros/s/AKfycbwFoCXaitd0DO6obxsE8s4PSEMwD_9c6Zc2c7ol-y55LoOjpH2BOtk_qMdUlLcNE9np/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
 
-      if (completedFaculties.length < faculties.length) {
-        loadFaculties();
-        showPage(2);
-      } else {
-        document.querySelectorAll(".form-page").forEach(p => p.style.display = "none");
-        const container = document.querySelector(".max-w-3xl");
-        const done = document.createElement("div");
-        done.className="gform-card";
-        done.innerHTML = `<h2 class="text-2xl font-bold mb-4">Thank you!</h2><p>All feedback submitted.</p>`;
-        container.appendChild(done);
-      }
+    // Save completed faculty and reset form
+    completedFaculties.push(faculty);
+    alert("✅ Feedback submitted for " + faculty);
+    resetFeedbackForm();
 
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Submit";
-    }, 1000);
-    
-  } catch (err) {
+    if (completedFaculties.length < faculties.length) {
+      loadFaculties();
+      showPage(2);
+    } else {
+      document.querySelectorAll(".form-page").forEach(p => p.style.display = "none");
+      const container = document.querySelector(".max-w-3xl");
+      const done = document.createElement("div");
+      done.className="gform-card";
+      done.innerHTML = `<h2 class="text-2xl font-bold mb-4">Thank you!</h2><p>All feedback submitted.</p>`;
+      container.appendChild(done);
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Submit";
+
+  } catch(err) {
     alert("⚠️ Error saving data.");
     submitBtn.disabled = false;
     submitBtn.innerText = "Submit";
   }
 }
-
 function loadFaculties(){
   const select = document.getElementById("facultySelect");
   select.innerHTML = `<option value="">-- Select Faculty --</option>`;
@@ -241,3 +281,4 @@ function resetFeedbackForm(){
 </script>
 </body>
 </html>
+
