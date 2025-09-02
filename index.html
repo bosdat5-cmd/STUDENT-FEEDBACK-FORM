@@ -76,7 +76,11 @@
         <p><b>Weightage Score:</b> <span id="weightageScore">0.00</span></p>
         <p><b>Grade:</b> <span id="grade">-</span></p>
       </div>
-
+      <div class="mb-4">
+        <label class="block mb-1">Additional Comments (Optional)</label>
+        <textarea id="additionalComments" rows="3" class="w-full p-2 border rounded" placeholder="Write any comments here..."></textarea>
+      </div>
+      
       <div class="flex justify-between mt-6">
         <button type="button" class="btn-secondary" onclick="showPage(2)">← Back</button>
         <button id="submitBtn" type="button" class="btn-primary" onclick="validateFeedback()">✅ Submit Feedback</button>
@@ -271,6 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 
 
