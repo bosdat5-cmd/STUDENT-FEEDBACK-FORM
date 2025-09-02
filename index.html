@@ -345,10 +345,11 @@ function loadQuestions(){
       <label>${q} <span style="color:red">*</span></label>
       <select id="paraQ${i}" onchange="calculateScore()">
         <option value="">--Select--</option>
-        <option value="Excellent">Excellent</option>
-        <option value="Good">Good</option>
-        <option value="Average">Average</option>
-        <option value="Poor">Poor</option>
+        <option value="20">1. POOR</option>
+        <option value="40">2. BELOW AVERAGE</option>
+        <option value="60">3. AVERAGE</option>
+        <option value="80">4. GOOD</option>
+        <option value="100">5. EXCELLENT</option>
       </select>
     </div>`;
   });
@@ -404,3 +405,4 @@ document.addEventListener("DOMContentLoaded", () => showPage(1));
 </script>
 </body>
 </html>
+
