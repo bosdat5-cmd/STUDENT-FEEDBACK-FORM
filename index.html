@@ -115,8 +115,9 @@ function validatePage1(){
   const regNumber = document.getElementById("regNumber").value.trim();
   const email = document.getElementById("email").value.trim();
   const mobile = document.getElementById("mobile").value.trim();
+  const SelectFaculty = document.getElementById("SelectFaculty").value.trim();
 
-  if(!studentName || !regNumber || !email || !mobile){
+  if(!studentName || !regNumber || !email || !mobile || !SelectFaculty){
     alert("⚠️ Please fill all fields");
     return;
   }
@@ -179,6 +180,7 @@ async function validateFeedback() {
     regNumber: document.getElementById("regNumber").value.trim(),
     email: document.getElementById("email").value.trim(),
     mobile: document.getElementById("mobile").value.trim(),
+    SelectFaculty: document.getElementById("SelectFaculty").value.trim(),    
     faculty,
     batchId,
     quizMarks: Number(quizMarks),
@@ -304,6 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 
 
