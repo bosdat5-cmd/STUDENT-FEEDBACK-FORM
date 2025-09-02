@@ -213,7 +213,7 @@ function loadQuestions() {
     const id = "paraQ" + i;
     container.innerHTML += `<div class="mb-4">
       <label class="block mb-1">${q} <span class="text-red-500">*</span></label>
-      <select id="${id}" class="w-full p-2 border rounded">
+      <select id="${id}" class="w-full p-2 border rounded" onchange="calculateScore()">
         <option value="">--Select--</option>
         <option value="Excellent">Excellent</option>
         <option value="Good">Good</option>
@@ -271,6 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 
 
