@@ -10,7 +10,7 @@
 <h2>THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</h2>
 <h3 style="text-align:center;">Faculty Self-Evaluation Form – Chartered Accountancy Educators</h3>
 
-<!-- Page 1 -->
+<!-- ================= PAGE 1 ================= -->
 <div class="form-page active-page" id="page1">
   <h3>Basic Information</h3>
   <label>Faculty Name:</label>
@@ -42,7 +42,7 @@
   </div>
 </div>
 
-<!-- Page 2 -->
+<!-- ================= PAGE 2 ================= -->
 <div class="form-page" id="page2">
   <h3>Session Feedback</h3>
   <label for="daySelect">Select Day:</label>
@@ -62,7 +62,7 @@
   </div>
 </div>
 
-<!-- Page 3 -->
+<!-- ================= PAGE 3 ================= -->
 <div class="form-page" id="page3">
   <h2>Self-Evaluation Questions</h2>
   
@@ -113,17 +113,19 @@
   </div>
 </div>
 
-<!-- Page 4 -->
+<!-- ================= PAGE 4 ================= -->
 <div class="form-page" id="page4">
   <div class="text-center">
     <h2>Thank You!</h2>
     <p>Your feedback has been successfully submitted.</p>
     <h3>✨ Daily Motivational Quote ✨</h3>
     <p id="dailyQuote"></p>
+    <button onclick="restartForm()">🔄 Start New Feedback</button>
   </div>
 </div>
 
 <script>
+// Branch list
 const branches = {
   "CIRC":["Agra","Ajmer","Aligarh"],
   "WIRC":["Ahmedabad","Mumbai"],
@@ -256,6 +258,13 @@ function SubmitFeedback(){
   document.querySelectorAll(".form-page").forEach(p=>p.classList.remove("active-page"));
   document.getElementById("page4").classList.add("active-page");
   document.getElementById("dailyQuote").innerText="Keep pushing forward, every effort counts!";
+}
+
+// Restart form
+function restartForm(){
+  currentPage=1;
+  document.querySelectorAll(".form-page").forEach(p=>p.classList.remove("active-page"));
+  document.getElementById("page1").classList.add("active-page");
 }
 </script>
 </div>
