@@ -80,6 +80,10 @@
         <label class="block mb-1">Additional Comments (Optional)</label>
         <textarea id="additionalComments" rows="3" class="w-full p-2 border rounded" placeholder="Write any comments here..."></textarea>
       </div>
+      <div class="mb-4">
+        <label class="block mb-1">Additional Comments (Optional)</label>
+        <textarea id="additionalComments" rows="3" class="w-full p-2 border rounded" placeholder="Write any comments here..."></textarea>
+      </div>
       
       <div class="flex justify-between mt-6">
         <button type="button" class="btn-secondary" onclick="showPage(2)">← Back</button>
@@ -174,7 +178,7 @@ function loadQuestions() {
   const container = document.getElementById("questionsContainer");
   container.innerHTML = "";
 
-  // --- Rating questions (as before) ---
+  // --- Rating questions ---
   const ratingQuestions = [
     "Attendance & Punctuality",
     "Discipline",
@@ -205,32 +209,40 @@ function loadQuestions() {
     </div>`;
   });
 
-  // --- Paragraph questions now as options ---
-const optionQuestions = [
-  "Industry/ Practice real life examples",
-  "Accessibility for clarification",
-  "Personalised guidance",
-  "Inspiring / motivating"
-];
+  // --- Option questions ---
+  const optionQuestions = [
+    "Industry/ Practice real life examples",
+    "Accessibility for clarification",
+    "Personalised guidance",
+    "Inspiring / motivating"
+  ];
 
-optionQuestions.forEach((q, i) => {
-  const id = "paraQ" + i;
-  container.innerHTML += `<div class="mb-4">
-    <label class="block mb-1">${q} <span class="text-red-500">*</span></label>
-    <select id="${id}" class="w-full p-2 border rounded" onchange="calculateScore()">
-      <option value="">--Select--</option>
-      <option value="Excellent">Excellent</option>
-      <option value="Good">Good</option>
-      <option value="Average">Average</option>
-      <option value="Poor">Poor</option>
-    </select>
-  </div>`;
-});
+  optionQuestions.forEach((q, i) => {
+    const id = "paraQ" + i;
+    container.innerHTML += `<div class="mb-4">
+      <label class="block mb-1">${q} <span class="text-red-500">*</span></label>
+      <select id="${id}" class="w-full p-2 border rounded" onchange="calculateScore()">
+        <option value="">--Select--</option>
+        <option value="Excellent">Excellent</option>
+        <option value="Good">Good</option>
+        <option value="Average">Average</option>
+        <option value="Poor">Poor</option>
+      </select>
+    </div>`;
+  });
 
+  // --- Additional Comments (Optional) ---
+  container.innerHTML += `
+    <div class="mb-4">
+      <label class="block mb-1">Additional Comments (Optional)</label>
+      <textarea id="additionalComments" rows="3" class="w-full p-2 border rounded" placeholder="Write any comments here..."></textarea>
+    </div>
+  `;
+
+  // --- Reset score display ---
   document.getElementById("weightageScore").innerText = "0.00";
   document.getElementById("grade").innerText = "-";
 }
-
 function calculateScore(){
   let total = 0, count = 0;
 
@@ -275,6 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 
 
