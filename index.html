@@ -1,179 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f1f3f4;
-      margin: 0;
-      padding: 30px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-    }
-    .container {
-      background: #fff;
-      padding: 30px 40px;
-      border-radius: 12px;
-      width: 650px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      animation: fadeIn 0.5s ease-in-out;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 25px;
-      color: #202124;
-      font-size: 22px;
-    }
-    h2 {
-      font-size: 18px;
-      font-weight: 600;
-      color: #202124;
-      border-bottom: 1px solid #dadce0;
-      padding-bottom: 8px;
-      margin-bottom: 20px;
-    }
-    label {
-      font-weight: 500;
-      display: block;
-      margin: 12px 0 6px;
-      color: #202124;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #dadce0;
-      border-radius: 6px;
-      outline: none;
-      font-size: 14px;
-      margin-bottom: 15px;
-      transition: all 0.2s;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: #1a73e8;
-      box-shadow: 0 0 2px rgba(26,115,232,0.6);
-    }
-    .btn {
-      display: inline-block;
-      background: #1a73e8;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 10px 20px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      margin: 8px 8px 0 0;
-      transition: all 0.3s;
-    }
-    .btn:hover { background: #1558b0; }
-    .form-page { display: none; }
-    .active-page { display: block; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .question-block {
-      background: #f8f9fa;
-      border: 1px solid #dadce0;
-      border-radius: 8px;
-      padding: 15px 18px;
-      margin-bottom: 18px;
-    }
-    .question-block label { margin-bottom: 8px; font-weight: 500; }
-    #loader {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-    }
-    .spinner {
-      border: 6px solid #f3f3f3;
-      border-top: 6px solid #1a73e8;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-  </style>
+<meta charset="UTF-8">
+<title>ICAI Student Feedback</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Poppins', sans-serif; background: #f1f3f4; margin:0; padding:30px; display:flex; justify-content:center; align-items:flex-start; min-height:100vh;}
+  .container { background:#fff; padding:30px 40px; border-radius:12px; width:650px; box-shadow:0 2px 8px rgba(0,0,0,0.15); }
+  h1 { text-align:center; margin-bottom:25px; color:#202124; font-size:22px; }
+  h2 { font-size:18px; font-weight:600; color:#202124; border-bottom:1px solid #dadce0; padding-bottom:8px; margin-bottom:20px; }
+  label { font-weight:500; display:block; margin:12px 0 6px; color:#202124; }
+  input, select, textarea { width:100%; padding:10px 12px; border:1px solid #dadce0; border-radius:6px; margin-bottom:15px; font-size:14px; }
+  .btn { background:#1a73e8; color:#fff; border:none; border-radius:6px; padding:10px 20px; cursor:pointer; margin:8px 8px 0 0; }
+  .btn:hover { background:#1558b0; }
+  .form-page { display:none; }
+  .active-page { display:block; }
+  .question-block { background:#f8f9fa; border:1px solid #dadce0; border-radius:8px; padding:15px 18px; margin-bottom:18px; }
+  #loader { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:9999; align-items:center; justify-content:center; }
+  .spinner { border:6px solid #f3f3f3; border-top:6px solid #1a73e8; border-radius:50%; width:60px; height:60px; animation:spin 1s linear infinite; }
+  @keyframes spin {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+</style>
 </head>
 <body>
-  <div>
-    <h1>THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA<br><small>Student Feedback Form</small></h1>
-    <div class="container">
+<div>
+<h1>ICAI Student Feedback Form</h1>
+<div class="container">
 
-      <!-- Page 1 -->
-      <div id="page1" class="form-page active-page">
-        <h2>Basic Information</h2>
-        <label>Student Name *</label>
-        <input id="studentName" type="text" placeholder="Your full name">
-        <label>Registration Number *</label>
-        <input id="regNumber" type="text" placeholder="e.g. CRO1234567">
-        <label>Email *</label>
-        <input id="email" type="email" placeholder="example@email.com">
-        <label>Mobile Number *</label>
-        <input id="mobile" type="tel" placeholder="10 digit number"> 
-        <button type="button" class="btn" onclick="validatePage1()">Next →</button>
-      </div>
+<!-- Page 1 -->
+<div id="page1" class="form-page active-page">
+  <h2>Basic Information</h2>
+  <label>Student Name *</label>
+  <input id="studentName" type="text">
+  <label>Registration Number *</label>
+  <input id="regNumber" type="text" placeholder="CRO1234567">
+  <label>Email *</label>
+  <input id="email" type="email">
+  <label>Mobile Number *</label>
+  <input id="mobile" type="tel" placeholder="10 digit number">
+  <button class="btn" onclick="validatePage1()">Next →</button>
+</div>
 
-      <!-- Page 2 -->
-      <div id="page2" class="form-page">
-        <h2>Select Faculty</h2>
-        <select id="facultySelect"></select>
-        <br>
-        <button type="button" class="btn" onclick="showPage(1)">← Back</button>
-        <button type="button" class="btn" onclick="validatePage2()">Next →</button>
-      </div>
+<!-- Page 2 -->
+<div id="page2" class="form-page">
+  <h2>Select Faculty</h2>
+  <select id="facultySelect"></select>
+  <br>
+  <button class="btn" onclick="showPage(1)">← Back</button>
+  <button class="btn" onclick="validatePage2()">Next →</button>
+</div>
 
-      <!-- Page 3 -->
-      <div id="page3" class="form-page">
-        <h2>Faculty Feedback</h2>
-        <div class="question-block">
-          <label>Batch ID *</label>
-          <input id="batchId" type="text">
-        </div>
-        <div id="questionsContainer"></div>
-        <div class="question-block">
-          <label>Quiz Marks *</label>
-          <input id="quizMarks" type="number" min="0" max="100" oninput="calculateScore()">
-        </div>
-        <div class="question-block">
-          <p><b>Weightage Score:</b> <span id="weightageScore">0.00</span></p>
-          <p><b>Grade:</b> <span id="grade">-</span></p>
-        </div>
-        <div class="question-block">
-          <label>Additional Comments (Optional)</label>
-          <textarea id="additionalComments" rows="3" placeholder="Write any comments here..."></textarea>
-        </div>
-        <button type="button" class="btn" onclick="showPage(2)">← Back</button>
-        <button id="submitBtn" type="button" class="btn" onclick="validatePage3()">✅ Submit Feedback</button>
-      </div>
-
-    </div>
+<!-- Page 3 -->
+<div id="page3" class="form-page">
+  <h2>Faculty Feedback</h2>
+  <div class="question-block">
+    <label>Batch ID *</label>
+    <input id="batchId">
   </div>
-
-  <!-- Page 4 -->
-  <div id="page4" class="form-page">
-    <h2>🎉 Thank You!</h2>
-    <p>Your feedback has been submitted for all faculties.</p>
+  <div id="questionsContainer"></div>
+  <div class="question-block">
+    <label>Quiz Marks *</label>
+    <input id="quizMarks" type="number" min="0" max="100" oninput="calculateScore()">
   </div>
-
-  <!-- Loader -->
-  <div id="loader">
-    <div class="spinner"></div>
+  <div class="question-block">
+    <p><b>Weightage Score:</b> <span id="weightageScore">0.00</span></p>
+    <p><b>Grade:</b> <span id="grade">-</span></p>
   </div>
+  <div class="question-block">
+    <label>Additional Comments (Optional)</label>
+    <textarea id="additionalComments" rows="3"></textarea>
+  </div>
+  <button class="btn" onclick="showPage(2)">← Back</button>
+  <button class="btn" onclick="validatePage3()">✅ Submit Feedback</button>
+</div>
+
+<!-- Page 4 -->
+<div id="page4" class="form-page">
+  <h2>🎉 Thank You!</h2>
+  <p>Your feedback has been submitted for all faculties.</p>
+</div>
+
+</div>
+</div>
+
+<!-- Loader -->
+<div id="loader"><div class="spinner"></div></div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFoCXaitd0DO6obxsE8s4PSEMwD_9c6Zc2c7ol-y55LoOjpH2BOtk_qMdUlLcNE9np/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFoCXaitd0DO6obxsE8s4PSEMwD_9c6Zc2c7ol-y55LoOjpH2BOtk_qMdUlLcNE9np/exec"; // Replace with deployed web app URL
 const faculties = ["Sandeep Agarwal","Bhanu Dhir","Shekhar Sharma","Anju Gupta","Preeti Goel","Rohit Agarwal","Sunita Rathore"];
 let completedFaculties = [];
 
@@ -185,50 +98,62 @@ function showPage(n){
 }
 
 function validatePage1(){
-  if(!studentNameEl().value.trim() || !regNumberEl().value.trim() || !emailEl().value.trim() || !mobileEl().value.trim()){
-    return alert("⚠️ Please fill all fields");
-  }
-  if(!/^(CRO|NRO|FRO|SRO|ERO|WRO)\d{7}$/i.test(regNumberEl().value.trim())){
-    return alert("⚠️ Invalid Registration Number format! (e.g. CRO1234567)");
-  }
-  if(!/^[6-9]\d{9}$/.test(mobileEl().value.trim())){
-    return alert("⚠️ Invalid mobile number! Must be 10 digits starting 6-9");
-  }
-  if(!emailEl().value.includes("@") || !emailEl().value.includes(".")){
-    return alert("⚠️ Invalid email address!");
-  }
+  if(!studentNameEl().value.trim()||!regNumberEl().value.trim()||!emailEl().value.trim()||!mobileEl().value.trim()){
+    return alert("Fill all fields"); }
   showPage(2);
 }
 
 function validatePage2(){
-  if(!facultyEl().value){ return alert("⚠️ Please select a faculty!"); }
+  if(!facultyEl().value) return alert("Select faculty");
   showPage(3);
 }
 
 function validatePage3(){
-  if(!batchIdEl().value.trim()){ return alert("⚠️ Batch ID is required!"); }
-  const quiz = quizEl().value.trim();
-  if(!quiz || isNaN(quiz) || quiz < 0 || quiz > 100){ return alert("⚠️ Enter valid Quiz Marks (0-100)!"); }
-  for(let i=0;i<13;i++){ if(!document.getElementById("q"+i).value){ return alert("⚠️ Please answer all rating questions!"); } }
-  for(let i=0;i<4;i++){ if(!document.getElementById("paraQ"+i).value){ return alert("⚠️ Please answer all option questions!"); } }
+  if(!batchIdEl().value.trim()) return alert("Batch ID required");
   submitFeedback();
 }
 
 function loadFaculties(){
   const select = facultyEl();
-  select.innerHTML = `<option value="">-- Select Faculty --</option>`;
+  select.innerHTML = "<option value=''>--Select Faculty--</option>";
   faculties.filter(f=>!completedFaculties.includes(f)).forEach(f=>{
-    const opt = document.createElement("option"); opt.value=f; opt.textContent=f; select.appendChild(opt);
+    const opt = document.createElement("option");
+    opt.value = f; opt.textContent=f; select.appendChild(opt);
   });
-  if(faculties.length===completedFaculties.length) showPage(4);
+  if(completedFaculties.length===faculties.length) showPage(4);
+}
+
+function loadQuestions(){
+  const container = document.getElementById("questionsContainer");
+  container.innerHTML = "";
+  const ratingQ = ["Attendance & Punctuality","Discipline","Active Participation","Group Activities & Teamwork","Presentation - Content","Presentation - Delivery","Communication Skills","Analytical Thinking","Creativity & Innovation","Professional Ethics Awareness","Emotional Intelligence","Overall Engagement","Professional Dress Code"];
+  const optionQ = ["Industry/ Practice real life examples","Accessibility for clarification","Personalised guidance","Inspiring / motivating"];
+  ratingQ.forEach((q,i)=>container.innerHTML+=`<div class="question-block"><label>${q}*</label><select id="q${i}" onchange="calculateScore()"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>`);
+  optionQ.forEach((q,i)=>container.innerHTML+=`<div class="question-block"><label>${q}*</label><select id="paraQ${i}" onchange="calculateScore()"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>`);
+}
+
+function calculateScore(){
+  let total=0,count=0;
+  for(let i=0;i<13;i++){ let v=parseInt(document.getElementById("q"+i)?.value||0,10); if(v){total+=v; count++;}}
+  for(let i=0;i<4;i++){ let v=parseInt(document.getElementById("paraQ"+i)?.value||0,10); if(v){total+=v; count++;}}
+  const avg = count>0?total/count:0;
+  const quiz=parseFloat(quizEl().value||0);
+  const weight=(avg+quiz)/2;
+  document.getElementById("weightageScore").innerText=weight.toFixed(2);
+  let grade="C"; if(weight>=85) grade="A+"; else if(weight>=70) grade="A"; else if(weight>=50) grade="B+"; else if(weight>=30) grade="B";
+  document.getElementById("grade").innerText=grade;
+}
+
+function collectScores(){
+  let obj={}; for(let i=0;i<13;i++){obj["Q"+(i+1)]=document.getElementById("q"+i).value||"";} for(let i=0;i<4;i++){obj["ParaQ"+(i+1)]=document.getElementById("paraQ"+i).value||"";} return obj;
 }
 
 function submitFeedback(){
-  const answers = {};
-  for(let i=0;i<13;i++) answers[`Q${i+1}`]=document.getElementById("q"+i).value||"";
-  for(let i=0;i<4;i++) answers[`ParaQ${i+1}`]=document.getElementById("paraQ"+i).value||"";
+  const answers={};
+  for(let i=0;i<13;i++){answers["Q"+(i+1)]=document.getElementById("q"+i).value||"";}
+  for(let i=0;i<4;i++){answers["ParaQ"+(i+1)]=document.getElementById("paraQ"+i).value||"";}
 
-  const data = {
+  const data={
     studentName: studentNameEl().value.trim(),
     regNumber: regNumberEl().value.trim(),
     email: emailEl().value.trim(),
@@ -239,56 +164,23 @@ function submitFeedback(){
     weightedScore: document.getElementById("weightageScore").innerText,
     grade: document.getElementById("grade").innerText,
     additionalComments: document.getElementById("additionalComments").value.trim(),
-    answers
+    answers: answers
   };
 
   document.getElementById("loader").style.display="flex";
 
-  fetch(SCRIPT_URL,{method:"POST",body:JSON.stringify(data),headers:{"Content-Type":"application/json"}})
+  fetch(SCRIPT_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)})
     .then(res=>res.json())
     .then(res=>{
       document.getElementById("loader").style.display="none";
       if(res.status==="success"){
         completedFaculties.push(data.faculty);
         batchIdEl().value=""; quizEl().value=""; document.getElementById("additionalComments").value="";
-        document.getElementById("questionsContainer").innerHTML="";
-        document.getElementById("weightageScore").innerText="0.00";
-        document.getElementById("grade").innerText="-";
-        if(completedFaculties.length<faculties.length) showPage(2);
-        else showPage(4);
-      }else{ alert("❌ Submission failed: "+res.message); }
-    }).catch(err=>{
-      document.getElementById("loader").style.display="none";
-      alert("❌ Error submitting feedback: "+err);
-    });
-}
-
-function loadQuestions(){
-  const container=document.getElementById("questionsContainer");
-  container.innerHTML="";
-  const ratingQuestions=["Attendance & Punctuality","Discipline","Active Participation","Group Activities & Teamwork","Presentation - Content","Presentation - Delivery","Communication Skills","Analytical Thinking","Creativity & Innovation","Professional Ethics Awareness","Emotional Intelligence","Overall Engagement","Professional Dress Code"];
-  ratingQuestions.forEach((q,i)=>{
-    container.innerHTML+=`<div class="question-block"><label>${q} <span style="color:red">*</span></label><select id="q${i}" onchange="calculateScore()"><option value="">--Select--</option><option value="20">1. POOR</option><option value="40">2. BELOW AVERAGE</option><option value="60">3. AVERAGE</option><option value="80">4. GOOD</option><option value="100">5. EXCELLENT</option></select></div>`;
-  });
-  const optionQuestions=["Industry/ Practice real life examples","Accessibility for clarification","Personalised guidance","Inspiring / motivating"];
-  optionQuestions.forEach((q,i)=>{
-    container.innerHTML+=`<div class="question-block"><label>${q} <span style="color:red">*</span></label><select id="paraQ${i}" onchange="calculateScore()"><option value="">--Select--</option><option value="20">1. POOR</option><option value="40">2. BELOW AVERAGE</option><option value="60">3. AVERAGE</option><option value="80">4. GOOD</option><option value="100">5. EXCELLENT</option></select></div>`;
-  });
-  document.getElementById("weightageScore").innerText="0.00";
-  document.getElementById("grade").innerText="-";
-}
-
-function calculateScore(){
-  let total=0,count=0;
-  for(let i=0;i<13;i++){ const val=parseInt(document.getElementById("q"+i)?.value||0,10); if(val){ total+=val; count++; } }
-  for(let i=0;i<4;i++){ const val=parseInt(document.getElementById("paraQ"+i)?.value||0,10); if(val){ total+=val; count++; } }
-  const avg=count>0?total/count:0;
-  const quiz=parseFloat(quizEl().value||0);
-  const weightage=(avg+quiz)/2;
-  document.getElementById("weightageScore").innerText=weightage.toFixed(2);
-  let grade="C";
-  if(weightage>=85) grade="A+"; else if(weightage>=70) grade="A"; else if(weightage>=50) grade="B+"; else if(weightage>=30) grade="B";
-  document.getElementById("grade").innerText=grade;
+        document.getElementById("questionsContainer").innerHTML=""; document.getElementById("weightageScore").innerText="0.00"; document.getElementById("grade").innerText="-";
+        if(completedFaculties.length<faculties.length) showPage(2); else showPage(4);
+      } else { alert("Submission failed: "+res.message);}
+    })
+    .catch(err=>{ document.getElementById("loader").style.display="none"; alert("Error submitting feedback: "+err);});
 }
 
 const studentNameEl=()=>document.getElementById("studentName");
