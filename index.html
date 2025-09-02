@@ -21,9 +21,14 @@
       margin-top: 40px;
       padding: 30px;
       border-radius: 15px;
-      width: 500px;
+      width: 600px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.15);
       animation: fadeIn 0.5s ease-in-out;
+    }
+    h1 {
+      text-align: center;
+      margin: 20px;
+      color: #fff;
     }
     h2 {
       text-align: center;
@@ -31,17 +36,13 @@
       margin-bottom: 20px;
       font-weight: 600;
     }
-    h3 {
-      color: #0077b6;
-      margin-bottom: 15px;
-    }
     label {
       font-weight: 500;
       display: block;
       margin: 8px 0 5px;
       color: #333;
     }
-    input, select {
+    input, select, textarea {
       width: 100%;
       padding: 10px;
       border: 1px solid #ccc;
@@ -51,7 +52,7 @@
       margin-bottom: 15px;
       transition: all 0.3s;
     }
-    input:focus, select:focus {
+    input:focus, select:focus, textarea:focus {
       border-color: #00b4d8;
       box-shadow: 0 0 6px rgba(0,180,216,0.5);
     }
@@ -74,120 +75,73 @@
     }
     .form-page { display: none; }
     .active-page { display: block; }
-    .quote-box {
-      background: #f1faff;
-      padding: 20px;
-      border-left: 5px solid #00b4d8;
-      margin-top: 20px;
-      border-radius: 10px;
-      font-style: italic;
-      color: #333;
-    }
-    .thankyou {
-      text-align: center;
-      color: #023e8a;
-      font-size: 18px;
-      font-weight: 600;
-      margin-top: 10px;
-    }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body>
+  <div>
+    <h1>THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA<br><small>Student Feedback Form</small></h1>
+    <div class="container">
 
-  <!-- Header -->
-  <div class="text-center py-6 bg-blue-900 text-white shadow-lg">
-    <h1 class="text-2xl font-bold uppercase">THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</h1>
-    <p class="text-lg mt-1">Student Feedback Form</p>
-  </div>
+      <!-- Page 1 -->
+      <div id="page1" class="form-page active-page">
+        <h2>Basic Information</h2>
+        <label>Student Name *</label>
+        <input id="studentName" type="text" placeholder="Your full name">
 
-  <div class="max-w-3xl mx-auto mt-6 bg-white p-8 rounded-2xl shadow-lg">
+        <label>Registration Number *</label>
+        <input id="regNumber" type="text" placeholder="e.g. N/C/E/W/S/FRO1234567">
 
-    <!-- Page 1: Basic Info -->
-    <div id="page1" class="form-page active-page card">
-      <h2 class="text-2xl font-semibold mb-4 text-blue-700">Basic Information</h2>
-      <p class="text-gray-500 mb-6">Please fill in your details to proceed with feedback.</p>
+        <label>Email *</label>
+        <input id="email" type="email" placeholder="example@email.com">
 
-      <label class="block mb-2 font-medium">Student Name <span class="text-red-500">*</span></label>
-      <input id="studentName" type="text" class="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Your full name">
+        <label>Mobile Number *</label>
+        <input id="mobile" type="tel" placeholder="10 digit number"> 
 
-      <label class="block mb-2 font-medium">Registration Number <span class="text-red-500">*</span></label>
-      <input id="regNumber" type="text" class="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="e.g. N/C/E/W/S/FRO1234567">
-
-      <label class="block mb-2 font-medium">Email <span class="text-red-500">*</span></label>
-      <input id="email" type="email" class="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="example@email.com">
-
-      <label class="block mb-2 font-medium">Mobile Number <span class="text-red-500">*</span></label>
-      <input id="mobile" type="tel" class="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="10 digit number"> 
-
-      <div class="flex justify-end mt-6">
-        <button type="button" class="btn-primary" onclick="validatePage1()">Next →</button>
+        <button type="button" class="btn" onclick="validatePage1()">Next →</button>
       </div>
-    </div>  
 
-    <!-- Page 2: Faculty Selection -->
-    <div id="page2" class="form-page card">
-      <h2 class="text-2xl font-semibold mb-4 text-blue-700">Select Faculty</h2>
-      <select id="facultySelect" class="w-full p-2 border rounded mb-6"></select>
-
-      <div class="flex justify-between mt-6">
-        <button type="button" class="btn-secondary" onclick="showPage(1)">← Back</button>
-        <button type="button" class="btn-primary" onclick="validatePage2()">Next →</button>
+      <!-- Page 2 -->
+      <div id="page2" class="form-page">
+        <h2>Select Faculty</h2>
+        <select id="facultySelect"></select>
+        <br>
+        <button type="button" class="btn" onclick="showPage(1)">← Back</button>
+        <button type="button" class="btn" onclick="validatePage2()">Next →</button>
       </div>
-    </div>
 
-    <!-- Page 3: Feedback -->
-    <div id="page3" class="form-page card">
-      <h2 class="text-2xl font-semibold mb-4 text-blue-700">Faculty Feedback</h2>
+      <!-- Page 3 -->
+      <div id="page3" class="form-page">
+        <h2>Faculty Feedback</h2>
+        <label>Batch ID *</label>
+        <input id="batchId" type="text">
 
-      <label class="block mb-2">Batch ID <span class="text-red-500">*</span></label>
-      <input id="batchId" type="text" class="w-full p-2 border rounded mb-4">
+        <div id="questionsContainer"></div>
 
-      <div id="questionsContainer"></div>
+        <label>Quiz Marks *</label>
+        <input id="quizMarks" type="number" min="0" max="100" oninput="calculateScore()">
 
-      <label class="block mt-4 mb-2">Quiz Marks <span class="text-red-500">*</span></label>
-      <input id="quizMarks" type="number" min="0" max="100" class="w-full p-2 border rounded mb-4" oninput="calculateScore()">
-
-      <div class="p-4 bg-gray-50 rounded border mt-4">
         <p><b>Weightage Score:</b> <span id="weightageScore">0.00</span></p>
         <p><b>Grade:</b> <span id="grade">-</span></p>
-      </div>
-      <div class="mb-4">
-        <label class="block mb-1">Additional Comments (Optional)</label>
-        <textarea id="additionalComments" rows="3" class="w-full p-2 border rounded" placeholder="Write any comments here..."></textarea>
-      </div>
-      <div class="mb-4">
-        <label class="block mb-1">Additional Comments (Optional)</label>
-        <textarea id="additionalComments" rows="3" class="w-full p-2 border rounded" placeholder="Write any comments here..."></textarea>
-      </div>
-      
-      <div class="flex justify-between mt-6">
-        <button type="button" class="btn-secondary" onclick="showPage(2)">← Back</button>
-        <button id="submitBtn" type="button" class="btn-primary" onclick="validateFeedback()">✅ Submit Feedback</button>
-      </div>
-    </div>
 
+        <label>Additional Comments (Optional)</label>
+        <textarea id="additionalComments" rows="3"></textarea>
+
+        <button type="button" class="btn" onclick="showPage(2)">← Back</button>
+        <button id="submitBtn" type="button" class="btn" onclick="alert('Submitted!')">✅ Submit Feedback</button>
+      </div>
+
+    </div>
   </div>
 
 <script>
-/* ======= Cleaned JS for multi-page form (no nested <script> tags) ======= */
-
 const faculties = ["Sandeep Agarwal","Bhanu Dhir","Shekhar Sharma","Anju Gupta","Preeti Goel","Rohit Agarwal","Sunita Rathore"];
 let completedFaculties = [];
-const questions = [
-  "Attendance & Punctuality","Discipline","Active Participation",
-  "Group Activities & Teamwork","Presentation - Content","Presentation - Delivery","Communication Skills",
-  "Analytical Thinking","Creativity & Innovation","Professional Ethics Awareness","Emotional Intelligence","Overall Engagement","Professional Dress Code",
-      "Industry/ Practice real life examples","Accessibility for clarification","Personalised guidance","Inspiring / motivating"
-];
-
-let currentPage = 1;
 
 function showPage(n) {
-  currentPage = n;
   document.querySelectorAll(".form-page").forEach(p => p.style.display = "none");
   document.getElementById("page"+n).style.display = "block";
   if(n===2) loadFaculties();
@@ -201,168 +155,67 @@ function validatePage1(){
   const mobile = document.getElementById("mobile").value.trim();
   
   if(!studentName || !regNumber || !email || !mobile){
-    alert("⚠️ Please fill all fields");
-    return;
+    alert("⚠️ Please fill all fields"); return;
   }
-
-  const regPattern = /^(CRO|NRO|FRO|SRO|ERO|WRO)\d{7}$/i;
-  if(!regPattern.test(regNumber)){
-    alert("⚠️ Invalid Registration Number format!(CRO|NRO|FRO|SRO|ERO|WRO01234567)");
-    return;
-  }
-
-  if(!/^[6-9]\d{9}$/.test(mobile)){
-    alert("⚠️ Invalid mobile number!");
-    return;
-  }
-
-  if(!email.includes("@") || !email.includes(".")){
-    alert("⚠️ Invalid email address!");
-    return;
-  }
-
-  // ✅ Only move if all checks pass
   showPage(2);  
 }
 
 function validatePage2() {
   const faculty = document.getElementById("facultySelect").value;
-  if(!faculty){ 
-    alert("⚠️ Please select a faculty!"); 
-    return; 
-  }
+  if(!faculty){ alert("⚠️ Please select a faculty!"); return; }
   showPage(3);
 }
 
-validateFeedback
 function loadFaculties(){
   const select = document.getElementById("facultySelect");
-  select.innerHTML = <option value="">-- Select Faculty --</option>;
-  const available = faculties.filter(f=>!completedFaculties.includes(f));
-  if(available.length===0){
-    select.innerHTML=<option value="">No faculties left</option>;
-    select.disabled=true;
-  }else{
-    available.forEach(f=>{
-      const opt = document.createElement("option");
-      opt.value = f;
-      opt.textContent = f;
-      select.appendChild(opt);
-    });
-    select.disabled=false;
-  }
+  select.innerHTML = `<option value="">-- Select Faculty --</option>`;
+  faculties.forEach(f=>{
+    const opt = document.createElement("option");
+    opt.value = f;
+    opt.textContent = f;
+    select.appendChild(opt);
+  });
 }
 
 function loadQuestions() {
   const container = document.getElementById("questionsContainer");
   container.innerHTML = "";
-
-  // --- Rating questions ---
   const ratingQuestions = [
-    "Attendance & Punctuality",
-    "Discipline",
-    "Active Participation",
-    "Group Activities & Teamwork",
-    "Presentation - Content",
-    "Presentation - Delivery",
-    "Communication Skills",
-    "Analytical Thinking",
-    "Creativity & Innovation",
-    "Professional Ethics Awareness",
-    "Emotional Intelligence",
-    "Overall Engagement",
-    "Professional Dress Code"
+    "Attendance & Punctuality","Discipline","Active Participation","Group Activities & Teamwork",
+    "Presentation - Content","Presentation - Delivery","Communication Skills","Analytical Thinking",
+    "Creativity & Innovation","Professional Ethics Awareness","Emotional Intelligence","Overall Engagement","Professional Dress Code"
   ];
-
   ratingQuestions.forEach((q, i) => {
-    container.innerHTML += <div class="mb-4">
-      <label class="block mb-1">${q} <span class="text-red-500">*</span></label>
-      <select id="q${i}" class="w-full p-2 border rounded" onchange="calculateScore()">
+    container.innerHTML += `
+      <label>${q} *</label>
+      <select id="q${i}" onchange="calculateScore()">
         <option value="">--Select--</option>
         <option value="20">1. POOR</option>
         <option value="40">2. BELOW AVERAGE</option>
         <option value="60">3. AVERAGE</option>
         <option value="80">4. GOOD</option>
         <option value="100">5. EXCELLENT</option>
-      </select>
-    </div>;
+      </select>`;
   });
-
-  // --- Option questions ---
-  const optionQuestions = [
-    "Industry/ Practice real life examples",
-    "Accessibility for clarification",
-    "Personalised guidance",
-    "Inspiring / motivating"
-  ];
-
-  optionQuestions.forEach((q, i) => {
-    const id = "paraQ" + i;
-    container.innerHTML += <div class="mb-4">
-      <label class="block mb-1">${q} <span class="text-red-500">*</span></label>
-      <select id="${id}" class="w-full p-2 border rounded" onchange="calculateScore()">
-        <option value="">--Select--</option>
-        <option value="Excellent">Excellent</option>
-        <option value="Good">Good</option>
-        <option value="Average">Average</option>
-        <option value="Poor">Poor</option>
-      </select>
-    </div>;
-  });
-
-  // --- Additional Comments (Optional) ---
-  container.innerHTML += 
-    <div class="mb-4">
-      <label class="block mb-1">Additional Comments (Optional)</label>
-      <textarea id="additionalComments" rows="3" class="w-full p-2 border rounded" placeholder="Write any comments here..."></textarea>
-    </div>
-  ;
-
-  // --- Reset score display ---
-  document.getElementById("weightageScore").innerText = "0.00";
-  document.getElementById("grade").innerText = "-";
 }
+
 function calculateScore(){
   let total = 0, count = 0;
-
-  // --- First 13 rating questions ---
   for (let i = 0; i < 13; i++){
     const val = parseInt(document.getElementById("q" + i)?.value || 0, 10);
     if(val){ total += val; count++; }
   }
-
-  // --- Last 4 option questions ---
-  for (let i = 0; i < 4; i++){
-    const valStr = document.getElementById("paraQ" + i)?.value || "";
-    let val = 0;
-    if(valStr === "Excellent") val = 100;
-    else if(valStr === "Good") val = 80;
-    else if(valStr === "Average") val = 60;
-    else if(valStr === "Poor") val = 40;
-
-    if(val){ total += val; count++; }
-  }
-
-  // --- Average score calculation ---
   const avg = count > 0 ? total / count : 0;
   const quiz = parseFloat(document.getElementById("quizMarks")?.value || 0);
   const weightage = (avg + quiz) / 2;
   document.getElementById("weightageScore").innerText = weightage.toFixed(2);
-
-  // --- Grade assignment ---
-  let grade = "C";
+  let grade = "-";
   if(weightage >= 85) grade = "A+";
   else if(weightage >= 70) grade = "A";
   else if(weightage >= 50) grade = "B+";
   else if(weightage >= 30) grade = "B";
   document.getElementById("grade").innerText = grade;
 }
-
-/* Initialize after DOM ready */
-document.addEventListener('DOMContentLoaded', () => {
-  showPage(1);
-  // (faculties/questions are loaded automatically when you land on their pages)
-});
 </script>
 </body>
 </html>
