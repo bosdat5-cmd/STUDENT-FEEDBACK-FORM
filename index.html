@@ -37,7 +37,9 @@
   <button onclick="downloadTemplate()">📥 Download Excel Template</button>
   <label>Upload Student Data File:</label>
   <input type="file" id="excelFile" accept=".xlsx, .xls" onchange="handleFileUpload(event)">
-  <button onclick="nextPage()">➡ Next</button>
+  <div class="nav-buttons">
+    <button onclick="nextPage()">➡ Next</button>
+  </div>
 </div>
 
 <!-- Page 2 -->
@@ -54,8 +56,10 @@
   </select>
   <label>Student Unique Key (SRN):</label>
   <select id="uniqueKeySelect"><option value="">-- Select SRN --</option></select>
-  <button onclick="prevPage()">⬅ Back</button>
-  <button onclick="goToQuestions()">➡ Next</button>
+  <div class="nav-buttons">
+    <button onclick="prevPage()">⬅ Back</button>
+    <button onclick="goToQuestions()">➡ Next</button>
+  </div>
 </div>
 
 <!-- Page 3 -->
@@ -103,8 +107,10 @@
   <label>Any other comments or suggestions:</label>
   <textarea id="comments"></textarea>
 
-  <button onclick="prevPage()">⬅ Back</button>
-  <button onclick="SubmitFeedback()">Submit Feedback</button>
+  <div class="nav-buttons">
+    <button onclick="prevPage()">⬅ Back</button>
+    <button onclick="SubmitFeedback()">✅ Submit Feedback</button>
+  </div>
 </div>
 
 <!-- Page 4 -->
