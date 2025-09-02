@@ -272,43 +272,69 @@ function loadFaculties(){
 
 /* ---------- FEEDBACK SUBMISSION ---------- */
 function submitFeedback(){
+  // Build answers object
+  const answers = {};
+  const ratingQuestions = [
+    "Attendance & Punctuality","Discipline","Active Participation",
+    "Group Activities & Teamwork","Presentation - Content","Presentation - Delivery",
+    "Communication Skills","Analytical Thinking","Creativity & Innovation",
+    "Professional Ethics Awareness","Emotional Intelligence","Overall Engagement",
+    "Professional Dress Code"
+  ];
+  ratingQuestions.forEach((q,i)=>{
+    answers[q] = document.getElementById("q"+i).value || "";
+  });
+
+  const optionQuestions = [
+    "Industry/ Practice real life examples","Accessibility for clarification",
+    "Personalised guidance","Inspiring / motivating"
+  ];
+  optionQuestions.forEach((q,i)=>{
+    answers[q] = document.getElementById("paraQ"+i).value || "";
+  });
+
   const data = {
     studentName: studentNameEl().value.trim(),
     regNumber: regNumberEl().value.trim(),
     email: emailEl().value.trim(),
     mobile: mobileEl().value.trim(),
-    facultyName: facultyEl().value,
+    faculty: facultyEl().value,   // match Apps Script
     batchId: batchIdEl().value.trim(),
     quizMarks: quizEl().value.trim(),
-    weightageScore: document.getElementById("weightageScore").innerText,
+    weightedScore: document.getElementById("weightageScore").innerText,
     grade: document.getElementById("grade").innerText,
     additionalComments: document.getElementById("additionalComments").value.trim(),
-    ...collectScores()
+    answers: answers
   };
 
   document.getElementById("loader").style.display = "flex";
 
   fetch(SCRIPT_URL, { 
     method: "POST", 
-    body: new URLSearchParams(data) 
+    body: JSON.stringify(data),
+    headers: { "Content-Type": "application/json" }
   })
-  .then(res => res.text())
-  .then(() => {
+  .then(res => res.json())
+  .then(res => {
     document.getElementById("loader").style.display = "none";
-    completedFaculties.push(data.facultyName);
+    if(res.status === "success"){
+      completedFaculties.push(data.faculty);
 
-    // Reset Page 3 inputs for next faculty
-    batchIdEl().value = "";
-    quizEl().value = "";
-    document.getElementById("additionalComments").value = "";
-    document.getElementById("questionsContainer").innerHTML = "";
-    document.getElementById("weightageScore").innerText = "0.00";
-    document.getElementById("grade").innerText = "-";
+      // Reset Page 3 for next faculty
+      batchIdEl().value = "";
+      quizEl().value = "";
+      document.getElementById("additionalComments").value = "";
+      document.getElementById("questionsContainer").innerHTML = "";
+      document.getElementById("weightageScore").innerText = "0.00";
+      document.getElementById("grade").innerText = "-";
 
-    if(completedFaculties.length < faculties.length){
-      showPage(2); // select next faculty
+      if(completedFaculties.length < faculties.length){
+        showPage(2); // select next faculty
+      } else {
+        showPage(4); // thank you
+      }
     } else {
-      showPage(4); // thank you
+      alert("❌ Submission failed: " + res.message);
     }
   })
   .catch(err => {
@@ -316,7 +342,6 @@ function submitFeedback(){
     alert("❌ Error submitting feedback: " + err);
   });
 }
-
 /* ---------- QUESTIONS ---------- */
 function loadQuestions(){
   const container = document.getElementById("questionsContainer");
@@ -411,5 +436,6 @@ document.addEventListener("DOMContentLoaded", () => showPage(1));
 </script>
 </body>
 </html>
+
 
 
