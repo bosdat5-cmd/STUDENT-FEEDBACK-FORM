@@ -245,59 +245,7 @@ function loadFaculties(){
   }
 }
 
-function loadQuestions(){
-  const container = document.getElementById("questionsContainer");
-  container.innerHTML = "";
-  questions.forEach((q,i)=>{
-    container.innerHTML += `<div class="mb-4">
-      <label class="block mb-1">${q} <span class="text-red-500">*</span></label>
-      <select id="q${i}" class="w-full p-2 border rounded" onchange="calculateScore()">
-        <option value="">--Select--</option>
-        <option value="20">1. POOR</option>
-        <option value="40">2. BELOW AVERAGE</option>
-        <option value="60">3. AVERAGE</option>
-        <option value="80">4. GOOD</option>
-        <option value="100">5. EXCELLENT</option>
-      </select>
-    </div>`;
-  });
-  document.getElementById("weightageScore").innerText="0.00";
-  document.getElementById("grade").innerText="-";
-// Existing rating questions loop stays as-is
-questions.forEach((q,i)=>{
-  container.innerHTML += `<div class="mb-4">
-    <label class="block mb-1">${q} <span class="text-red-500">*</span></label>
-    <select id="q${i}" class="w-full p-2 border rounded" onchange="calculateScore()">
-      <option value="">--Select--</option>
-      <option value="20">1. POOR</option>
-      <option value="40">2. BELOW AVERAGE</option>
-      <option value="60">3. AVERAGE</option>
-      <option value="80">4. GOOD</option>
-      <option value="100">5. EXCELLENT</option>
-    </select>
-  </div>`;
-});
-
-// ✅ Add these 4 paragraph questions
-const paragraphQuestions = [
-  "Industry/ Practice real life examples",
-  "Accessibility for clarification",
-  "Personalised guidance",
-  "Inspiring / motivating"
-];
-
-paragraphQuestions.forEach((q,i)=>{
-  const id = "paraQ" + i;
-  container.innerHTML += `<div class="mb-4">
-    <label class="block mb-1">${q} <span class="text-red-500">*</span></label>
-    <textarea id="${id}" rows="3" class="w-full p-2 border rounded" placeholder="Your response..."></textarea>
-  </div>`;
-});
-
-document.getElementById("weightageScore").innerText="0.00";
-document.getElementById("grade").innerText="-";
-}
-
+function loadQuestions(){ const container = document.getElementById("questionsContainer"); container.innerHTML = ""; questions.forEach((q,i)=>{ container.innerHTML += <div class="mb-4"> <label class="block mb-1">${q} <span class="text-red-500">*</span></label> <select id="q${i}" class="w-full p-2 border rounded" onchange="calculateScore()"> <option value="">--Select--</option> <option value="20">1. POOR</option> <option value="40">2. BELOW AVERAGE</option> <option value="60">3. AVERAGE</option> <option value="80">4. GOOD</option> <option value="100">5. EXCELLENT</option> </select> </div>; }); document.getElementById("weightageScore").innerText="0.00"; document.getElementById("grade").innerText="-"; }
 function calculateScore(){
   let total=0,count=0;
   questions.forEach((q,i)=>{
@@ -333,6 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 
 
