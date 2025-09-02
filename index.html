@@ -245,32 +245,100 @@ function loadFaculties(){
   }
 }
 
-function loadQuestions(){ const container = document.getElementById("questionsContainer"); container.innerHTML = ""; questions.forEach((q,i)=>{ container.innerHTML += <div class="mb-4"> <label class="block mb-1">${q} <span class="text-red-500">*</span></label> <select id="q${i}" class="w-full p-2 border rounded" onchange="calculateScore()"> <option value="">--Select--</option> <option value="20">1. POOR</option> <option value="40">2. BELOW AVERAGE</option> <option value="60">3. AVERAGE</option> <option value="80">4. GOOD</option> <option value="100">5. EXCELLENT</option> </select> </div>; }); document.getElementById("weightageScore").innerText="0.00"; document.getElementById("grade").innerText="-"; }
-function calculateScore(){
-  let total=0,count=0;
-  questions.forEach((q,i)=>{
-    const val = parseInt(document.getElementById("q"+i)?.value||0,10);
-    if(val){ total+=val; count++; }
-  });
-  const avg = count>0 ? total/count : 0;
-  const quiz = parseFloat(document.getElementById("quizMarks")?.value||0);
-  const weightage = (avg+quiz)/2;
-  document.getElementById("weightageScore").innerText=weightage.toFixed(2);
+function loadQuestions() {
+  const container = document.getElementById("questionsContainer");
+  container.innerHTML = "";
 
-  let grade="C";
-  if(weightage>=85) grade="A+";
-  else if(weightage>=70) grade="A";
-  else if(weightage>=50) grade="B+";
-  else if(weightage>=30) grade="B";
-  document.getElementById("grade").innerText=grade;
+  // --- Rating questions (as before) ---
+  const ratingQuestions = [
+    "Attendance & Punctuality",
+    "Discipline",
+    "Active Participation",
+    "Group Activities & Teamwork",
+    "Presentation - Content",
+    "Presentation - Delivery",
+    "Communication Skills",
+    "Analytical Thinking",
+    "Creativity & Innovation",
+    "Professional Ethics Awareness",
+    "Emotional Intelligence",
+    "Overall Engagement",
+    "Professional Dress Code"
+  ];
+
+  ratingQuestions.forEach((q, i) => {
+    container.innerHTML += `<div class="mb-4">
+      <label class="block mb-1">${q} <span class="text-red-500">*</span></label>
+      <select id="q${i}" class="w-full p-2 border rounded" onchange="calculateScore()">
+        <option value="">--Select--</option>
+        <option value="20">1. POOR</option>
+        <option value="40">2. BELOW AVERAGE</option>
+        <option value="60">3. AVERAGE</option>
+        <option value="80">4. GOOD</option>
+        <option value="100">5. EXCELLENT</option>
+      </select>
+    </div>`;
+  });
+
+  // --- Paragraph questions now as options ---
+  const optionQuestions = [
+    "Industry/ Practice real life examples",
+    "Accessibility for clarification",
+    "Personalised guidance",
+    "Inspiring / motivating"
+  ];
+
+  optionQuestions.forEach((q, i) => {
+    const id = "paraQ" + i;
+    container.innerHTML += `<div class="mb-4">
+      <label class="block mb-1">${q} <span class="text-red-500">*</span></label>
+      <select id="${id}" class="w-full p-2 border rounded">
+        <option value="">--Select--</option>
+        <option value="Excellent">Excellent</option>
+        <option value="Good">Good</option>
+        <option value="Average">Average</option>
+        <option value="Poor">Poor</option>
+      </select>
+    </div>`;
+  });
+
+  document.getElementById("weightageScore").innerText = "0.00";
+  document.getElementById("grade").innerText = "-";
 }
 
-function resetFeedbackForm(){
-  document.getElementById("batchId").value="";
-  document.getElementById("quizMarks").value="";
-  document.getElementById("weightageScore").innerText="0.00";
-  document.getElementById("grade").innerText="-";
-  document.querySelectorAll("#questionsContainer select").forEach(s=>{ s.value=""; });
+function calculateScore(){
+  let total = 0, count = 0;
+
+  // --- Rating questions ---
+  const ratingQuestions = 13; // first 13 rating questions
+  for (let i = 0; i < ratingQuestions; i++){
+    const val = parseInt(document.getElementById("q" + i)?.value || 0, 10);
+    if(val){ total += val; count++; }
+  }
+
+  // --- Last 4 option questions ---
+  for (let i = 0; i < 4; i++){
+    const valStr = document.getElementById("paraQ" + i)?.value || "";
+    let val = 0;
+    if(valStr === "Excellent") val = 100;
+    else if(valStr === "Good") val = 80;
+    else if(valStr === "Average") val = 60;
+    else if(valStr === "Poor") val = 40;
+    
+    if(val) { total += val; count++; }
+  }
+
+  const avg = count > 0 ? total / count : 0;
+  const quiz = parseFloat(document.getElementById("quizMarks")?.value || 0);
+  const weightage = (avg + quiz) / 2;
+  document.getElementById("weightageScore").innerText = weightage.toFixed(2);
+
+  let grade = "C";
+  if(weightage >= 85) grade = "A+";
+  else if(weightage >= 70) grade = "A";
+  else if(weightage >= 50) grade = "B+";
+  else if(weightage >= 30) grade = "B";
+  document.getElementById("grade").innerText = grade;
 }
 
 /* Initialize after DOM ready */
@@ -281,15 +349,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
