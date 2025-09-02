@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0077b6, #00b4d8);
+      background: #f1f3f4;
       margin: 0;
-      padding: 0;
+      padding: 30px;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -18,66 +17,104 @@
     }
     .container {
       background: #fff;
-      margin-top: 40px;
-      padding: 30px;
-      border-radius: 15px;
-      width: 600px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      padding: 30px 40px;
+      border-radius: 12px;
+      width: 650px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
       animation: fadeIn 0.5s ease-in-out;
     }
     h1 {
       text-align: center;
-      margin: 20px;
-      color: #fff;
+      margin-bottom: 25px;
+      color: #202124;
+      font-size: 22px;
     }
     h2 {
-      text-align: center;
-      color: #023e8a;
-      margin-bottom: 20px;
+      font-size: 18px;
       font-weight: 600;
+      color: #202124;
+      border-bottom: 1px solid #dadce0;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
     }
     label {
       font-weight: 500;
       display: block;
-      margin: 8px 0 5px;
-      color: #333;
+      margin: 12px 0 6px;
+      color: #202124;
     }
     input, select, textarea {
       width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+      padding: 10px 12px;
+      border: 1px solid #dadce0;
+      border-radius: 6px;
       outline: none;
       font-size: 14px;
       margin-bottom: 15px;
-      transition: all 0.3s;
+      transition: all 0.2s;
     }
     input:focus, select:focus, textarea:focus {
-      border-color: #00b4d8;
-      box-shadow: 0 0 6px rgba(0,180,216,0.5);
+      border-color: #1a73e8;
+      box-shadow: 0 0 2px rgba(26,115,232,0.6);
     }
     .btn {
       display: inline-block;
-      background: #0077b6;
+      background: #1a73e8;
       color: #fff;
       border: none;
-      border-radius: 10px;
-      padding: 10px 18px;
+      border-radius: 6px;
+      padding: 10px 20px;
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      margin: 5px 5px 0 0;
+      margin: 8px 8px 0 0;
       transition: all 0.3s;
     }
     .btn:hover {
-      background: #023e8a;
-      transform: scale(1.05);
+      background: #1558b0;
     }
     .form-page { display: none; }
     .active-page { display: block; }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Question block like Google Form */
+    .question-block {
+      background: #f8f9fa;
+      border: 1px solid #dadce0;
+      border-radius: 8px;
+      padding: 15px 18px;
+      margin-bottom: 18px;
+    }
+    .question-block label {
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    /* Loader */
+    #loader {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #1a73e8;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -93,7 +130,7 @@
         <input id="studentName" type="text" placeholder="Your full name">
 
         <label>Registration Number *</label>
-        <input id="regNumber" type="text" placeholder="e.g. N/C/E/W/S/FRO1234567">
+        <input id="regNumber" type="text" placeholder="e.g. CRO1234567">
 
         <label>Email *</label>
         <input id="email" type="email" placeholder="example@email.com">
@@ -116,78 +153,178 @@
       <!-- Page 3 -->
       <div id="page3" class="form-page">
         <h2>Faculty Feedback</h2>
-        <label>Batch ID *</label>
-        <input id="batchId" type="text">
+        <div class="question-block">
+          <label>Batch ID *</label>
+          <input id="batchId" type="text">
+        </div>
 
         <div id="questionsContainer"></div>
 
-        <label>Quiz Marks *</label>
-        <input id="quizMarks" type="number" min="0" max="100" oninput="calculateScore()">
+        <div class="question-block">
+          <label>Quiz Marks *</label>
+          <input id="quizMarks" type="number" min="0" max="100" oninput="calculateScore()">
+        </div>
 
-        <p><b>Weightage Score:</b> <span id="weightageScore">0.00</span></p>
-        <p><b>Grade:</b> <span id="grade">-</span></p>
+        <div class="question-block">
+          <p><b>Weightage Score:</b> <span id="weightageScore">0.00</span></p>
+          <p><b>Grade:</b> <span id="grade">-</span></p>
+        </div>
 
-        <label>Additional Comments (Optional)</label>
-        <textarea id="additionalComments" rows="3"></textarea>
+        <div class="question-block">
+          <label>Additional Comments (Optional)</label>
+          <textarea id="additionalComments" rows="3" placeholder="Write any comments here..."></textarea>
+        </div>
 
         <button type="button" class="btn" onclick="showPage(2)">← Back</button>
-        <button id="submitBtn" type="button" class="btn" onclick="alert('Submitted!')">✅ Submit Feedback</button>
+        <button id="submitBtn" type="button" class="btn" onclick="validatePage3()">✅ Submit Feedback</button>
       </div>
 
     </div>
   </div>
 
+  <!-- Loader -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
 <script>
-const faculties = ["Sandeep Agarwal","Bhanu Dhir","Shekhar Sharma","Anju Gupta","Preeti Goel","Rohit Agarwal","Sunita Rathore"];
-let completedFaculties = [];
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFoCXaitd0DO6obxsE8s4PSEMwD_9c6Zc2c7ol-y55LoOjpH2BOtk_qMdUlLcNE9np/exec";
+
+const faculties = [
+  "Sandeep Agarwal","Bhanu Dhir","Shekhar Sharma",
+  "Anju Gupta","Preeti Goel","Rohit Agarwal","Sunita Rathore"
+];
+let completedFaculties = []; // track submitted faculties
 
 function showPage(n) {
-  document.querySelectorAll(".form-page").forEach(p => p.style.display = "none");
-  document.getElementById("page"+n).style.display = "block";
-  if(n===2) loadFaculties();
-  if(n===3) loadQuestions();
+  document.querySelectorAll(".form-page").forEach(p => p.classList.remove("active-page"));
+  document.getElementById("page"+n).classList.add("active-page");
+
+  if(n === 2) loadFaculties();
+  if(n === 3) loadQuestions();
 }
 
+/* ---------- PAGE VALIDATIONS ---------- */
 function validatePage1(){
-  const studentName = document.getElementById("studentName").value.trim();
-  const regNumber = document.getElementById("regNumber").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const mobile = document.getElementById("mobile").value.trim();
-  
-  if(!studentName || !regNumber || !email || !mobile){
-    alert("⚠️ Please fill all fields"); return;
+  if(!studentNameEl().value.trim() || !regNumberEl().value.trim() || !emailEl().value.trim() || !mobileEl().value.trim()){
+    return alert("⚠️ Please fill all fields");
   }
-  showPage(2);  
+  if(!/^(CRO|NRO|FRO|SRO|ERO|WRO)\d{7}$/i.test(regNumberEl().value.trim())){
+    return alert("⚠️ Invalid Registration Number format! (e.g. CRO1234567)");
+  }
+  if(!/^[6-9]\d{9}$/.test(mobileEl().value.trim())){
+    return alert("⚠️ Invalid mobile number! Must be 10 digits starting 6-9");
+  }
+  if(!emailEl().value.includes("@") || !emailEl().value.includes(".")){
+    return alert("⚠️ Invalid email address!");
+  }
+  showPage(2);
 }
 
-function validatePage2() {
-  const faculty = document.getElementById("facultySelect").value;
-  if(!faculty){ alert("⚠️ Please select a faculty!"); return; }
+function validatePage2(){
+  if(!facultyEl().value){ return alert("⚠️ Please select a faculty!"); }
   showPage(3);
 }
 
+function validatePage3(){
+  if(!batchIdEl().value.trim()){ return alert("⚠️ Batch ID is required!"); }
+  const quiz = quizEl().value.trim();
+  if(!quiz || isNaN(quiz) || quiz < 0 || quiz > 100){ 
+    return alert("⚠️ Enter valid Quiz Marks (0-100)!"); 
+  }
+
+  for (let i = 0; i < 13; i++){
+    if(!document.getElementById("q"+i).value){ 
+      return alert("⚠️ Please answer all rating questions!"); 
+    }
+  }
+  for (let i = 0; i < 4; i++){
+    if(!document.getElementById("paraQ"+i).value){ 
+      return alert("⚠️ Please answer all option questions!"); 
+    }
+  }
+  submitFeedback();
+}
+
+/* ---------- FACULTY LOADING ---------- */
 function loadFaculties(){
-  const select = document.getElementById("facultySelect");
+  const select = facultyEl();
   select.innerHTML = `<option value="">-- Select Faculty --</option>`;
-  faculties.forEach(f=>{
-    const opt = document.createElement("option");
-    opt.value = f;
-    opt.textContent = f;
-    select.appendChild(opt);
+  faculties
+    .filter(f => !completedFaculties.includes(f)) // exclude submitted
+    .forEach(f => {
+      const opt = document.createElement("option");
+      opt.value = f;
+      opt.textContent = f;
+      select.appendChild(opt);
+    });
+
+  if(faculties.length === completedFaculties.length){
+    showPage(4); // thank you
+  }
+}
+
+/* ---------- FEEDBACK SUBMISSION ---------- */
+function submitFeedback(){
+  const data = {
+    studentName: studentNameEl().value.trim(),
+    regNumber: regNumberEl().value.trim(),
+    email: emailEl().value.trim(),
+    mobile: mobileEl().value.trim(),
+    facultyName: facultyEl().value,
+    batchId: batchIdEl().value.trim(),
+    quizMarks: quizEl().value.trim(),
+    weightageScore: document.getElementById("weightageScore").innerText,
+    grade: document.getElementById("grade").innerText,
+    additionalComments: document.getElementById("additionalComments").value.trim(),
+    ...collectScores()
+  };
+
+  document.getElementById("loader").style.display = "flex";
+
+  fetch(SCRIPT_URL, { 
+    method: "POST", 
+    body: new URLSearchParams(data) 
+  })
+  .then(res => res.text())
+  .then(() => {
+    document.getElementById("loader").style.display = "none";
+    completedFaculties.push(data.facultyName);
+
+    // Reset Page 3 inputs for next faculty
+    batchIdEl().value = "";
+    quizEl().value = "";
+    document.getElementById("additionalComments").value = "";
+    document.getElementById("questionsContainer").innerHTML = "";
+    document.getElementById("weightageScore").innerText = "0.00";
+    document.getElementById("grade").innerText = "-";
+
+    if(completedFaculties.length < faculties.length){
+      showPage(2); // select next faculty
+    } else {
+      showPage(4); // thank you
+    }
+  })
+  .catch(err => {
+    document.getElementById("loader").style.display = "none";
+    alert("❌ Error submitting feedback: " + err);
   });
 }
 
-function loadQuestions() {
+/* ---------- QUESTIONS ---------- */
+function loadQuestions(){
   const container = document.getElementById("questionsContainer");
   container.innerHTML = "";
   const ratingQuestions = [
-    "Attendance & Punctuality","Discipline","Active Participation","Group Activities & Teamwork",
-    "Presentation - Content","Presentation - Delivery","Communication Skills","Analytical Thinking",
-    "Creativity & Innovation","Professional Ethics Awareness","Emotional Intelligence","Overall Engagement","Professional Dress Code"
+    "Attendance & Punctuality","Discipline","Active Participation",
+    "Group Activities & Teamwork","Presentation - Content","Presentation - Delivery",
+    "Communication Skills","Analytical Thinking","Creativity & Innovation",
+    "Professional Ethics Awareness","Emotional Intelligence","Overall Engagement",
+    "Professional Dress Code"
   ];
   ratingQuestions.forEach((q, i) => {
-    container.innerHTML += `
-      <label>${q} *</label>
+    container.innerHTML += `<div class="question-block">
+      <label>${q} <span style="color:red">*</span></label>
       <select id="q${i}" onchange="calculateScore()">
         <option value="">--Select--</option>
         <option value="20">1. POOR</option>
@@ -195,27 +332,75 @@ function loadQuestions() {
         <option value="60">3. AVERAGE</option>
         <option value="80">4. GOOD</option>
         <option value="100">5. EXCELLENT</option>
-      </select>`;
+      </select>
+    </div>`;
   });
+
+  const optionQuestions = [
+    "Industry/ Practice real life examples","Accessibility for clarification",
+    "Personalised guidance","Inspiring / motivating"
+  ];
+  optionQuestions.forEach((q, i) => {
+    container.innerHTML += `<div class="question-block">
+      <label>${q} <span style="color:red">*</span></label>
+      <select id="paraQ${i}" onchange="calculateScore()">
+        <option value="">--Select--</option>
+        <option value="Excellent">Excellent</option>
+        <option value="Good">Good</option>
+        <option value="Average">Average</option>
+        <option value="Poor">Poor</option>
+      </select>
+    </div>`;
+  });
+
+  document.getElementById("weightageScore").innerText = "0.00";
+  document.getElementById("grade").innerText = "-";
 }
 
 function calculateScore(){
   let total = 0, count = 0;
   for (let i = 0; i < 13; i++){
-    const val = parseInt(document.getElementById("q" + i)?.value || 0, 10);
+    const val = parseInt(document.getElementById("q"+i)?.value || 0, 10);
+    if(val){ total += val; count++; }
+  }
+  for (let i = 0; i < 4; i++){
+    const valStr = document.getElementById("paraQ"+i)?.value || "";
+    let val = 0;
+    if(valStr === "Excellent") val = 100;
+    else if(valStr === "Good") val = 80;
+    else if(valStr === "Average") val = 60;
+    else if(valStr === "Poor") val = 40;
     if(val){ total += val; count++; }
   }
   const avg = count > 0 ? total / count : 0;
-  const quiz = parseFloat(document.getElementById("quizMarks")?.value || 0);
+  const quiz = parseFloat(quizEl().value || 0);
   const weightage = (avg + quiz) / 2;
   document.getElementById("weightageScore").innerText = weightage.toFixed(2);
-  let grade = "-";
+  let grade = "C";
   if(weightage >= 85) grade = "A+";
   else if(weightage >= 70) grade = "A";
   else if(weightage >= 50) grade = "B+";
   else if(weightage >= 30) grade = "B";
   document.getElementById("grade").innerText = grade;
 }
+
+/* ---------- HELPERS ---------- */
+function collectScores(){
+  let obj = {};
+  for (let i = 0; i < 13; i++){ obj["Q"+(i+1)] = document.getElementById("q"+i).value || ""; }
+  for (let i = 0; i < 4; i++){ obj["ParaQ"+(i+1)] = document.getElementById("paraQ"+i).value || ""; }
+  return obj;
+}
+
+const studentNameEl = ()=>document.getElementById("studentName");
+const regNumberEl = ()=>document.getElementById("regNumber");
+const emailEl = ()=>document.getElementById("email");
+const mobileEl = ()=>document.getElementById("mobile");
+const facultyEl = ()=>document.getElementById("facultySelect"); // NOTE: id="facultySelect"
+const batchIdEl = ()=>document.getElementById("batchId");
+const quizEl = ()=>document.getElementById("quizMarks");
+
+document.addEventListener("DOMContentLoaded", () => showPage(1));
 </script>
 </body>
 </html>
