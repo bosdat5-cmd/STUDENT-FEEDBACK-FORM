@@ -5,15 +5,11 @@
   <title>THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
-    /* ====== Global Layout ====== */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #667eea, #764ba2);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      margin: 0; padding: 0;
+      display: flex; justify-content: center; align-items: flex-start;
       min-height: 100vh;
     }
     .container {
@@ -21,119 +17,34 @@
       margin-top: 40px;
       padding: 30px;
       border-radius: 20px;
-      width: 80%;
-      max-width: 900px;
+      width: 80%; max-width: 900px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-      animation: fadeIn 0.6s ease-in-out;
     }
-    h2 {
-      text-align: center;
-      color: #2b2d42;
-      margin-bottom: 10px;
-      font-size: 28px;
-      font-weight: bold;
-    }
-    h3 {
-      color: #444;
-      margin: 25px 0 10px;
-      font-size: 20px;
-      border-left: 5px solid #764ba2;
-      padding-left: 10px;
-    }
-    label {
-      font-weight: 600;
-      display: block;
-      margin: 12px 0 6px;
-      color: #333;
-    }
-
-    /* ====== Inputs & Selects ====== */
+    h2 { text-align: center; color: #2b2d42; margin-bottom: 10px; }
+    h3 { color: #444; margin: 25px 0 10px; border-left: 5px solid #764ba2; padding-left: 10px; }
+    label { font-weight: 600; display: block; margin: 12px 0 6px; color: #333; }
     input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      outline: none;
-      font-size: 14px;
-      margin-bottom: 15px;
-      transition: all 0.3s;
+      width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 10px;
+      outline: none; font-size: 14px; margin-bottom: 15px;
     }
-    input:focus, select:focus, textarea:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 8px rgba(102,126,234,0.5);
-    }
-
-    textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
-
-    /* ====== Buttons ====== */
     button {
       background: linear-gradient(45deg, #667eea, #764ba2);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 20px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      margin: 8px 5px 0 0;
-      transition: all 0.3s;
+      color: #fff; border: none; border-radius: 10px;
+      padding: 10px 20px; font-weight: bold;
+      cursor: pointer; margin: 8px 5px 0 0;
     }
-    button:hover {
-      transform: scale(1.05);
-      background: linear-gradient(45deg, #ff6a00, #ee0979);
-    }
-
-    /* ====== Cards ====== */
-    .form-page {
-      display: none;
-    }
-    .active-page {
-      display: block;
-    }
+    button:hover { background: linear-gradient(45deg, #ff6a00, #ee0979); }
+    .form-page { display: none; }
+    .active-page { display: block; }
     .card {
-      background: #f9f9ff;
-      padding: 20px;
-      margin: 15px 0;
-      border-radius: 15px;
+      background: #f9f9ff; padding: 20px; margin: 15px 0; border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
       border-left: 6px solid #667eea;
     }
-
-    /* ====== Results ====== */
-    #resultBox {
-      background: #edf2ff;
-      padding: 15px;
-      border-radius: 12px;
-      margin-top: 20px;
-      border-left: 6px solid #764ba2;
-    }
-    #finalScore, #finalGrade {
-      font-weight: bold;
-      color: #d72638;
-    }
-
-    /* ====== Thank You Page ====== */
-    .thankyou {
-      text-align: center;
-      padding: 40px;
-    }
-    .thankyou h2 {
-      font-size: 30px;
-      color: #06d6a0;
-    }
-    .thankyou p {
-      font-size: 18px;
-      color: #333;
-    }
-
-    /* ====== Animations ====== */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    #resultBox { background: #edf2ff; padding: 15px; border-radius: 12px; margin-top: 20px; }
+    #finalScore, #finalGrade { font-weight: bold; color: #d72638; }
+    .thankyou { text-align: center; padding: 40px; }
+    .thankyou h2 { font-size: 30px; color: #06d6a0; }
   </style>
 </head>
 <body>
@@ -141,7 +52,7 @@
   <h2>THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</h2>
   <h3 style="text-align:center; color:#764ba2;">Faculty Self-Evaluation Form – Chartered Accountancy Educators</h3>
 
-  <!-- ===== Page 1 ===== -->
+  <!-- Page 1 -->
   <div class="form-page active-page" id="page1">
     <h3>Basic Information</h3>
     <div class="card">
@@ -175,18 +86,14 @@
     <button onclick="nextPage()">➡ Next</button>
   </div>
 
-  <!-- ===== Page 2 ===== -->
+  <!-- Page 2 -->
   <div class="form-page" id="page2">
     <h3>Session Feedback</h3>
     <div class="card">
-      <label for="daySelect">Select Day:</label>
+      <label>Select Day:</label>
       <select id="daySelect">
         <option value="">-- Select Day --</option>
-        <option value="Day 1">Day 1</option>
-        <option value="Day 2">Day 2</option>
-        <option value="Day 3">Day 3</option>
-        <option value="Day 4">Day 4</option>
-        <option value="Day 5">Day 5</option>
+        <option>Day 1</option><option>Day 2</option><option>Day 3</option><option>Day 4</option><option>Day 5</option>
       </select>
       <label>Student Unique Key (SRN):</label>
       <select id="uniqueKeySelect"><option value="">-- Select SRN --</option></select>
@@ -195,7 +102,7 @@
     <button onclick="goToQuestions()">➡ Next</button>
   </div>
 
-  <!-- ===== Page 3 ===== -->
+  <!-- Page 3 -->
   <div class="form-page" id="page3">
     <h2>Self-Evaluation Questions</h2>
     <h3>Section A: Teaching Effectiveness</h3>
@@ -247,7 +154,7 @@
     <button onclick="SubmitFeedback()">✅ Submit Feedback</button>
   </div>
 
-  <!-- ===== Page 4 ===== -->
+  <!-- Page 4 -->
   <div class="form-page" id="page4">
     <div class="thankyou">
       <h2>🎉 Thank You!</h2>
@@ -256,10 +163,126 @@
       <p id="dailyQuote"></p>
     </div>
   </div>
+</div>
 
 <script>
-/* === JS same as your previous version (not repeated fully for brevity) === */
+// Branches
+const branches = {
+  "CIRC":["Agra","Ajmer","Aligarh"],
+  "WIRC":["Ahmedabad","Mumbai"],
+  "SIRC":["Bengaluru","Hyderabad"],
+  "EIRC":["Kolkata","Bhubaneswar"],
+  "NIRC":["Delhi","Chandigarh"],
+  "FIRC":["Dubai"]
+};
+function updateBranches(){
+  const region=document.getElementById("regionSelect").value;
+  const branchSelect=document.getElementById("branchSelect");
+  branchSelect.innerHTML='<option value="">-- Select Branch --</option>';
+  if(region && branches[region]){
+    branches[region].forEach(b=>{
+      const opt=document.createElement("option");
+      opt.value=b; opt.textContent=b;
+      branchSelect.appendChild(opt);
+    });
+  }
+}
+
+// Section A Questions
+const questions=[
+  "Subject knowledge","Session planning & structure","Communication skills","Engagement & interaction",
+  "Innovative methods","Time management","Adherence to guidelines","Response to questions",
+  "Practical examples","Professional conduct","Technology use","Discipline","Student feedback",
+  "Contribution to growth","Overall impact"
+];
+function renderQuestions(){
+  const container=document.getElementById("questionsContainer");
+  container.innerHTML="";
+  questions.forEach((q,i)=>{
+    const block=document.createElement("div");
+    block.innerHTML=`<label>${i+1}. ${q}</label>
+    <select class="ratingSelect">
+      <option value="">-- Select Rating --</option>
+      <option value="20">1 - Poor (20)</option>
+      <option value="40">2 - Below Average (40)</option>
+      <option value="60">3 - Average (60)</option>
+      <option value="80">4 - Good (80)</option>
+      <option value="100">5 - Excellent (100)</option>
+    </select>`;
+    container.appendChild(block);
+  });
+  document.querySelectorAll(".ratingSelect").forEach(sel=>sel.addEventListener("change",updateLiveScore));
+}
+document.addEventListener("DOMContentLoaded",renderQuestions);
+
+function updateLiveScore(){
+  const selects=document.querySelectorAll("#questionsContainer select");
+  let total=0,count=0;
+  selects.forEach(sel=>{if(sel.value){total+=parseInt(sel.value);count++;}});
+  const avg=count?total/count:0;
+  document.getElementById("finalScore").innerText=avg.toFixed(2);
+  let grade="-";
+  if(avg>=85) grade="A+"; else if(avg>=70) grade="A";
+  else if(avg>=50) grade="B+"; else if(avg>=30) grade="B";
+  else if(avg>0) grade="C";
+  document.getElementById("finalGrade").innerText=grade;
+}
+
+// Navigation
+let currentPage=1;
+function nextPage(){document.getElementById("page"+currentPage).classList.remove("active-page"); currentPage++; document.getElementById("page"+currentPage).classList.add("active-page");}
+function prevPage(){document.getElementById("page"+currentPage).classList.remove("active-page"); currentPage--; document.getElementById("page"+currentPage).classList.add("active-page");}
+
+// Download Excel Template
+function downloadTemplate(){
+  const wb=XLSX.utils.book_new();
+  const wsData=[["S.No","SRN","Name"]];
+  const ws=XLSX.utils.aoa_to_sheet(wsData);
+  XLSX.utils.book_append_sheet(wb,ws,"Template");
+  XLSX.writeFile(wb,"Student_Template.xlsx");
+}
+
+// File Upload
+let srnList=[];
+function handleFileUpload(event){
+  const file=event.target.files[0];
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const data=new Uint8Array(e.target.result);
+    const workbook=XLSX.read(data,{type:"array"});
+    const sheetName=workbook.SheetNames[0];
+    const sheet=workbook.Sheets[sheetName];
+    const jsonData=XLSX.utils.sheet_to_json(sheet,{header:1});
+    srnList=[];
+    for(let i=1;i<jsonData.length;i++){if(jsonData[i][1]) srnList.push(jsonData[i][1]);}
+    loadSRNDropdown();
+    alert("✅ Student SRNs loaded successfully!");
+  };
+  reader.readAsArrayBuffer(file);
+}
+function loadSRNDropdown(){
+  const dropdown=document.getElementById("uniqueKeySelect");
+  dropdown.innerHTML='<option value="">-- Select SRN --</option>';
+  srnList.forEach(srn=>{
+    const opt=document.createElement("option");
+    opt.value=srn; opt.textContent=srn;
+    dropdown.appendChild(opt);
+  });
+}
+function goToQuestions(){
+  const daySelect=document.getElementById("daySelect");
+  const srnSelect=document.getElementById("uniqueKeySelect");
+  if(!daySelect.value){alert("⚠️ Please select a day.");return;}
+  if(!srnSelect.value){alert("⚠️ Please select a student (SRN).");return;}
+  document.querySelectorAll(".form-page").forEach(p=>p.classList.remove("active-page"));
+  currentPage=3; document.getElementById("page3").classList.add("active-page");
+}
+function SubmitFeedback(){
+  alert("✅ Feedback submitted successfully!");
+  document.querySelectorAll(".form-page").forEach(p=>p.classList.remove("active-page"));
+  document.getElementById("page4").classList.add("active-page");
+  document.getElementById("dailyQuote").innerText="Keep pushing forward, every effort counts!";
+}
 </script>
-</div>
 </body>
 </html>
