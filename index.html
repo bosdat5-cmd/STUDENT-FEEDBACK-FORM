@@ -230,9 +230,8 @@ function loadQuestions() {
 function calculateScore(){
   let total = 0, count = 0;
 
-  // --- Rating questions ---
-  const ratingQuestions = 13; // first 13 rating questions
-  for (let i = 0; i < ratingQuestions; i++){
+  // --- First 13 rating questions ---
+  for (let i = 0; i < 13; i++){
     const val = parseInt(document.getElementById("q" + i)?.value || 0, 10);
     if(val){ total += val; count++; }
   }
@@ -245,15 +244,17 @@ function calculateScore(){
     else if(valStr === "Good") val = 80;
     else if(valStr === "Average") val = 60;
     else if(valStr === "Poor") val = 40;
-    
-    if(val) { total += val; count++; }
+
+    if(val){ total += val; count++; }
   }
 
+  // --- Average score calculation ---
   const avg = count > 0 ? total / count : 0;
   const quiz = parseFloat(document.getElementById("quizMarks")?.value || 0);
   const weightage = (avg + quiz) / 2;
   document.getElementById("weightageScore").innerText = weightage.toFixed(2);
 
+  // --- Grade assignment ---
   let grade = "C";
   if(weightage >= 85) grade = "A+";
   else if(weightage >= 70) grade = "A";
@@ -270,5 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 
