@@ -2,139 +2,266 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Faculty Feedback Form</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Feedback Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: 'Poppins', sans-serif; background: #f9fafb; margin:0; padding:0; }
-    .container { max-width: 800px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    h2 { text-align:center; margin-bottom:20px; }
-    label { display:block; margin-top:15px; font-weight:600; }
-    input, select, textarea { width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:8px; }
-    button { background:#2563eb; color:#fff; border:none; padding:12px 24px; border-radius:8px; margin-top:20px; cursor:pointer; font-size:16px; }
-    button:disabled { background:#999; }
-    #loader { display:none; justify-content:center; align-items:center; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.7); z-index:1000; }
-    #loader span { padding:20px; background:#fff; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.2); font-weight:600; }
+    .form-page { display: none; }
+    .form-page.active { display: block; }
+    .faculty-card { transition: all 0.3s ease; }
+    .faculty-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.1);}
+    .progress-bar { transition: width 0.5s ease-in-out; }
   </style>
 </head>
-<body>
-<div class="container">
-  <h2>Faculty Feedback Form</h2>
+<body class="bg-gray-50 min-h-screen">
 
-  <!-- Student Info -->
-  <label>Student Name *</label>
-  <input type="text" id="studentName" required>
+<div class="container mx-auto px-4 py-8 max-w-4xl">
 
-  <label>Registration Number *</label>
-  <input type="text" id="regNumber" required>
-
-  <label>Email *</label>
-  <input type="email" id="email" required>
-
-  <label>Mobile Number *</label>
-  <input type="text" id="mobile" required>
-
-  <label>Batch ID *</label>
-  <input type="text" id="batchId" required>
-
-  <label>Faculty *</label>
-  <select id="faculty" required>
-    <option value="">Select Faculty</option>
-    <option value="Faculty 1">Faculty 1</option>
-    <option value="Faculty 2">Faculty 2</option>
-    <option value="Faculty 3">Faculty 3</option>
-    <option value="Faculty 4">Faculty 4</option>
-    <option value="Faculty 5">Faculty 5</option>
-  </select>
-
-  <!-- 13 Rating Questions -->
-  <h3>Rate the following (1-5)</h3>
-  <div id="questionsContainer">
-    <label>Q1. Punctuality</label><input type="number" id="q0" min="1" max="5" required>
-    <label>Q2. Regularity</label><input type="number" id="q1" min="1" max="5" required>
-    <label>Q3. Subject Knowledge</label><input type="number" id="q2" min="1" max="5" required>
-    <label>Q4. Communication</label><input type="number" id="q3" min="1" max="5" required>
-    <label>Q5. Presentation</label><input type="number" id="q4" min="1" max="5" required>
-    <label>Q6. Interaction</label><input type="number" id="q5" min="1" max="5" required>
-    <label>Q7. Doubt Clarification</label><input type="number" id="q6" min="1" max="5" required>
-    <label>Q8. Discipline</label><input type="number" id="q7" min="1" max="5" required>
-    <label>Q9. Use of Examples</label><input type="number" id="q8" min="1" max="5" required>
-    <label>Q10. Syllabus Coverage</label><input type="number" id="q9" min="1" max="5" required>
-    <label>Q11. Quality of Notes</label><input type="number" id="q10" min="1" max="5" required>
-    <label>Q12. Encourages Questions</label><input type="number" id="q11" min="1" max="5" required>
-    <label>Q13. Overall Effectiveness</label><input type="number" id="q12" min="1" max="5" required>
+  <!-- Header -->
+  <div class="text-center mb-8">
+    <h1 class="text-3xl font-bold text-black mb-1">THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</h1>
+    <h2 class="text-4xl font-bold text-blue-800 mb-4">STUDENT FEEDBACK FORM</h2>
+    <p class="text-gray-600">Your feedback helps us improve the quality of education</p>
   </div>
 
-  <!-- 4 Parameter Questions -->
-  <h3>Additional Parameters</h3>
-  <label>ParaQ1. Pace of Teaching</label><input type="number" id="paraQ0" min="1" max="5" required>
-  <label>ParaQ2. Encouragement</label><input type="number" id="paraQ1" min="1" max="5" required>
-  <label>ParaQ3. Practical Relevance</label><input type="number" id="paraQ2" min="1" max="5" required>
-  <label>ParaQ4. Classroom Engagement</label><input type="number" id="paraQ3" min="1" max="5" required>
+  <!-- Progress Bar -->
+  <div class="mb-8 bg-white rounded-lg shadow-sm p-4">
+    <div class="flex justify-between items-center mb-2">
+      <span class="text-sm font-medium text-gray-700">Progress</span>
+      <span class="text-sm font-medium text-blue-600" id="progress-text">0%</span>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-2">
+      <div class="progress-bar bg-blue-600 h-2 rounded-full" style="width:0%"></div>
+    </div>
+  </div>
 
-  <!-- Quiz + Calculated -->
-  <label>Quiz Marks</label>
-  <input type="number" id="quizMarks">
+  <!-- Page 1: Student Info -->
+  <div id="page1" class="form-page active bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Student Information</h2>
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+        <input type="text" id="studentName" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="Enter your full name">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Registration Number *</label>
+        <input type="text" id="regNumber" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="AAA1234567">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Email ID *</label>
+        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="Enter email address">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Mobile Number *</label>
+        <input type="tel" id="mobile" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="Enter mobile number">
+      </div>
+    </div>
+    <div class="mt-8 flex justify-end">
+      <button onclick="validatePage1()" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">Next → Select Faculty</button>
+    </div>
+  </div>
 
-  <p><b>Weightage Score:</b> <span id="weightageScore">0</span></p>
-  <p><b>Grade:</b> <span id="grade">-</span></p>
+  <!-- Page 2: Faculty Selection -->
+  <div id="page2" class="form-page bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Select Faculty for Feedback</h2>
+    <p class="text-gray-600 mb-6">Please select one faculty at a time. Completed faculties are highlighted in green.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="facultyGrid"></div>
+  </div>
 
-  <!-- Comments -->
-  <label>Additional Comments (Optional)</label>
-  <textarea id="additionalComments"></textarea>
+  <!-- Page 3: Faculty Feedback -->
+  <div id="page3" class="form-page bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-2">Feedback for <span id="currentFaculty" class="text-blue-600"></span></h2>
+    <p class="text-gray-600 mb-6">Please answer all questions:</p>
+    <div class="space-y-6" id="questionsContainer">
 
-  <!-- Submit -->
-  <button onclick="submitFeedback()">Submit Feedback</button>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Batch ID *</label>
+        <input type="text" id="batchId" class="w-full px-4 py-2 border border-gray-300 rounded-md">
+      </div>
+
+      <!-- Ratings -->
+      <div><label>Attendance & Punctuality *</label><select id="attendance" class="ratingSelect"></select></div>
+      <div><label>Professional Dress Code *</label><select id="dressCode" class="ratingSelect"></select></div>
+      <div><label>Discipline & Conduct *</label><select id="discipline" class="ratingSelect"></select></div>
+      <div><label>Active Participation *</label><select id="participation" class="ratingSelect"></select></div>
+      <div><label>Group Activities & Teamwork *</label><select id="teamwork" class="ratingSelect"></select></div>
+      <div><label>Presentation Content *</label><select id="presentationContent" class="ratingSelect"></select></div>
+      <div><label>Presentation Delivery *</label><select id="presentationDelivery" class="ratingSelect"></select></div>
+      <div><label>Communication Skills *</label><select id="communication" class="ratingSelect"></select></div>
+      <div><label>Analytical Thinking *</label><select id="analytical" class="ratingSelect"></select></div>
+      <div><label>Creativity & Innovation *</label><select id="creativity" class="ratingSelect"></select></div>
+      <div><label>Professional Ethics Awareness *</label><select id="ethics" class="ratingSelect"></select></div>
+      <div><label>Emotional Intelligence *</label><select id="emotional" class="ratingSelect"></select></div>
+      <div><label>Overall Engagement *</label><select id="overallEngagement" class="ratingSelect"></select></div>
+
+      <!-- ✅ Additional Questions -->
+      <div><label>Learning Resources & Study Material *</label><select id="resources" class="ratingSelect"></select></div>
+      <div><label>Mentorship & Guidance *</label><select id="mentorship" class="ratingSelect"></select></div>
+      <div><label>Practical Knowledge *</label><select id="practical" class="ratingSelect"></select></div>
+      <div><label>Exam Preparation Support *</label><select id="examPrep" class="ratingSelect"></select></div>
+
+      <!-- Quiz -->
+      <div>
+        <label>Quiz Marks *</label>
+        <input type="text" id="quizMarks" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="e.g. 99%">
+      </div>
+
+      <!-- Score -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Weighted Score</label>
+        <span id="weightedScoreDisplay" class="block px-4 py-2 border border-gray-300 rounded-md bg-gray-100">0</span>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Grade</label>
+        <span id="gradeDisplay" class="block px-4 py-2 border border-gray-300 rounded-md bg-gray-100">-</span>
+      </div>
+
+      <!-- Final Comments -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Additional Comments</label>
+        <textarea id="comments" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="Write your suggestions..."></textarea>
+      </div>
+
+    </div>
+
+    <div class="mt-8 flex justify-between">
+      <button onclick="showFacultySelection()" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600">← Back</button>
+      <button onclick="submitFacultyFeedback()" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">Next →</button>
+    </div>
+  </div>
+
+  <!-- Page 4: Completion -->
+  <div id="page4" class="form-page bg-white rounded-lg shadow-md p-6 text-center">
+    <h2 class="text-3xl font-bold text-green-600 mb-4">All Feedback Submitted Successfully!</h2>
+    <p class="text-gray-600 mb-6">Thank you for your valuable feedback.</p>
+  </div>
 </div>
 
-<div id="loader"><span>Submitting...</span></div>
-
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwikG3XgsZKQi-pKNCY8rr8nKv9sa9dWmHhlqpiTxrx49LJwAVfsYlH1eY-S7kt0l1uKA/exec";  // Replace with deployed Google Apps Script Web App URL
+let faculties = ["Sandeep Agarwal","Bhanu Dhir","Shekhar Sharma","Anju Gupta","Preeti Goel","Rohit Agarwal","Sunita Rathore"];
+let completedFaculties = [];
+let selectedFacultyIndex = -1;
 
-function submitFeedback(){
-  let answers = [];
-  for(let i=0; i<13; i++){
-    answers.push(document.getElementById("q"+i).value || "");
-  }
-  for(let i=0; i<4; i++){
-    answers.push(document.getElementById("paraQ"+i).value || "");
-  }
+const scoreMap = {
+  "POOR": 20,
+  "BELOW AVERAGE": 40,
+  "AVERAGE": 60,
+  "GOOD": 80,
+  "EXCELLENT": 100
+};
 
-  const data = {
-    studentName: document.getElementById("studentName").value.trim(),
-    regNumber: document.getElementById("regNumber").value.trim(),
-    email: document.getElementById("email").value.trim(),
-    mobile: document.getElementById("mobile").value.trim(),
-    faculty: document.getElementById("faculty").value,
-    batchId: document.getElementById("batchId").value.trim(),
-    answers: answers,
-    quizMarks: document.getElementById("quizMarks").value.trim(),
-    weightage: document.getElementById("weightageScore").innerText,
-    grade: document.getElementById("grade").innerText,
-    additionalComments: document.getElementById("additionalComments").value.trim()
+// populate dropdowns
+document.querySelectorAll(".ratingSelect").forEach(sel=>{
+  sel.innerHTML = `<option value="">Select rating</option>
+  <option>1: Poor</option><option>2: Below Average</option>
+  <option>3: Average</option><option>4: Good</option>
+  <option>5: Excellent</option>`;
+});
+
+// show page
+function showPage(id){document.querySelectorAll(".form-page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");}
+
+// validation
+function validatePage1(){
+  let name=document.getElementById("studentName").value.trim();
+  let reg=document.getElementById("regNumber").value.trim();
+  let email=document.getElementById("email").value.trim();
+  let mob=document.getElementById("mobile").value.trim();
+  if(!name||!reg||!email||!mob){alert("Fill all details");return;}
+  showFacultySelection();
+}
+
+// show faculty selection
+function showFacultySelection(){
+  showPage("page2");
+  const grid=document.getElementById("facultyGrid");grid.innerHTML="";
+  faculties.forEach((f,i)=>{
+    let card=document.createElement("div");
+    card.className="faculty-card p-4 border rounded-md text-center "+(completedFaculties.includes(f)?"bg-green-200":"bg-gray-50 cursor-pointer");
+    card.innerHTML=`<h3 class="font-semibold">${f}</h3>`;
+    if(!completedFaculties.includes(f)){card.onclick=()=>{selectedFacultyIndex=i;startFeedback();};}
+    grid.appendChild(card);
+  });
+}
+
+// start feedback
+function startFeedback(){
+  showPage("page3");
+  document.getElementById("currentFaculty").innerText=faculties[selectedFacultyIndex];
+  document.querySelectorAll("#questionsContainer select").forEach(el=>el.selectedIndex=0);
+  document.getElementById("quizMarks").value="";
+  document.getElementById("comments").value="";
+  document.querySelectorAll("#questionsContainer select").forEach(el=>el.addEventListener("change",calculateWeighted));
+  document.getElementById("quizMarks").addEventListener("input",calculateWeighted);
+}
+
+// calc weighted
+function calculateWeighted(){
+  let total=0,count=0;
+  document.querySelectorAll("#questionsContainer select").forEach(el=>{
+    if(el.value){total+=scoreMap[el.value.split(":")[1].trim().toUpperCase()];count++;}});
+  let quiz=parseFloat(document.getElementById("quizMarks").value)||0;
+  let avg=count?total/count:0;
+  let weighted=(avg+quiz)/2;
+  let grade="-";
+  if(weighted>=85) grade="A+"; else if(weighted>=70) grade="A"; else if(weighted>=55) grade="B+"; else if(weighted>=40) grade="B"; else grade="C";
+  document.getElementById("weightedScoreDisplay").innerText=weighted?weighted.toFixed(2):"0";
+  document.getElementById("gradeDisplay").innerText=grade;
+}
+
+// get score
+function getScore(id){let v=document.getElementById(id).value;if(!v) return 0;return scoreMap[v.split(":")[1].trim().toUpperCase()]||0;}
+
+// submit
+function submitFacultyFeedback(){
+  let selects=document.querySelectorAll("#questionsContainer select");
+  for(let el of selects){if(!el.value){alert("Fill all fields");return;}}
+  let quiz=parseFloat(document.getElementById("quizMarks").value)||0;
+  if(quiz<=0){alert("Quiz marks must be valid");return;}
+  let payload={
+    studentName:document.getElementById("studentName").value,
+    regNumber:document.getElementById("regNumber").value,
+    email:document.getElementById("email").value,
+    mobile:document.getElementById("mobile").value,
+    faculty:faculties[selectedFacultyIndex],
+    batchId:document.getElementById("batchId").value,
+    attendance:getScore("attendance"),
+    dressCode:getScore("dressCode"),
+    discipline:getScore("discipline"),
+    participation:getScore("participation"),
+    teamwork:getScore("teamwork"),
+    presentationContent:getScore("presentationContent"),
+    presentationDelivery:getScore("presentationDelivery"),
+    communication:getScore("communication"),
+    analytical:getScore("analytical"),
+    creativity:getScore("creativity"),
+    ethics:getScore("ethics"),
+    emotional:getScore("emotional"),
+    overallEngagement:getScore("overallEngagement"),
+    resources:getScore("resources"),
+    mentorship:getScore("mentorship"),
+    practical:getScore("practical"),
+    examPrep:getScore("examPrep"),
+    quizMarks:quiz,
+    weightedScore:parseFloat(document.getElementById("weightedScoreDisplay").innerText),
+    grade:document.getElementById("gradeDisplay").innerText,
+    comments:document.getElementById("comments").value
   };
 
-  document.getElementById("loader").style.display="flex";
-
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    body: JSON.stringify(data)  // ✅ no headers
-  })
-  .then(res => res.json())
-  .then(res => {
-    document.getElementById("loader").style.display="none";
-    if(res.status==="success"){
-      alert("Feedback submitted successfully!");
-    } else {
-      alert("Submission failed: " + res.message);
-    }
-  })
-  .catch(err => {
-    document.getElementById("loader").style.display="none";
-    alert("Error submitting feedback: " + err);
-  });
+  fetch("https://script.google.com/macros/s/AKfycbwikG3XgsZKQi-pKNCY8rr8nKv9sa9dWmHhlqpiTxrx49LJwAVfsYlH1eY-S7kt0l1uKA/exec",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(payload)
+  }).then(r=>{
+    if(r.ok){
+      completedFaculties.push(faculties[selectedFacultyIndex]);
+      let percent=Math.round((completedFaculties.length/faculties.length)*100);
+      document.querySelector(".progress-bar").style.width=percent+"%";
+      document.getElementById("progress-text").innerText=percent+"%";
+      if(completedFaculties.length>=faculties.length) showPage("page4"); else showFacultySelection();
+    }else alert("Error submitting feedback");
+  }).catch(e=>alert("Fetch Error: "+e.message));
 }
 </script>
 </body>
 </html>
-
