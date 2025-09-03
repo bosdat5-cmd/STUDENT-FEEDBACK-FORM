@@ -1,225 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>ICAI Student Feedback</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  body { font-family: 'Poppins', sans-serif; background: #f1f3f4; margin:0; padding:30px; display:flex; justify-content:center; align-items:flex-start; min-height:100vh;}
-  .container { background:#fff; padding:30px 40px; border-radius:12px; width:650px; box-shadow:0 2px 8px rgba(0,0,0,0.15); }
-  h1 { text-align:center; margin-bottom:25px; color:#202124; font-size:22px; }
-  h2 { font-size:18px; font-weight:600; color:#202124; border-bottom:1px solid #dadce0; padding-bottom:8px; margin-bottom:20px; }
-  label { font-weight:500; display:block; margin:12px 0 6px; color:#202124; }
-  input, select, textarea { width:100%; padding:10px 12px; border:1px solid #dadce0; border-radius:6px; margin-bottom:15px; font-size:14px; }
-  .btn { background:#1a73e8; color:#fff; border:none; border-radius:6px; padding:10px 20px; cursor:pointer; margin:8px 8px 0 0; }
-  .btn:hover { background:#1558b0; }
-  .form-page { display:none; }
-  .active-page { display:block; }
-  .question-block { background:#f8f9fa; border:1px solid #dadce0; border-radius:8px; padding:15px 18px; margin-bottom:18px; }
-  #loader { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:9999; align-items:center; justify-content:center; }
-  .spinner { border:6px solid #f3f3f3; border-top:6px solid #1a73e8; border-radius:50%; width:60px; height:60px; animation:spin 1s linear infinite; }
-  @keyframes spin {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-</style>
+  <meta charset="UTF-8">
+  <title>Faculty Feedback Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; background: #f9fafb; margin:0; padding:0; }
+    .container { max-width: 800px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    h2 { text-align:center; margin-bottom:20px; }
+    label { display:block; margin-top:15px; font-weight:600; }
+    input, select, textarea { width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:8px; }
+    button { background:#2563eb; color:#fff; border:none; padding:12px 24px; border-radius:8px; margin-top:20px; cursor:pointer; font-size:16px; }
+    button:disabled { background:#999; }
+    #loader { display:none; justify-content:center; align-items:center; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.7); z-index:1000; }
+    #loader span { padding:20px; background:#fff; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.2); font-weight:600; }
+  </style>
 </head>
 <body>
-<div>
-<h1>ICAI Student Feedback Form</h1>
 <div class="container">
+  <h2>Faculty Feedback Form</h2>
 
-<!-- Page 1 -->
-<div id="page1" class="form-page active-page">
-  <h2>Basic Information</h2>
+  <!-- Student Info -->
   <label>Student Name *</label>
-  <input id="studentName" type="text">
+  <input type="text" id="studentName" required>
+
   <label>Registration Number *</label>
-  <input id="regNumber" type="text" placeholder="CRO1234567">
+  <input type="text" id="regNumber" required>
+
   <label>Email *</label>
-  <input id="email" type="email">
+  <input type="email" id="email" required>
+
   <label>Mobile Number *</label>
-  <input id="mobile" type="tel" placeholder="10 digit number">
-  <button class="btn" onclick="validatePage1()">Next →</button>
-</div>
+  <input type="text" id="mobile" required>
 
-<!-- Page 2 -->
-<div id="page2" class="form-page">
-  <h2>Select Faculty</h2>
-  <select id="facultySelect"></select>
-  <br>
-  <button class="btn" onclick="showPage(1)">← Back</button>
-  <button class="btn" onclick="validatePage2()">Next →</button>
-</div>
+  <label>Batch ID *</label>
+  <input type="text" id="batchId" required>
 
-<!-- Page 3 -->
-<div id="page3" class="form-page">
-  <h2>Faculty Feedback</h2>
-  <div class="question-block">
-    <label>Batch ID *</label>
-    <input id="batchId">
+  <label>Faculty *</label>
+  <select id="faculty" required>
+    <option value="">Select Faculty</option>
+    <option value="Faculty 1">Faculty 1</option>
+    <option value="Faculty 2">Faculty 2</option>
+    <option value="Faculty 3">Faculty 3</option>
+    <option value="Faculty 4">Faculty 4</option>
+    <option value="Faculty 5">Faculty 5</option>
+  </select>
+
+  <!-- 13 Rating Questions -->
+  <h3>Rate the following (1-5)</h3>
+  <div id="questionsContainer">
+    <label>Q1. Punctuality</label><input type="number" id="q0" min="1" max="5" required>
+    <label>Q2. Regularity</label><input type="number" id="q1" min="1" max="5" required>
+    <label>Q3. Subject Knowledge</label><input type="number" id="q2" min="1" max="5" required>
+    <label>Q4. Communication</label><input type="number" id="q3" min="1" max="5" required>
+    <label>Q5. Presentation</label><input type="number" id="q4" min="1" max="5" required>
+    <label>Q6. Interaction</label><input type="number" id="q5" min="1" max="5" required>
+    <label>Q7. Doubt Clarification</label><input type="number" id="q6" min="1" max="5" required>
+    <label>Q8. Discipline</label><input type="number" id="q7" min="1" max="5" required>
+    <label>Q9. Use of Examples</label><input type="number" id="q8" min="1" max="5" required>
+    <label>Q10. Syllabus Coverage</label><input type="number" id="q9" min="1" max="5" required>
+    <label>Q11. Quality of Notes</label><input type="number" id="q10" min="1" max="5" required>
+    <label>Q12. Encourages Questions</label><input type="number" id="q11" min="1" max="5" required>
+    <label>Q13. Overall Effectiveness</label><input type="number" id="q12" min="1" max="5" required>
   </div>
-  <div id="questionsContainer"></div>
-  <div class="question-block">
-    <label>Quiz Marks *</label>
-    <input id="quizMarks" type="number" min="0" max="100" oninput="calculateScore()">
-  </div>
-  <div class="question-block">
-    <p><b>Weightage Score:</b> <span id="weightageScore">0.00</span></p>
-    <p><b>Grade:</b> <span id="grade">-</span></p>
-  </div>
-  <div class="question-block">
-    <label>Additional Comments (Optional)</label>
-    <textarea id="additionalComments" rows="3"></textarea>
-  </div>
-  <button class="btn" onclick="showPage(2)">← Back</button>
-  <button class="btn" onclick="validatePage3()">✅ Submit Feedback</button>
+
+  <!-- 4 Parameter Questions -->
+  <h3>Additional Parameters</h3>
+  <label>ParaQ1. Pace of Teaching</label><input type="number" id="paraQ0" min="1" max="5" required>
+  <label>ParaQ2. Encouragement</label><input type="number" id="paraQ1" min="1" max="5" required>
+  <label>ParaQ3. Practical Relevance</label><input type="number" id="paraQ2" min="1" max="5" required>
+  <label>ParaQ4. Classroom Engagement</label><input type="number" id="paraQ3" min="1" max="5" required>
+
+  <!-- Quiz + Calculated -->
+  <label>Quiz Marks</label>
+  <input type="number" id="quizMarks">
+
+  <p><b>Weightage Score:</b> <span id="weightageScore">0</span></p>
+  <p><b>Grade:</b> <span id="grade">-</span></p>
+
+  <!-- Comments -->
+  <label>Additional Comments (Optional)</label>
+  <textarea id="additionalComments"></textarea>
+
+  <!-- Submit -->
+  <button onclick="submitFeedback()">Submit Feedback</button>
 </div>
 
-<!-- Page 4 -->
-<div id="page4" class="form-page">
-  <h2>🎉 Thank You!</h2>
-  <p>Your feedback has been submitted for all faculties.</p>
-</div>
-
-</div>
-</div>
-
-<!-- Loader -->
-<div id="loader"><div class="spinner"></div></div>
+<div id="loader"><span>Submitting...</span></div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFoCXaitd0DO6obxsE8s4PSEMwD_9c6Zc2c7ol-y55LoOjpH2BOtk_qMdUlLcNE9np/exec";
-const faculties = ["Sandeep Agarwal","Bhanu Dhir","Shekhar Sharma","Anju Gupta","Preeti Goel","Rohit Agarwal","Sunita Rathore"];
-let completedFaculties = [];
-
-function showPage(n){
-  document.querySelectorAll(".form-page").forEach(p=>p.classList.remove("active-page"));
-  document.getElementById("page"+n).classList.add("active-page");
-  if(n===2) loadFaculties();
-  if(n===3) loadQuestions();
-}
-
-function validatePage1(){
-  if(!studentNameEl().value.trim()||!regNumberEl().value.trim()||!emailEl().value.trim()||!mobileEl().value.trim()){
-    return alert("Fill all fields"); }
-  showPage(2);
-}
-
-function validatePage2(){
-  if(!facultyEl().value) return alert("Select faculty");
-  showPage(3);
-}
-
-function validatePage3(){
-  if(!batchIdEl().value.trim()) return alert("Batch ID required");
-  submitFeedback();
-}
-
-function loadFaculties(){
-  const select = facultyEl();
-  select.innerHTML = "<option value=''>--Select Faculty--</option>";
-  faculties.filter(f=>!completedFaculties.includes(f)).forEach(f=>{
-    const opt = document.createElement("option");
-    opt.value = f; opt.textContent=f; select.appendChild(opt);
-  });
-  if(completedFaculties.length===faculties.length) showPage(4);
-}
-
-function loadQuestions(){
-  const container = document.getElementById("questionsContainer");
-  container.innerHTML = "";
-  const ratingQ = [
-    "Attendance & Punctuality","Discipline","Active Participation","Group Activities & Teamwork",
-    "Presentation - Content","Presentation - Delivery","Communication Skills","Analytical Thinking",
-    "Creativity & Innovation","Professional Ethics Awareness","Emotional Intelligence","Overall Engagement",
-    "Professional Dress Code","Subject Knowledge (New Q14)","Clarity in Doubts (New Q15)"
-  ];
-  const optionQ = [
-    "Industry/ Practice real life examples","Accessibility for clarification",
-    "Personalised guidance","Inspiring / motivating","Encouraging Confidence (New ParaQ5)"
-  ];
-  ratingQ.forEach((q,i)=>container.innerHTML+=`
-    <div class="question-block">
-      <label>${q} *</label>
-      <select id="q${i}" onchange="calculateScore()">
-        <option value="">--Select--</option>
-        <option value="20">POOR</option>
-        <option value="40">BELOW AVERAGE</option>
-        <option value="60">AVERAGE</option>
-        <option value="80">GOOD</option>
-        <option value="100">EXCELLENT</option>
-      </select>
-    </div>`);
-  optionQ.forEach((q,i)=>container.innerHTML+=`
-    <div class="question-block">
-      <label>${q} *</label>
-      <select id="paraQ${i}" onchange="calculateScore()">
-        <option value="">--Select--</option>
-        <option value="20">POOR</option>
-        <option value="40">BELOW AVERAGE</option>
-        <option value="60">AVERAGE</option>
-        <option value="80">GOOD</option>
-        <option value="100">EXCELLENT</option>
-      </select>
-    </div>`);
-}
-
-function calculateScore(){
-  let total=0,count=0;
-  document.querySelectorAll("#questionsContainer select").forEach(sel=>{
-    let v=parseInt(sel.value||0,10); if(v){total+=v; count++;}});
-  const avg = count>0?total/count:0;
-  const quiz=parseFloat(quizEl().value||0);
-  const weight=(avg+quiz)/2;
-  document.getElementById("weightageScore").innerText=weight.toFixed(2);
-  let grade="C"; if(weight>=85) grade="A+"; else if(weight>=70) grade="A"; else if(weight>=50) grade="B+"; else if(weight>=30) grade="B";
-  document.getElementById("grade").innerText=grade;
-}
+const SCRIPT_URL = "YOUR_WEB_APP_URL_HERE";  // Replace with deployed Google Apps Script Web App URL
 
 function submitFeedback(){
-  const answers={};
-  document.querySelectorAll("#questionsContainer select").forEach((sel,idx)=>{
-    answers["Q"+(idx+1)]=sel.value||"";
-  });
+  let answers = [];
+  for(let i=0; i<13; i++){
+    answers.push(document.getElementById("q"+i).value || "");
+  }
+  for(let i=0; i<4; i++){
+    answers.push(document.getElementById("paraQ"+i).value || "");
+  }
 
-  const data={
-    studentName: studentNameEl().value.trim(),
-    regNumber: regNumberEl().value.trim(),
-    email: emailEl().value.trim(),
-    mobile: mobileEl().value.trim(),
-    faculty: facultyEl().value,
-    batchId: batchIdEl().value.trim(),
-    quizMarks: quizEl().value.trim(),
-    weightedScore: document.getElementById("weightageScore").innerText,
+  const data = {
+    studentName: document.getElementById("studentName").value.trim(),
+    regNumber: document.getElementById("regNumber").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    mobile: document.getElementById("mobile").value.trim(),
+    faculty: document.getElementById("faculty").value,
+    batchId: document.getElementById("batchId").value.trim(),
+    answers: answers,
+    quizMarks: document.getElementById("quizMarks").value.trim(),
+    weightage: document.getElementById("weightageScore").innerText,
     grade: document.getElementById("grade").innerText,
-    additionalComments: document.getElementById("additionalComments").value.trim(),
-    answers: answers
+    additionalComments: document.getElementById("additionalComments").value.trim()
   };
 
   document.getElementById("loader").style.display="flex";
 
-  fetch(SCRIPT_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)})
-    .then(res=>res.json())
-    .then(res=>{
-      document.getElementById("loader").style.display="none";
-      if(res.status==="success"){
-        completedFaculties.push(data.faculty);
-        batchIdEl().value=""; quizEl().value=""; document.getElementById("additionalComments").value="";
-        document.getElementById("questionsContainer").innerHTML=""; document.getElementById("weightageScore").innerText="0.00"; document.getElementById("grade").innerText="-";
-        if(completedFaculties.length<faculties.length) showPage(2); else showPage(4);
-      } else { alert("Submission failed: "+res.message);}
-    })
-    .catch(err=>{ document.getElementById("loader").style.display="none"; alert("Error submitting feedback: "+err);});
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    body: JSON.stringify(data)  // ✅ no headers
+  })
+  .then(res => res.json())
+  .then(res => {
+    document.getElementById("loader").style.display="none";
+    if(res.status==="success"){
+      alert("Feedback submitted successfully!");
+    } else {
+      alert("Submission failed: " + res.message);
+    }
+  })
+  .catch(err => {
+    document.getElementById("loader").style.display="none";
+    alert("Error submitting feedback: " + err);
+  });
 }
-
-const studentNameEl=()=>document.getElementById("studentName");
-const regNumberEl=()=>document.getElementById("regNumber");
-const emailEl=()=>document.getElementById("email");
-const mobileEl=()=>document.getElementById("mobile");
-const facultyEl=()=>document.getElementById("facultySelect");
-const batchIdEl=()=>document.getElementById("batchId");
-const quizEl=()=>document.getElementById("quizMarks");
-
-document.addEventListener("DOMContentLoaded",()=>showPage(1));
 </script>
 </body>
 </html>
-
