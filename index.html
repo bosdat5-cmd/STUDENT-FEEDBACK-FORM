@@ -6,7 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
   body { font-family: 'Poppins', sans-serif; background: #f1f3f4; margin:0; padding:30px; display:flex; justify-content:center; align-items:flex-start; min-height:100vh;}
-  .container { background:#fff; padding:30px 40px; border-radius:12px; width:650px; box-shadow:0 2px 8px rgba(0,0,0,0.15); }
+  .container { background:#fff; padding:30px 40px; border-radius:12px; width:750px; box-shadow:0 2px 8px rgba(0,0,0,0.15); }
   h1 { text-align:center; margin-bottom:25px; color:#202124; font-size:22px; }
   h2 { font-size:18px; font-weight:600; color:#202124; border-bottom:1px solid #dadce0; padding-bottom:8px; margin-bottom:20px; }
   label { font-weight:500; display:block; margin:12px 0 6px; color:#202124; }
@@ -56,7 +56,44 @@
     <label>Batch ID *</label>
     <input id="batchId">
   </div>
-  <div id="questionsContainer"></div>
+
+  <!-- 13 Rating Questions -->
+  <div class="question-block"><label>1. Attendance & Punctuality *</label><select id="q1"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>2. Discipline *</label><select id="q2"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>3. Active Participation *</label><select id="q3"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>4. Group Activities & Teamwork *</label><select id="q4"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>5. Presentation - Content *</label><select id="q5"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>6. Presentation - Delivery *</label><select id="q6"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>7. Communication Skills *</label><select id="q7"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>8. Analytical Thinking *</label><select id="q8"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>9. Creativity & Innovation *</label><select id="q9"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>10. Professional Ethics Awareness *</label><select id="q10"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>11. Emotional Intelligence *</label><select id="q11"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>12. Overall Engagement *</label><select id="q12"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>13. Professional Dress Code *</label><select id="q13"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <!-- 4 Para Questions -->
+  <div class="question-block"><label>14. Industry/ Practice real life examples *</label><select id="paraQ1"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>15. Accessibility for clarification *</label><select id="paraQ2"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>16. Personalised guidance *</label><select id="paraQ3"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <div class="question-block"><label>17. Inspiring / motivating *</label><select id="paraQ4"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>
+
+  <!-- Quiz + Results -->
   <div class="question-block">
     <label>Quiz Marks *</label>
     <input id="quizMarks" type="number" min="0" max="100" oninput="calculateScore()">
@@ -86,7 +123,7 @@
 <div id="loader"><div class="spinner"></div></div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFoCXaitd0DO6obxsE8s4PSEMwD_9c6Zc2c7ol-y55LoOjpH2BOtk_qMdUlLcNE9np/exec"; // Replace with deployed web app URL
+const SCRIPT_URL = "YOUR_DEPLOYED_WEB_APP_URL"; 
 const faculties = ["Sandeep Agarwal","Bhanu Dhir","Shekhar Sharma","Anju Gupta","Preeti Goel","Rohit Agarwal","Sunita Rathore"];
 let completedFaculties = [];
 
@@ -94,7 +131,6 @@ function showPage(n){
   document.querySelectorAll(".form-page").forEach(p=>p.classList.remove("active-page"));
   document.getElementById("page"+n).classList.add("active-page");
   if(n===2) loadFaculties();
-  if(n===3) loadQuestions();
 }
 
 function validatePage1(){
@@ -123,19 +159,10 @@ function loadFaculties(){
   if(completedFaculties.length===faculties.length) showPage(4);
 }
 
-function loadQuestions(){
-  const container = document.getElementById("questionsContainer");
-  container.innerHTML = "";
-  const ratingQ = ["Attendance & Punctuality","Discipline","Active Participation","Group Activities & Teamwork","Presentation - Content","Presentation - Delivery","Communication Skills","Analytical Thinking","Creativity & Innovation","Professional Ethics Awareness","Emotional Intelligence","Overall Engagement","Professional Dress Code"];
-  const optionQ = ["Industry/ Practice real life examples","Accessibility for clarification","Personalised guidance","Inspiring / motivating"];
-  ratingQ.forEach((q,i)=>container.innerHTML+=`<div class="question-block"><label>${q}*</label><select id="q${i}" onchange="calculateScore()"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>`);
-  optionQ.forEach((q,i)=>container.innerHTML+=`<div class="question-block"><label>${q}*</label><select id="paraQ${i}" onchange="calculateScore()"><option value="">--Select--</option><option value="20">POOR</option><option value="40">BELOW AVERAGE</option><option value="60">AVERAGE</option><option value="80">GOOD</option><option value="100">EXCELLENT</option></select></div>`);
-}
-
 function calculateScore(){
   let total=0,count=0;
-  for(let i=0;i<13;i++){ let v=parseInt(document.getElementById("q"+i)?.value||0,10); if(v){total+=v; count++;}}
-  for(let i=0;i<4;i++){ let v=parseInt(document.getElementById("paraQ"+i)?.value||0,10); if(v){total+=v; count++;}}
+  for(let i=1;i<=13;i++){ let v=parseInt(document.getElementById("q"+i)?.value||0,10); if(v){total+=v; count++;}}
+  for(let i=1;i<=4;i++){ let v=parseInt(document.getElementById("paraQ"+i)?.value||0,10); if(v){total+=v; count++;}}
   const avg = count>0?total/count:0;
   const quiz=parseFloat(quizEl().value||0);
   const weight=(avg+quiz)/2;
@@ -144,14 +171,10 @@ function calculateScore(){
   document.getElementById("grade").innerText=grade;
 }
 
-function collectScores(){
-  let obj={}; for(let i=0;i<13;i++){obj["Q"+(i+1)]=document.getElementById("q"+i).value||"";} for(let i=0;i<4;i++){obj["ParaQ"+(i+1)]=document.getElementById("paraQ"+i).value||"";} return obj;
-}
-
 function submitFeedback(){
   const answers={};
-  for(let i=0;i<13;i++){answers["Q"+(i+1)]=document.getElementById("q"+i).value||"";}
-  for(let i=0;i<4;i++){answers["ParaQ"+(i+1)]=document.getElementById("paraQ"+i).value||"";}
+  for(let i=1;i<=13;i++){answers["Q"+i]=document.getElementById("q"+i).value||"";}
+  for(let i=1;i<=4;i++){answers["ParaQ"+i]=document.getElementById("paraQ"+i).value||"";}
 
   const data={
     studentName: studentNameEl().value.trim(),
@@ -176,7 +199,9 @@ function submitFeedback(){
       if(res.status==="success"){
         completedFaculties.push(data.faculty);
         batchIdEl().value=""; quizEl().value=""; document.getElementById("additionalComments").value="";
-        document.getElementById("questionsContainer").innerHTML=""; document.getElementById("weightageScore").innerText="0.00"; document.getElementById("grade").innerText="-";
+        for(let i=1;i<=13;i++){document.getElementById("q"+i).value="";}
+        for(let i=1;i<=4;i++){document.getElementById("paraQ"+i).value="";}
+        document.getElementById("weightageScore").innerText="0.00"; document.getElementById("grade").innerText="-";
         if(completedFaculties.length<faculties.length) showPage(2); else showPage(4);
       } else { alert("Submission failed: "+res.message);}
     })
