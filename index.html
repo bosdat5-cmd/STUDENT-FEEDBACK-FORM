@@ -14,7 +14,6 @@
   </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
-
 <div class="container mx-auto px-4 py-8 max-w-4xl">
 
   <!-- Header -->
@@ -39,25 +38,14 @@
   <div id="page1" class="form-page active bg-white rounded-lg shadow-md p-6">
     <h2 class="text-2xl font-semibold text-gray-800 mb-6">Student Information</h2>
     <div class="space-y-4">
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-        <input type="text" id="studentName" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="Enter your full name">
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Registration Number *</label>
-        <input type="text" id="regNumber" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="AAA1234567">
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Email ID *</label>
-        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="Enter email address">
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Mobile Number *</label>
-        <input type="tel" id="mobile" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="Enter mobile number">
-      </div>
+      <input type="text" id="studentName" placeholder="Full Name *" class="w-full p-2 border rounded">
+      <input type="text" id="regNumber" placeholder="Registration Number *" class="w-full p-2 border rounded">
+      <input type="text" id="batchId" placeholder="Batch ID *" class="w-full p-2 border rounded">
+      <input type="email" id="email" placeholder="Email *" class="w-full p-2 border rounded">
+      <input type="tel" id="mobile" placeholder="Mobile Number *" class="w-full p-2 border rounded">
     </div>
     <div class="mt-8 flex justify-end">
-      <button onclick="validatePage1()" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">Next → Select Faculty</button>
+      <button onclick="validatePage1()" class="bg-blue-600 text-white px-6 py-2 rounded-md">Next → Select Faculty</button>
     </div>
   </div>
 
@@ -68,69 +56,40 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="facultyGrid"></div>
   </div>
 
-  <!-- Page 3: Faculty Feedback -->
+  <!-- Page 3: Feedback -->
   <div id="page3" class="form-page bg-white rounded-lg shadow-md p-6">
     <h2 class="text-2xl font-semibold text-gray-800 mb-2">Feedback for <span id="currentFaculty" class="text-blue-600"></span></h2>
-    <p class="text-gray-600 mb-6">Please answer all questions:</p>
-    <div class="space-y-6" id="questionsContainer">
-
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Batch ID *</label>
-        <input type="text" id="batchId" class="w-full px-4 py-2 border border-gray-300 rounded-md">
-      </div>
-
-      <!-- Ratings -->
-      <div><label>Attendance & Punctuality *</label><select id="attendance" class="ratingSelect"></select></div>
-      <div><label>Professional Dress Code *</label><select id="dressCode" class="ratingSelect"></select></div>
-      <div><label>Discipline & Conduct *</label><select id="discipline" class="ratingSelect"></select></div>
-      <div><label>Active Participation *</label><select id="participation" class="ratingSelect"></select></div>
-      <div><label>Group Activities & Teamwork *</label><select id="teamwork" class="ratingSelect"></select></div>
-      <div><label>Presentation Content *</label><select id="presentationContent" class="ratingSelect"></select></div>
-      <div><label>Presentation Delivery *</label><select id="presentationDelivery" class="ratingSelect"></select></div>
-      <div><label>Communication Skills *</label><select id="communication" class="ratingSelect"></select></div>
-      <div><label>Analytical Thinking *</label><select id="analytical" class="ratingSelect"></select></div>
-      <div><label>Creativity & Innovation *</label><select id="creativity" class="ratingSelect"></select></div>
-      <div><label>Professional Ethics Awareness *</label><select id="ethics" class="ratingSelect"></select></div>
-      <div><label>Emotional Intelligence *</label><select id="emotional" class="ratingSelect"></select></div>
-      <div><label>Overall Engagement *</label><select id="overallEngagement" class="ratingSelect"></select></div>
-
-      <!-- ✅ Additional Questions -->
-      <div><label>Learning Resources & Study Material *</label><select id="resources" class="ratingSelect"></select></div>
-      <div><label>Mentorship & Guidance *</label><select id="mentorship" class="ratingSelect"></select></div>
-      <div><label>Practical Knowledge *</label><select id="practical" class="ratingSelect"></select></div>
-      <div><label>Exam Preparation Support *</label><select id="examPrep" class="ratingSelect"></select></div>
-
-      <!-- Quiz -->
-      <div>
-        <label>Quiz Marks *</label>
-        <input type="text" id="quizMarks" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="e.g. 99%">
-      </div>
-
-      <!-- Score -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Weighted Score</label>
-        <span id="weightedScoreDisplay" class="block px-4 py-2 border border-gray-300 rounded-md bg-gray-100">0</span>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Grade</label>
-        <span id="gradeDisplay" class="block px-4 py-2 border border-gray-300 rounded-md bg-gray-100">-</span>
-      </div>
-
-      <!-- Final Comments -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Additional Comments</label>
-        <textarea id="comments" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="Write your suggestions..."></textarea>
-      </div>
-
+    <div class="space-y-4" id="questionsContainer">
+      <select id="attendance" class="ratingSelect"></select>
+      <select id="discipline" class="ratingSelect"></select>
+      <select id="participation" class="ratingSelect"></select>
+      <select id="teamwork" class="ratingSelect"></select>
+      <select id="presentationContent" class="ratingSelect"></select>
+      <select id="presentationDelivery" class="ratingSelect"></select>
+      <select id="communication" class="ratingSelect"></select>
+      <select id="analytical" class="ratingSelect"></select>
+      <select id="creativity" class="ratingSelect"></select>
+      <select id="ethics" class="ratingSelect"></select>
+      <select id="emotional" class="ratingSelect"></select>
+      <select id="overallEngagement" class="ratingSelect"></select>
+      <select id="dressCode" class="ratingSelect"></select>
+      <select id="industryExamples" class="ratingSelect"></select>
+      <select id="accessibility" class="ratingSelect"></select>
+      <select id="guidance" class="ratingSelect"></select>
+      <select id="motivation" class="ratingSelect"></select>
+      <input type="text" id="quizMarks" placeholder="Quiz Marks *" class="w-full p-2 border rounded">
+      <span id="weightedScoreDisplay" class="block px-4 py-2 border rounded bg-gray-100">Weighted Score: 0</span>
+      <span id="gradeDisplay" class="block px-4 py-2 border rounded bg-gray-100">Grade: -</span>
+      <textarea id="comments" rows="3" placeholder="Additional Comments (Optional)" class="w-full p-2 border rounded"></textarea>
     </div>
 
     <div class="mt-8 flex justify-between">
-      <button onclick="showFacultySelection()" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600">← Back</button>
-      <button onclick="submitFacultyFeedback()" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">Next →</button>
+      <button onclick="showFacultySelection()" class="bg-gray-500 text-white px-6 py-2 rounded-md">← Back</button>
+      <button onclick="submitFacultyFeedback()" class="bg-blue-600 text-white px-6 py-2 rounded-md">Next →</button>
     </div>
   </div>
 
-  <!-- Page 4: Completion -->
+  <!-- Page 4: Thank You -->
   <div id="page4" class="form-page bg-white rounded-lg shadow-md p-6 text-center">
     <h2 class="text-3xl font-bold text-green-600 mb-4">All Feedback Submitted Successfully!</h2>
     <p class="text-gray-600 mb-6">Thank you for your valuable feedback.</p>
@@ -143,11 +102,11 @@ let completedFaculties = [];
 let selectedFacultyIndex = -1;
 
 const scoreMap = {
-  "POOR": 20,
-  "BELOW AVERAGE": 40,
-  "AVERAGE": 60,
-  "GOOD": 80,
-  "EXCELLENT": 100
+  "1: Poor": 20,
+  "2: Below Average": 40,
+  "3: Average": 60,
+  "4: Good": 80,
+  "5: Excellent": 100
 };
 
 // populate dropdowns
@@ -165,9 +124,10 @@ function showPage(id){document.querySelectorAll(".form-page").forEach(p=>p.class
 function validatePage1(){
   let name=document.getElementById("studentName").value.trim();
   let reg=document.getElementById("regNumber").value.trim();
+  let batch=document.getElementById("batchId").value.trim();
   let email=document.getElementById("email").value.trim();
   let mob=document.getElementById("mobile").value.trim();
-  if(!name||!reg||!email||!mob){alert("Fill all details");return;}
+  if(!name||!reg||!batch||!email||!mob){alert("Fill all details");return;}
   showFacultySelection();
 }
 
@@ -191,26 +151,10 @@ function startFeedback(){
   document.querySelectorAll("#questionsContainer select").forEach(el=>el.selectedIndex=0);
   document.getElementById("quizMarks").value="";
   document.getElementById("comments").value="";
-  document.querySelectorAll("#questionsContainer select").forEach(el=>el.addEventListener("change",calculateWeighted));
-  document.getElementById("quizMarks").addEventListener("input",calculateWeighted);
-}
-
-// calc weighted
-function calculateWeighted(){
-  let total=0,count=0;
-  document.querySelectorAll("#questionsContainer select").forEach(el=>{
-    if(el.value){total+=scoreMap[el.value.split(":")[1].trim().toUpperCase()];count++;}});
-  let quiz=parseFloat(document.getElementById("quizMarks").value)||0;
-  let avg=count?total/count:0;
-  let weighted=(avg+quiz)/2;
-  let grade="-";
-  if(weighted>=85) grade="A+"; else if(weighted>=70) grade="A"; else if(weighted>=55) grade="B+"; else if(weighted>=40) grade="B"; else grade="C";
-  document.getElementById("weightedScoreDisplay").innerText=weighted?weighted.toFixed(2):"0";
-  document.getElementById("gradeDisplay").innerText=grade;
 }
 
 // get score
-function getScore(id){let v=document.getElementById(id).value;if(!v) return 0;return scoreMap[v.split(":")[1].trim().toUpperCase()]||0;}
+function getScore(id){let v=document.getElementById(id).value;if(!v) return 0;return scoreMap[v]||0;}
 
 // submit
 function submitFacultyFeedback(){
@@ -218,15 +162,23 @@ function submitFacultyFeedback(){
   for(let el of selects){if(!el.value){alert("Fill all fields");return;}}
   let quiz=parseFloat(document.getElementById("quizMarks").value)||0;
   if(quiz<=0){alert("Quiz marks must be valid");return;}
+
+  // calculate weighted & grade
+  let total=0,count=0;
+  selects.forEach(el=>{total+=getScore(el.id);count++;});
+  let avg=total/count;
+  let weighted=(avg+quiz)/2;
+  let grade="-";
+  if(weighted>=85) grade="A+"; else if(weighted>=70) grade="A"; else if(weighted>=55) grade="B+"; else if(weighted>=40) grade="B"; else grade="C";
+
   let payload={
     studentName:document.getElementById("studentName").value,
     regNumber:document.getElementById("regNumber").value,
+    batchId:document.getElementById("batchId").value,
     email:document.getElementById("email").value,
     mobile:document.getElementById("mobile").value,
     faculty:faculties[selectedFacultyIndex],
-    batchId:document.getElementById("batchId").value,
     attendance:getScore("attendance"),
-    dressCode:getScore("dressCode"),
     discipline:getScore("discipline"),
     participation:getScore("participation"),
     teamwork:getScore("teamwork"),
@@ -238,17 +190,18 @@ function submitFacultyFeedback(){
     ethics:getScore("ethics"),
     emotional:getScore("emotional"),
     overallEngagement:getScore("overallEngagement"),
-    resources:getScore("resources"),
-    mentorship:getScore("mentorship"),
-    practical:getScore("practical"),
-    examPrep:getScore("examPrep"),
+    dressCode:getScore("dressCode"),
+    industryExamples:getScore("industryExamples"),
+    accessibility:getScore("accessibility"),
+    guidance:getScore("guidance"),
+    motivation:getScore("motivation"),
     quizMarks:quiz,
-    weightedScore:parseFloat(document.getElementById("weightedScoreDisplay").innerText),
-    grade:document.getElementById("gradeDisplay").innerText,
+    weightedScore:weighted.toFixed(2),
+    grade:grade,
     comments:document.getElementById("comments").value
   };
 
-  fetch("https://script.google.com/macros/s/AKfycbxJ_v3h3Q39RykPcxrgoTKe7Og8lcwoQn0_E1ASYXE-prVh1C-2kphYu8eH2NGGGdYD/exec",{
+  fetch("YOUR_GOOGLE_SCRIPT_URL",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify(payload)
@@ -265,4 +218,3 @@ function submitFacultyFeedback(){
 </script>
 </body>
 </html>
-
