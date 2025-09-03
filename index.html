@@ -60,38 +60,76 @@
     <h2 class="text-2xl font-semibold text-gray-800 mb-2">Feedback for <span id="currentFaculty" class="text-blue-600"></span></h2>
     <div class="space-y-4" id="questionsContainer">
 
-      <!-- Batch ID -->
-      <input type="text" id="batchId" placeholder="Batch ID *" class="w-full p-2 border rounded">
+<div class="space-y-4" id="questionsContainer">
 
-      <!-- Dropdown Questions -->
-      <select id="attendance" class="ratingSelect"></select>
-      <select id="discipline" class="ratingSelect"></select>
-      <select id="participation" class="ratingSelect"></select>
-      <select id="teamwork" class="ratingSelect"></select>
-      <select id="presentationContent" class="ratingSelect"></select>
-      <select id="presentationDelivery" class="ratingSelect"></select>
-      <select id="communication" class="ratingSelect"></select>
-      <select id="analytical" class="ratingSelect"></select>
-      <select id="creativity" class="ratingSelect"></select>
-      <select id="ethics" class="ratingSelect"></select>
-      <select id="emotional" class="ratingSelect"></select>
-      <select id="overallEngagement" class="ratingSelect"></select>
-      <select id="dressCode" class="ratingSelect"></select>
-      <select id="industryExamples" class="ratingSelect"></select>
-      <select id="accessibility" class="ratingSelect"></select>
-      <select id="guidance" class="ratingSelect"></select>
-      <select id="motivation" class="ratingSelect"></select>
+  <!-- Batch ID -->
+  <label class="block font-medium">Batch ID</label>
+  <input type="text" id="batchId" placeholder="Batch ID *" class="w-full p-2 border rounded">
 
-      <!-- Quiz -->
-      <input type="text" id="quizMarks" placeholder="Quiz Marks *" class="w-full p-2 border rounded">
+  <!-- Dropdown Questions with Labels -->
+  <label class="block font-medium">Attendance & Punctuality</label>
+  <select id="attendance" class="ratingSelect"></select>
 
-      <!-- Score + Grade -->
-      <span id="weightedScoreDisplay" class="block px-4 py-2 border rounded bg-gray-100">Weighted Score: 0</span>
-      <span id="gradeDisplay" class="block px-4 py-2 border rounded bg-gray-100">Grade: -</span>
+  <label class="block font-medium">Discipline</label>
+  <select id="discipline" class="ratingSelect"></select>
 
-      <!-- Comments -->
-      <textarea id="comments" rows="3" placeholder="Additional Comments (Optional)" class="w-full p-2 border rounded"></textarea>
-    </div>
+  <label class="block font-medium">Active Participation</label>
+  <select id="participation" class="ratingSelect"></select>
+
+  <label class="block font-medium">Group Activities & Teamwork</label>
+  <select id="teamwork" class="ratingSelect"></select>
+
+  <label class="block font-medium">Presentation Content</label>
+  <select id="presentationContent" class="ratingSelect"></select>
+
+  <label class="block font-medium">Presentation Delivery</label>
+  <select id="presentationDelivery" class="ratingSelect"></select>
+
+  <label class="block font-medium">Communication Skills</label>
+  <select id="communication" class="ratingSelect"></select>
+
+  <label class="block font-medium">Analytical Thinking</label>
+  <select id="analytical" class="ratingSelect"></select>
+
+  <label class="block font-medium">Creativity & Innovation</label>
+  <select id="creativity" class="ratingSelect"></select>
+
+  <label class="block font-medium">Professional Ethics Awareness</label>
+  <select id="ethics" class="ratingSelect"></select>
+
+  <label class="block font-medium">Emotional Intelligence</label>
+  <select id="emotional" class="ratingSelect"></select>
+
+  <label class="block font-medium">Overall Engagement</label>
+  <select id="overallEngagement" class="ratingSelect"></select>
+
+  <label class="block font-medium">Professional Dress Code</label>
+  <select id="dressCode" class="ratingSelect"></select>
+
+  <label class="block font-medium">Industry / Practice Real-life Examples</label>
+  <select id="industryExamples" class="ratingSelect"></select>
+
+  <label class="block font-medium">Accessibility for Clarification</label>
+  <select id="accessibility" class="ratingSelect"></select>
+
+  <label class="block font-medium">Personalised Guidance</label>
+  <select id="guidance" class="ratingSelect"></select>
+
+  <label class="block font-medium">Inspiring / Motivating</label>
+  <select id="motivation" class="ratingSelect"></select>
+
+  <!-- Quiz Marks -->
+  <label class="block font-medium">Quiz Marks</label>
+  <input type="text" id="quizMarks" placeholder="Quiz Marks *" class="w-full p-2 border rounded">
+
+  <!-- Score + Grade -->
+  <span id="weightedScoreDisplay" class="block px-4 py-2 border rounded bg-gray-100">Weighted Score: 0</span>
+  <span id="gradeDisplay" class="block px-4 py-2 border rounded bg-gray-100">Grade: -</span>
+
+  <!-- Comments -->
+  <label class="block font-medium">Additional Comments (Optional)</label>
+  <textarea id="comments" rows="3" class="w-full p-2 border rounded"></textarea>
+</div>
 
     <div class="mt-8 flex justify-between">
       <button onclick="showFacultySelection()" class="bg-gray-500 text-white px-6 py-2 rounded-md">← Back</button>
@@ -230,3 +268,4 @@ function submitFacultyFeedback(){
 </script>
 </body>
 </html>
+
