@@ -321,7 +321,7 @@ let row = {
     console.log("Final Data Ready:", feedbackData);
 
     // 🔹 Send full feedbackData array to Google Apps Script Web App
-    fetch("https://script.google.com/macros/s/AKfycbzr5tMwv1wGozFgM5HQWt8ZeESyzOEcfW5MqYFEVJtcSdDRVAdry5IN-I2N5fGfnQpQ/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbz-fn29QBbemIGmOoBlNhJkWtvLZwoLy2LrDKAgcNnc0TsqGgJ0lZNxd3uhYV_vEWIW/exec", {
       method: "POST",
       body: JSON.stringify(feedbackData),
       headers: { "Content-Type": "application/json" }
@@ -342,5 +342,6 @@ let row = {
 </script>
 </body>
 </html>
+
 
 
