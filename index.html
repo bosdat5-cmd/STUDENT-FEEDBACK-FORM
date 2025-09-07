@@ -260,7 +260,6 @@ function updateScore(){
 }
 
 // submit feedback
-// submit feedback
 function submitFacultyFeedback() {
   let batch = document.getElementById("batchId").value.trim();
   if (!batch) { alert("Batch ID required"); return; }
@@ -299,21 +298,20 @@ function submitFacultyFeedback() {
   let comments = document.getElementById("comments").value.trim();
 
   // build row
-  let row = {
-    "Student Name": studentName,
-    "Registration Number": regNumber,
-    "Email": email,
-    "Mobile Number": mobile,
-    "Faculty Name": facultyName,
-    "Batch ID": batch,
-    ...ratings,
-    "Average Feedback Score": avg.toFixed(2),
-    "Quiz Marks": quiz,
-    "Weighted Score": weighted.toFixed(2),
-    "Grade": grade,
-    "Additional Comments": comments
-  };
-
+let row = {
+  studentName: studentName,
+  regNumber: regNumber,
+  email: email,
+  mobile: mobile,
+  facultyName: facultyName,
+  batchId: batch,
+  ...ratings,
+  averageScore: avg.toFixed(2),
+  quizMarks: quiz,
+  weightedScore: weighted.toFixed(2),
+  grade: grade,
+  comments: comments
+};
   feedbackData.push(row);
 
   completedFaculties.push(facultyName);
@@ -344,4 +342,5 @@ function submitFacultyFeedback() {
 </script>
 </body>
 </html>
+
 
