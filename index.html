@@ -279,7 +279,7 @@ function submitFacultyFeedback() {
   let ratings = {};
   questions.forEach((q, i) => {
     let sel = document.querySelectorAll(".ratingSelect")[i].value;
-    ratings[q] = sel;
+    ratings[q] = scoreMap[sel] || "";   // ✅ store numeric score
   });
 
   // calculate avg + weighted + grade
@@ -297,34 +297,34 @@ function submitFacultyFeedback() {
   // comments
   let comments = document.getElementById("comments").value.trim();
 
-  // build row
-let row = {
-  studentName: studentName,
-  regNumber: regNumber,
-  email: email,
-  mobile: mobile,
-  facultyName: facultyName,
-  batchId: batch,
-  ...ratings,
-  averageScore: avg.toFixed(2),
-  quizMarks: quiz,
-  weightedScore: weighted.toFixed(2),
-  grade: grade,
-  comments: comments
-};
-  feedbackData.push(row);
+  // build row aligned with Apps Script headers
+  let row = {
+    studentName,
+    regNumber,
+    email,
+    mobile,
+    facultyName,
+    batchId: batch,
+    ...ratings,
+    averageScore: avg.toFixed(2),
+    quizMarks: quiz,
+    weightedScore: weighted.toFixed(2),
+    grade,
+    comments
+  };
 
+  feedbackData.push(row);
   completedFaculties.push(facultyName);
 
   if (completedFaculties.length >= faculties.length) {
     showPage("page4");
     console.log("Final Data Ready:", feedbackData);
 
-    // 🔹 Send full feedbackData array to Google Apps Script Web App
-    fetch("https://script.google.com/macros/s/AKfycbz-fn29QBbemIGmOoBlNhJkWtvLZwoLy2LrDKAgcNnc0TsqGgJ0lZNxd3uhYV_vEWIW/exec", {
+    // ✅ Post entire array once at the end
+    fetch("https://script.google.com/macros/s/AKfycbwY3GPvcGEW63oaeQ_oVRo3fXZGxxBDe_sVAZ-tJP_hb3-lfUzwq-WqRW7PRRq9Cgag/exec", {
       method: "POST",
-      body: JSON.stringify(feedbackData),
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(feedbackData)
     })
     .then(res => res.json())
     .then(response => {
@@ -342,6 +342,7 @@ let row = {
 </script>
 </body>
 </html>
+
 
 
 
