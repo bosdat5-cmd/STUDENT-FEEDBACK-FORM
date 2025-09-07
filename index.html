@@ -6,169 +6,86 @@
   <title>Student Feedback Form</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: #f9fafc;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .form-card {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-      padding: 32px;
-      max-width: 720px;
-      width: 100%;
-      margin: auto;
-    }
+    body { font-family: 'Roboto', sans-serif; background: #f9fafc; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .form-card { background: #fff; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); padding: 32px; max-width: 720px; width: 100%; margin: auto; }
     .form-page { display: none; }
     .form-page.active { display: block; }
-    label {
-      display: block;
-      font-weight: 500;
-      margin-bottom: 6px;
-      color: #333;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      outline: none;
-      transition: all 0.2s;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
-    }
-    button {
-      border-radius: 8px;
-      padding: 10px 20px;
-      font-weight: 600;
-    }
-    .btn-primary {
-      background: #6366f1;
-      color: white;
-    }
-    .btn-secondary {
-      background: #6b7280;
-      color: white;
-    }
-    .result-box {
-      padding: 10px;
-      border-radius: 8px;
-      background: #f3f4f6;
-      margin-top: 8px;
-    }
+    label { display: block; font-weight: 500; margin-bottom: 6px; color: #333; }
+    input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; outline: none; transition: all 0.2s; }
+    input:focus, select:focus, textarea:focus { border-color: #6366f1; box-shadow: 0 0 0 2px rgba(99,102,241,0.2); }
+    button { border-radius: 8px; padding: 10px 20px; font-weight: 600; }
+    .btn-primary { background: #6366f1; color: white; }
+    .btn-secondary { background: #6b7280; color: white; }
+    .result-box { padding: 10px; border-radius: 8px; background: #f3f4f6; margin-top: 8px; }
   </style>
 </head>
 <body>
-  <div class="form-card">
+<div class="form-card">
 
-    <!-- Header -->
-    <div class="text-center mb-8">
-      <h1 class="text-2xl font-bold text-gray-800">THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</h1>
-      <h2 class="text-3xl font-bold text-indigo-600 mt-2">STUDENT FEEDBACK FORM</h2>
+  <div class="text-center mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</h1>
+    <h2 class="text-3xl font-bold text-indigo-600 mt-2">STUDENT FEEDBACK FORM</h2>
+  </div>
+
+  <div id="page1" class="form-page active">
+    <h2 class="text-xl font-semibold mb-6">Student Information</h2>
+    <div class="space-y-4">
+      <input type="text" id="studentName" placeholder="Full Name *">
+      <input type="text" id="regNumber" placeholder="Registration Number * (AAA1234567)">
+      <input type="email" id="email" placeholder="Email *">
+      <input type="tel" id="mobile" placeholder="Mobile Number * (10 digits)">
     </div>
-
-    <!-- Page 1: Student Info -->
-    <div id="page1" class="form-page active">
-      <h2 class="text-xl font-semibold mb-6">Student Information</h2>
-      <div class="space-y-4">
-        <input type="text" id="studentName" placeholder="Full Name *">
-        <input type="text" id="regNumber" placeholder="Registration Number * (AAA1234567)">
-        <input type="email" id="email" placeholder="Email *">
-        <input type="tel" id="mobile" placeholder="Mobile Number * (10 digits)">
-      </div>
-      <div class="mt-8 text-right">
-        <button onclick="validatePage1()" class="btn-primary">Next → Select Faculty</button>
-      </div>
-    </div>
-
-    <!-- Page 2: Faculty Selection -->
-    <div id="page2" class="form-page">
-      <h2 class="text-xl font-semibold mb-6">Select Faculty</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="facultyGrid"></div>
-    </div>
-
-    <!-- Page 3: Feedback -->
-    <div id="page3" class="form-page">
-      <h2 class="text-xl font-semibold mb-2">Feedback for <span id="currentFaculty" class="text-indigo-600"></span></h2>
-      <div class="space-y-4 mt-4" id="questionsContainer">
-        
-        <!-- Batch ID -->
-        <label>Batch ID *</label>
-        <input type="text" id="batchId" placeholder="Batch ID">
-
-        <!-- Rating Questions -->
-        <div id="ratings"></div>
-
-        <!-- Quiz Marks -->
-        <label>Quiz Marks *</label>
-        <input type="number" step="0.01" min="1" max="100" id="quizMarks" placeholder="Enter quiz marks" oninput="updateScore()">
-
-        <!-- Auto Calculated -->
-        <div class="result-box" id="averageScoreDisplay">Average Feedback Score: 0</div>
-        <div class="result-box" id="weightedScoreDisplay">Weighted Score: 0</div>
-        <div class="result-box" id="gradeDisplay">Grade: -</div>
-
-        <!-- Comments -->
-        <label>Additional Comments (Optional)</label>
-        <textarea id="comments" rows="3"></textarea>
-      </div>
-      <div class="mt-8 flex justify-between">
-        <button onclick="showFacultySelection()" class="btn-secondary">← Back</button>
-        <button onclick="submitFacultyFeedback()" class="btn-primary">Submit Feedback →</button>
-      </div>
-    </div>
-
-    <!-- Page 4: Thank You -->
-    <div id="page4" class="form-page text-center">
-      <h2 class="text-3xl font-bold text-green-600 mb-4">All Feedback Submitted Successfully!</h2>
-      <p class="text-gray-600">Thank you for your valuable feedback.</p>
+    <div class="mt-8 text-right">
+      <button onclick="validatePage1()" class="btn-primary">Next → Select Faculty</button>
     </div>
   </div>
+
+  <div id="page2" class="form-page">
+    <h2 class="text-xl font-semibold mb-6">Select Faculty</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="facultyGrid"></div>
+  </div>
+
+  <div id="page3" class="form-page">
+    <h2 class="text-xl font-semibold mb-2">Feedback for <span id="currentFaculty" class="text-indigo-600"></span></h2>
+    <div class="space-y-4 mt-4" id="questionsContainer">
+      <label>Batch ID *</label>
+      <input type="text" id="batchId" placeholder="Batch ID">
+      <div id="ratings"></div>
+      <label>Quiz Marks *</label>
+      <input type="number" step="0.01" min="1" max="100" id="quizMarks" placeholder="Enter quiz marks" oninput="updateScore()">
+      <div class="result-box" id="averageScoreDisplay">Average Feedback Score: 0</div>
+      <div class="result-box" id="weightedScoreDisplay">Weighted Score: 0</div>
+      <div class="result-box" id="gradeDisplay">Grade: -</div>
+      <label>Additional Comments (Optional)</label>
+      <textarea id="comments" rows="3"></textarea>
+    </div>
+    <div class="mt-8 flex justify-between">
+      <button onclick="showFacultySelection()" class="btn-secondary">← Back</button>
+      <button onclick="submitFacultyFeedback()" class="btn-primary">Submit Feedback →</button>
+    </div>
+  </div>
+
+  <div id="page4" class="form-page text-center">
+    <h2 class="text-3xl font-bold text-green-600 mb-4">All Feedback Submitted Successfully!</h2>
+    <p class="text-gray-600">Thank you for your valuable feedback.</p>
+  </div>
+</div>
 
 <script>
 let faculties = ["Sandeep Agarwal","Bhanu Dhir","Shekhar Sharma","Anju Gupta","Preeti Goel","Rohit Agarwal","Sunita Rathore"];
 let completedFaculties = [];
 let selectedFacultyIndex = -1;
-
-// will hold all rows of feedback
 let feedbackData = [];
 
-// Questions
 const questions = [
-  "Attendance & Punctuality",
-  "Professional Image & Engagement",
-  "Discipline",
-  "Active Participation",
-  "Group Activities & Teamwork",
-  "Presentation - Content",
-  "Presentation - Delivery",
-  "Communication Skills",
-  "Analytical Thinking",
-  "Creativity & Innovation",
-  "Professional Ethics Awareness",
-  "Student-Faculty Interaction Quality",
-  "Overall Engagement",
-  "Politeness & Courtesy",
-  "Use of Real-World Examples",
-  "Ease of Asking Questions",
-  "Individual Attention to Students",
-  "Encourages and Motivates Students"
+  "Attendance & Punctuality","Professional Image & Engagement","Discipline","Active Participation",
+  "Group Activities & Teamwork","Presentation - Content","Presentation - Delivery","Communication Skills",
+  "Analytical Thinking","Creativity & Innovation","Professional Ethics Awareness","Student-Faculty Interaction Quality",
+  "Overall Engagement","Politeness & Courtesy","Use of Real-World Examples","Ease of Asking Questions",
+  "Individual Attention to Students","Encourages and Motivates Students"
 ];
 
-const scoreMap = {
-  "1: Poor": 20,
-  "2: Below Average": 40,
-  "3: Average": 60,
-  "4: Good": 80,
-  "5: Excellent": 100
-};
+const scoreMap = { "1: Poor":20, "2: Below Average":40, "3: Average":60, "4: Good":80, "5: Excellent":100 };
 
 // generate rating questions dynamically
 const ratingsDiv=document.getElementById("ratings");
@@ -186,28 +103,23 @@ questions.forEach((q,i)=>{
   ratingsDiv.appendChild(label);ratingsDiv.appendChild(select);
 });
 
-// navigation
 function showPage(id){
   document.querySelectorAll(".form-page").forEach(p=>p.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
-// validate page1
 function validatePage1(){
   let name=document.getElementById("studentName").value.trim();
   let reg=document.getElementById("regNumber").value.trim();
   let email=document.getElementById("email").value.trim();
   let mob=document.getElementById("mobile").value.trim();
-
   if(!name||!reg||!email||!mob){alert("All fields required");return;}
   if(!/^[A-Za-z]{3}[0-9]{7}$/.test(reg)){alert("Registration No. must be 3 letters + 7 digits");return;}
   if(!/\S+@\S+\.\S+/.test(email)){alert("Invalid Email");return;}
   if(!/^\d{10}$/.test(mob)){alert("Mobile must be 10 digits");return;}
-
   showFacultySelection();
 }
 
-// show faculty list
 function showFacultySelection(){
   showPage("page2");
   const grid=document.getElementById("facultyGrid");grid.innerHTML="";
@@ -215,14 +127,11 @@ function showFacultySelection(){
     let card=document.createElement("div");
     card.className="p-4 border rounded-lg text-center cursor-pointer "+(completedFaculties.includes(f)?"bg-green-100":"hover:bg-indigo-50");
     card.innerHTML=`<h3 class="font-medium">${f}</h3>`;
-    if(!completedFaculties.includes(f)){
-      card.onclick=()=>{selectedFacultyIndex=i;startFeedback();};
-    }
+    if(!completedFaculties.includes(f)){ card.onclick=()=>{selectedFacultyIndex=i;startFeedback();}; }
     grid.appendChild(card);
   });
 }
 
-// start feedback page
 function startFeedback(){
   showPage("page3");
   document.getElementById("currentFaculty").innerText=faculties[selectedFacultyIndex];
@@ -233,116 +142,61 @@ function startFeedback(){
   updateScore();
 }
 
-// convert rating text to score
 function getScore(el){return scoreMap[el.value]||0;}
 
-// live update average + weighted + grade
 function updateScore(){
   let selects=document.querySelectorAll(".ratingSelect");
-  let total=0,count=0;
-  selects.forEach(el=>{if(el.value){total+=getScore(el);count++;}});
+  let total=0,count=0;selects.forEach(el=>{if(el.value){total+=getScore(el);count++;}});
   let avg=(count>0)?total/count:0;
   let quiz=parseFloat(document.getElementById("quizMarks").value)||0;
-
-  // weights
   let weighted=(avg*0.7)+(quiz*0.3);
-
   document.getElementById("averageScoreDisplay").innerText="Average Feedback Score: "+avg.toFixed(2);
   document.getElementById("weightedScoreDisplay").innerText="Weighted Score: "+weighted.toFixed(2);
-
   let grade="-";
-  if(weighted>=85) grade="A+"; 
-  else if(weighted>=70) grade="A"; 
-  else if(weighted>=55) grade="B+"; 
-  else if(weighted>=40) grade="B"; 
-  else grade="C";
+  if(weighted>=85) grade="A+"; else if(weighted>=70) grade="A"; else if(weighted>=55) grade="B+"; else if(weighted>=40) grade="B"; else grade="C";
   document.getElementById("gradeDisplay").innerText="Grade: "+grade;
 }
 
-// submit feedback
-function submitFacultyFeedback() {
-  let batch = document.getElementById("batchId").value.trim();
-  if (!batch) { alert("Batch ID required"); return; }
-  let selects = document.querySelectorAll(".ratingSelect");
-  for (let el of selects) { if (!el.value) { alert("All ratings required"); return; } }
-  let quiz = parseFloat(document.getElementById("quizMarks").value);
-  if (isNaN(quiz) || quiz < 1 || quiz > 100) { alert("Quiz marks must be 1-100"); return; }
+async function submitFacultyFeedback() {
+  let batch=document.getElementById("batchId").value.trim();
+  if(!batch){alert("Batch ID required"); return;}
+  let selects=document.querySelectorAll(".ratingSelect");
+  for(let el of selects){if(!el.value){alert("All ratings required"); return;}}
+  let quiz=parseFloat(document.getElementById("quizMarks").value);
+  if(isNaN(quiz)||quiz<1||quiz>100){alert("Quiz marks must be 1-100"); return;}
 
-  // student info
-  let studentName = document.getElementById("studentName").value.trim();
-  let regNumber = document.getElementById("regNumber").value.trim();
-  let email = document.getElementById("email").value.trim();
-  let mobile = document.getElementById("mobile").value.trim();
+  let studentName=document.getElementById("studentName").value.trim();
+  let regNumber=document.getElementById("regNumber").value.trim();
+  let email=document.getElementById("email").value.trim();
+  let mobile=document.getElementById("mobile").value.trim();
+  let facultyName=faculties[selectedFacultyIndex];
 
-  // faculty + ratings
-  let facultyName = faculties[selectedFacultyIndex];
-  let ratings = {};
-  questions.forEach((q, i) => {
-    let sel = document.querySelectorAll(".ratingSelect")[i].value;
-    ratings[q] = scoreMap[sel] || "";   // ✅ store numeric score
-  });
+  let ratings={};
+  questions.forEach((q,i)=>{ratings[q]=scoreMap[selects[i].value]||"";});
 
-  // calculate avg + weighted + grade
-  let total = 0, count = 0;
-  selects.forEach(el => { if (el.value) { total += scoreMap[el.value]; count++; } });
-  let avg = (count > 0) ? total / count : 0;
-  let weighted = (avg * 0.7) + (quiz * 0.3);
-  let grade = "-";
-  if (weighted >= 85) grade = "A+";
-  else if (weighted >= 70) grade = "A";
-  else if (weighted >= 55) grade = "B+";
-  else if (weighted >= 40) grade = "B";
-  else grade = "C";
+  let total=0,count=0;selects.forEach(el=>{if(el.value) total+=scoreMap[el.value]; count++;});
+  let avg=(count>0)?total/count:0;
+  let weighted=(avg*0.7)+(quiz*0.3);
+  let grade="-";
+  if(weighted>=85) grade="A+"; else if(weighted>=70) grade="A"; else if(weighted>=55) grade="B+"; else if(weighted>=40) grade="B"; else grade="C";
+  let comments=document.getElementById("comments").value.trim();
 
-  // comments
-  let comments = document.getElementById("comments").value.trim();
-
-  // build row aligned with Apps Script headers
-  let row = {
-    studentName,
-    regNumber,
-    email,
-    mobile,
-    facultyName,
-    batchId: batch,
-    ...ratings,
-    averageScore: avg.toFixed(2),
-    quizMarks: quiz,
-    weightedScore: weighted.toFixed(2),
-    grade,
-    comments
-  };
+  let row={studentName, regNumber, email, mobile, facultyName, batchId:batch, ...ratings, averageScore:avg.toFixed(2), quizMarks:quiz, weightedScore:weighted.toFixed(2), grade, comments};
 
   feedbackData.push(row);
   completedFaculties.push(facultyName);
 
-  if (completedFaculties.length >= faculties.length) {
-    showPage("page4");
-    console.log("Final Data Ready:", feedbackData);
-
-    // ✅ Post entire array once at the end
-    fetch("https://script.google.com/macros/s/AKfycbwY3GPvcGEW63oaeQ_oVRo3fXZGxxBDe_sVAZ-tJP_hb3-lfUzwq-WqRW7PRRq9Cgag/exec", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(feedbackData)
-    })
-    .then(res => res.json())
-    .then(response => {
-      console.log("✅ Data saved to Google Sheets:", response);
-    })
-    .catch(err => {
-      console.error("❌ Error saving data:", err);
-      alert("Error saving feedback, please try again.");
+  try {
+    await fetch("https://script.google.com/macros/s/AKfycbwY3GPvcGEW63oaeQ_oVRo3fXZGxxBDe_sVAZ-tJP_hb3-lfUzwq-WqRW7PRRq9Cgag/exec", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify([row])
     });
+  } catch(err){console.error("Error:",err); alert("Error saving feedback."); return;}
 
-  } else {
-    showFacultySelection();
-  }
+  if(completedFaculties.length >= faculties.length){showPage("page4");} 
+  else{showFacultySelection();}
 }
 </script>
 </body>
 </html>
-
-
-
-
