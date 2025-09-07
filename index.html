@@ -260,45 +260,46 @@ function updateScore(){
 }
 
 // submit feedback
-function submitFacultyFeedback(){
-  let batch=document.getElementById("batchId").value.trim();
-  if(!batch){alert("Batch ID required");return;}
-  let selects=document.querySelectorAll(".ratingSelect");
-  for(let el of selects){if(!el.value){alert("All ratings required");return;}}
-  let quiz=parseFloat(document.getElementById("quizMarks").value);
-  if(isNaN(quiz)||quiz<1||quiz>100){alert("Quiz marks must be 1-100");return;}
+// submit feedback
+function submitFacultyFeedback() {
+  let batch = document.getElementById("batchId").value.trim();
+  if (!batch) { alert("Batch ID required"); return; }
+  let selects = document.querySelectorAll(".ratingSelect");
+  for (let el of selects) { if (!el.value) { alert("All ratings required"); return; } }
+  let quiz = parseFloat(document.getElementById("quizMarks").value);
+  if (isNaN(quiz) || quiz < 1 || quiz > 100) { alert("Quiz marks must be 1-100"); return; }
 
   // student info
-  let studentName=document.getElementById("studentName").value.trim();
-  let regNumber=document.getElementById("regNumber").value.trim();
-  let email=document.getElementById("email").value.trim();
-  let mobile=document.getElementById("mobile").value.trim();
+  let studentName = document.getElementById("studentName").value.trim();
+  let regNumber = document.getElementById("regNumber").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let mobile = document.getElementById("mobile").value.trim();
 
   // faculty + ratings
-  let facultyName=faculties[selectedFacultyIndex];
-  let ratings={};
-  questions.forEach((q,i)=>{
-    let sel=document.querySelectorAll(".ratingSelect")[i].value;
-    ratings[q]=sel;
+  let facultyName = faculties[selectedFacultyIndex];
+  let ratings = {};
+  questions.forEach((q, i) => {
+    let sel = document.querySelectorAll(".ratingSelect")[i].value;
+    ratings[q] = sel;
   });
 
   // calculate avg + weighted + grade
-  let total=0,count=0;
-  selects.forEach(el=>{if(el.value){total+=scoreMap[el.value];count++;}});
-  let avg=(count>0)?total/count:0;
-  let weighted=(avg*0.7)+(quiz*0.3);
-  let grade="-";
-  if(weighted>=85) grade="A+"; 
-  else if(weighted>=70) grade="A"; 
-  else if(weighted>=55) grade="B+"; 
-  else if(weighted>=40) grade="B"; 
-  else grade="C";
+  let total = 0, count = 0;
+  selects.forEach(el => { if (el.value) { total += scoreMap[el.value]; count++; } });
+  let avg = (count > 0) ? total / count : 0;
+  let weighted = (avg * 0.7) + (quiz * 0.3);
+  let grade = "-";
+  if (weighted >= 85) grade = "A+";
+  else if (weighted >= 70) grade = "A";
+  else if (weighted >= 55) grade = "B+";
+  else if (weighted >= 40) grade = "B";
+  else grade = "C";
 
   // comments
-  let comments=document.getElementById("comments").value.trim();
+  let comments = document.getElementById("comments").value.trim();
 
   // build row
-  let row={
+  let row = {
     "Student Name": studentName,
     "Registration Number": regNumber,
     "Email": email,
@@ -315,14 +316,27 @@ function submitFacultyFeedback(){
 
   feedbackData.push(row);
 
-  console.log("Feedback Saved:", row);
-  console.log("All Feedback Data:", feedbackData);
-
   completedFaculties.push(facultyName);
-  if(completedFaculties.length>=faculties.length){
+
+  if (completedFaculties.length >= faculties.length) {
     showPage("page4");
     console.log("Final Data Ready:", feedbackData);
-    // 🔹 send feedbackData to Google Sheets / server here
+
+    // 🔹 Send full feedbackData array to Google Apps Script Web App
+    fetch("https://script.google.com/macros/s/AKfycbzr5tMwv1wGozFgM5HQWt8ZeESyzOEcfW5MqYFEVJtcSdDRVAdry5IN-I2N5fGfnQpQ/exec", {
+      method: "POST",
+      body: JSON.stringify(feedbackData),
+      headers: { "Content-Type": "application/json" }
+    })
+    .then(res => res.json())
+    .then(response => {
+      console.log("✅ Data saved to Google Sheets:", response);
+    })
+    .catch(err => {
+      console.error("❌ Error saving data:", err);
+      alert("Error saving feedback, please try again.");
+    });
+
   } else {
     showFacultySelection();
   }
@@ -330,3 +344,4 @@ function submitFacultyFeedback(){
 </script>
 </body>
 </html>
+
