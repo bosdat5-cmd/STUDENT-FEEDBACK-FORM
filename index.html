@@ -136,6 +136,9 @@ let faculties = ["Sandeep Agarwal","Bhanu Dhir","Shekhar Sharma","Anju Gupta","P
 let completedFaculties = [];
 let selectedFacultyIndex = -1;
 
+// will hold all rows of feedback
+let feedbackData = [];
+
 const questions = [
   "Attendance & Punctuality",
   "Professional Image & Engagement",
@@ -165,7 +168,7 @@ const scoreMap = {
   "5: Excellent": 100
 };
 
-// generate rating questions
+// generate rating questions dynamically
 const ratingsDiv=document.getElementById("ratings");
 questions.forEach((q,i)=>{
   let label=document.createElement("label");label.innerText=q;
@@ -217,7 +220,7 @@ function showFacultySelection(){
   });
 }
 
-// start feedback
+// start feedback page
 function startFeedback(){
   showPage("page3");
   document.getElementById("currentFaculty").innerText=faculties[selectedFacultyIndex];
@@ -228,7 +231,7 @@ function startFeedback(){
   updateScore();
 }
 
-// get score
+// convert rating text to score
 function getScore(el){return scoreMap[el.value]||0;}
 
 // live update weighted + grade
@@ -256,9 +259,57 @@ function submitFacultyFeedback(){
   let quiz=parseFloat(document.getElementById("quizMarks").value);
   if(isNaN(quiz)||quiz<1||quiz>100){alert("Quiz marks must be 1-100");return;}
 
-  completedFaculties.push(faculties[selectedFacultyIndex]);
+  // collect student info (page1)
+  let studentName=document.getElementById("studentName").value.trim();
+  let regNumber=document.getElementById("regNumber").value.trim();
+  let email=document.getElementById("email").value.trim();
+  let mobile=document.getElementById("mobile").value.trim();
+
+  // collect faculty + ratings
+  let facultyName=faculties[selectedFacultyIndex];
+  let ratings={};
+  questions.forEach((q,i)=>{
+    let sel=document.querySelectorAll(".ratingSelect")[i].value;
+    ratings[q]=sel;
+  });
+
+  // calculate weighted & grade
+  let total=0,count=0;
+  selects.forEach(el=>{if(el.value){total+=scoreMap[el.value];count++;}});
+  let avg=(count>0)?total/count:0;
+  let weighted=(avg+quiz)/2;
+  let grade="-";
+  if(weighted>=85) grade="A+"; else if(weighted>=70) grade="A"; else if(weighted>=55) grade="B+"; else if(weighted>=40) grade="B"; else grade="C";
+
+  // comments
+  let comments=document.getElementById("comments").value.trim();
+
+  // build row with column names
+  let row={
+    "Student Name": studentName,
+    "Registration Number": regNumber,
+    "Email": email,
+    "Mobile Number": mobile,
+    "Faculty Name": facultyName,
+    "Batch ID": batch,
+    ...ratings, // expand ratings
+    "Quiz Marks": quiz,
+    "Weighted Score": weighted.toFixed(2),
+    "Grade": grade,
+    "Additional Comments": comments
+  };
+
+  // save row
+  feedbackData.push(row);
+
+  console.log("Feedback Saved:", row);
+  console.log("All Feedback Data:", feedbackData);
+
+  completedFaculties.push(facultyName);
   if(completedFaculties.length>=faculties.length){
     showPage("page4");
+    console.log("Final Data Ready:", feedbackData);
+    // 🔹 here you can send feedbackData to Google Sheets / server
   } else {
     showFacultySelection();
   }
