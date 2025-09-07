@@ -108,9 +108,10 @@
 
         <!-- Quiz Marks -->
         <label>Quiz Marks *</label>
-        <input type="number" step="0.01" min="1" max="100" id="quizMarks" placeholder="Enter quiz marks">
+        <input type="number" step="0.01" min="1" max="100" id="quizMarks" placeholder="Enter quiz marks" oninput="updateScore()">
 
         <!-- Auto Calculated -->
+        <div class="result-box" id="averageScoreDisplay">Average Feedback Score: 0</div>
         <div class="result-box" id="weightedScoreDisplay">Weighted Score: 0</div>
         <div class="result-box" id="gradeDisplay">Grade: -</div>
 
@@ -139,6 +140,7 @@ let selectedFacultyIndex = -1;
 // will hold all rows of feedback
 let feedbackData = [];
 
+// Questions
 const questions = [
   "Attendance & Punctuality",
   "Professional Image & Engagement",
@@ -234,20 +236,27 @@ function startFeedback(){
 // convert rating text to score
 function getScore(el){return scoreMap[el.value]||0;}
 
-// live update weighted + grade
+// live update average + weighted + grade
 function updateScore(){
   let selects=document.querySelectorAll(".ratingSelect");
   let total=0,count=0;
   selects.forEach(el=>{if(el.value){total+=getScore(el);count++;}});
   let avg=(count>0)?total/count:0;
   let quiz=parseFloat(document.getElementById("quizMarks").value)||0;
-  let weighted=(avg+quiz)/2;
-  if(weighted>0){
-    document.getElementById("weightedScoreDisplay").innerText="Weighted Score: "+weighted.toFixed(2);
-    let grade="-";
-    if(weighted>=85) grade="A+"; else if(weighted>=70) grade="A"; else if(weighted>=55) grade="B+"; else if(weighted>=40) grade="B"; else grade="C";
-    document.getElementById("gradeDisplay").innerText="Grade: "+grade;
-  }
+
+  // weights
+  let weighted=(avg*0.7)+(quiz*0.3);
+
+  document.getElementById("averageScoreDisplay").innerText="Average Feedback Score: "+avg.toFixed(2);
+  document.getElementById("weightedScoreDisplay").innerText="Weighted Score: "+weighted.toFixed(2);
+
+  let grade="-";
+  if(weighted>=85) grade="A+"; 
+  else if(weighted>=70) grade="A"; 
+  else if(weighted>=55) grade="B+"; 
+  else if(weighted>=40) grade="B"; 
+  else grade="C";
+  document.getElementById("gradeDisplay").innerText="Grade: "+grade;
 }
 
 // submit feedback
@@ -259,13 +268,13 @@ function submitFacultyFeedback(){
   let quiz=parseFloat(document.getElementById("quizMarks").value);
   if(isNaN(quiz)||quiz<1||quiz>100){alert("Quiz marks must be 1-100");return;}
 
-  // collect student info (page1)
+  // student info
   let studentName=document.getElementById("studentName").value.trim();
   let regNumber=document.getElementById("regNumber").value.trim();
   let email=document.getElementById("email").value.trim();
   let mobile=document.getElementById("mobile").value.trim();
 
-  // collect faculty + ratings
+  // faculty + ratings
   let facultyName=faculties[selectedFacultyIndex];
   let ratings={};
   questions.forEach((q,i)=>{
@@ -273,18 +282,22 @@ function submitFacultyFeedback(){
     ratings[q]=sel;
   });
 
-  // calculate weighted & grade
+  // calculate avg + weighted + grade
   let total=0,count=0;
   selects.forEach(el=>{if(el.value){total+=scoreMap[el.value];count++;}});
   let avg=(count>0)?total/count:0;
-  let weighted=(avg+quiz)/2;
+  let weighted=(avg*0.7)+(quiz*0.3);
   let grade="-";
-  if(weighted>=85) grade="A+"; else if(weighted>=70) grade="A"; else if(weighted>=55) grade="B+"; else if(weighted>=40) grade="B"; else grade="C";
+  if(weighted>=85) grade="A+"; 
+  else if(weighted>=70) grade="A"; 
+  else if(weighted>=55) grade="B+"; 
+  else if(weighted>=40) grade="B"; 
+  else grade="C";
 
   // comments
   let comments=document.getElementById("comments").value.trim();
 
-  // build row with column names
+  // build row
   let row={
     "Student Name": studentName,
     "Registration Number": regNumber,
@@ -292,14 +305,14 @@ function submitFacultyFeedback(){
     "Mobile Number": mobile,
     "Faculty Name": facultyName,
     "Batch ID": batch,
-    ...ratings, // expand ratings
+    ...ratings,
+    "Average Feedback Score": avg.toFixed(2),
     "Quiz Marks": quiz,
     "Weighted Score": weighted.toFixed(2),
     "Grade": grade,
     "Additional Comments": comments
   };
 
-  // save row
   feedbackData.push(row);
 
   console.log("Feedback Saved:", row);
@@ -309,7 +322,7 @@ function submitFacultyFeedback(){
   if(completedFaculties.length>=faculties.length){
     showPage("page4");
     console.log("Final Data Ready:", feedbackData);
-    // 🔹 here you can send feedbackData to Google Sheets / server
+    // 🔹 send feedbackData to Google Sheets / server here
   } else {
     showFacultySelection();
   }
