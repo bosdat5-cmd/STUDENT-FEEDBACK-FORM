@@ -186,25 +186,32 @@ async function submitFacultyFeedback() {
   feedbackData.push(row);
   completedFaculties.push(facultyName);
 
-  try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbzPxp5UIjQtnnJScuVapNo9PoPPcqBB-QRLI07bH4VvpiUqso1tOHz1zpWUL5p-1CcE/exec", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify([row])
-    });
-    const result = await response.json();
-    if(result.result !== "success") throw new Error(result.message);
-  } catch(err){
-    console.error("Error:",err);
-    alert("Error saving feedback: "+err.message);
-    return;
+try {
+  const response = await fetch("https://script.google.com/macros/s/AKfycbzPxp5UIjQtnnJScuVapNo9PoPPcqBB-QRLI07bH4VvpiUqso1tOHz1zpWUL5p-1CcE/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify([row])
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error("HTTP " + response.status + ": " + text);
   }
 
-  if(completedFaculties.length >= faculties.length){showPage("page4");} 
-  else{showFacultySelection();}
+  const result = await response.json();
+  if (result.result !== "success") {
+    throw new Error(result.message);
+  }
+
+  console.log("Saved OK:", result);
+
+} catch (err) {
+  console.error("Full error:", err);
+  alert("Error saving feedback: " + err.message);
 }
 </script>
 </body>
 </html>
+
 
 
