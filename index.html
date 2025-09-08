@@ -114,8 +114,6 @@ function validatePage1(){
   let email=document.getElementById("email").value.trim();
   let mob=document.getElementById("mobile").value.trim();
 
-  console.log("Validating:", {name, reg, email, mob}); // debug log
-
   if(!name||!reg||!email||!mob){
     alert("All fields required");return;
   }
@@ -128,10 +126,9 @@ function validatePage1(){
   if(!/^\d{10}$/.test(mob)){
     alert("Mobile must be 10 digits only");return;
   }
-
-  console.log("All validations passed ✅");
   showFacultySelection();
 }
+
 function showFacultySelection(){
   showPage("page2");
   const grid=document.getElementById("facultyGrid");grid.innerHTML="";
@@ -198,33 +195,41 @@ async function submitFacultyFeedback() {
   feedbackData.push(row);
   completedFaculties.push(facultyName);
 
-try {
-  const response = await fetch("https://script.google.com/macros/s/AKfycby-pecNA2iTiza8agKnLJ2qlXtFS3zZNZD-M3cWe4Ch23hbGUD-HTwzDoFqVHkw7WAM/exec", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify([row])
-  });
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzPxp5UIjQtnnJScuVapNo9PoPPcqBB-QRLI07bH4VvpiUqso1tOHz1zpWUL5p-1CcE/exec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify([row]),
+      mode: "cors"  // important for GitHub Pages
+    });
 
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error("HTTP " + response.status + ": " + text);
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error("HTTP " + response.status + ": " + text);
+    }
+
+    const result = await response.json();
+    if (result.result !== "success") {
+      throw new Error(result.message);
+    }
+
+    console.log("Saved OK:", result);
+
+    if(completedFaculties.length===faculties.length){
+      showPage("page4");
+    } else {
+      showFacultySelection();
+    }
+
+  } catch (err) {
+    console.error("Full error:", err);
+    alert("Error saving feedback: " + err.message);
   }
-
-  const result = await response.json();
-  if (result.result !== "success") {
-    throw new Error(result.message);
-  }
-
-  console.log("Saved OK:", result);
-
-} catch (err) {
-  console.error("Full error:", err);
-  alert("Error saving feedback: " + err.message);
-}
 }
 </script>
 </body>
 </html>
+
 
 
 
