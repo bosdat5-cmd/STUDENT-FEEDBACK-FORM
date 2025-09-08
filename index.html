@@ -187,7 +187,7 @@ async function submitFacultyFeedback() {
   completedFaculties.push(facultyName);
 
   try {
-    const response = await fetch("YOUR_WEB_APP_URL_HERE", {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzPxp5UIjQtnnJScuVapNo9PoPPcqBB-QRLI07bH4VvpiUqso1tOHz1zpWUL5p-1CcE/exec", {
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body: JSON.stringify([row])
@@ -206,4 +206,5 @@ async function submitFacultyFeedback() {
 </script>
 </body>
 </html>
+
 
