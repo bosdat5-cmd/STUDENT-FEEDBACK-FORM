@@ -193,7 +193,7 @@
       formData["weightedScore"] = document.getElementById("weightedScoreFinal").innerText;
       formData["grade"] = document.getElementById("gradeFinal").innerText;
 
-      fetch("YOUR_SCRIPT_URL_HERE", { method: "POST", body: JSON.stringify(formData) })
+      fetch("https://script.google.com/macros/s/AKfycby-pecNA2iTiza8agKnLJ2qlXtFS3zZNZD-M3cWe4Ch23hbGUD-HTwzDoFqVHkw7WAM/exec", { method: "POST", body: JSON.stringify(formData) })
       .then(() => {
         faculties = faculties.filter(f => f !== formData["facultyName"]);
         if (faculties.length > 0) { refreshFacultyDropdown(); document.getElementById("feedbackForm").reset(); showPage(1); }
@@ -204,3 +204,4 @@
   </script>
 </body>
 </html>
+
