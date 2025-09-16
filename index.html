@@ -11,30 +11,30 @@
   </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white shadow-lg rounded-xl p-6 w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-4 flex items-center">
+      <span class="mr-2">📝</span> Student Feedback Form
+    </h1>
 
-  <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-3xl">
-    <h1 class="text-2xl font-bold mb-6 text-center">📋 Student Feedback Form</h1>
+    <!-- ================= PAGE 1: BASIC INFO ================= -->
+    <div class="form-page active" id="page1">
+      <h2 class="text-lg font-semibold mb-4">Basic Information</h2>
+      <label class="block mb-2">Student Name</label>
+      <input name="studentName" id="studentName" placeholder="Student Name" class="w-full border p-2 rounded mb-2" required>
+      
+      <label class="block mb-2">Registration Number</label>
+      <input name="regNumber" id="regNumber" placeholder="Registration Number" class="w-full border p-2 rounded mb-2" required>
+      
+      <label class="block mb-2">Mobile (10 digits, starts with 6-9)</label>
+      <input name="mobile" id="mobile" type="tel" placeholder="Mobile (10 digits, starts with 6-9)" class="w-full border p-2 rounded mb-2" required>
+      
+      <label class="block mb-2">Email</label>
+      <input name="email" id="email" type="email" placeholder="Email" class="w-full border p-2 rounded mb-2" required>
 
-    <form id="feedbackForm" class="space-y-6">
-
-<!-- ================= PAGE 1: BASIC INFO ================= -->
-<div class="form-page active" id="page1">
-  <h2 class="text-lg font-semibold mb-4">Basic Information</h2>
-
-  <label>Student Name</label>
-  <input name="studentName" id="studentName" class="w-full border p-2 rounded mb-2" required>
-
-  <label>Registration Number</label>
-  <input name="regNumber" id="regNumber" class="w-full border p-2 rounded mb-2" required>
-
-  <label>Mobile (10 digits, starts with 6-9)</label>
-  <input name="mobile" id="mobile" type="tel" class="w-full border p-2 rounded mb-2" required>
-
-  <label>Email</label>
-  <input name="email" id="email" type="email" class="w-full border p-2 rounded mb-2" required>
-
-  <button type="button" id="nextBtn1" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
-</div>
+      <button type="button" id="nextBtn1" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
+    </div>
+  </div>
+</body>
 
       <!-- ================= PAGE 2: FACULTY ================= -->
       <div class="form-page" id="page2">
@@ -364,4 +364,5 @@ document.addEventListener("DOMContentLoaded", () => {
   </script>
 </body>
 </html>
+
 
