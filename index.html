@@ -28,16 +28,23 @@
         <button type="button" id="nextBtn1" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
       </div>
 
-      <!-- ================= PAGE 2: FACULTY ================= -->
-      <div class="form-page" id="page2">
-        <h2 class="text-lg font-semibold mb-4">Select Faculty</h2>
-        <select name="facultyName" id="facultyName" class="w-full border p-2 rounded mb-4" required></select>
+<!-- ================= PAGE 2: FACULTY SELECTION ================= -->
+<div class="form-page" id="page2">
+  <h2 class="text-lg font-semibold mb-4">Select Faculty</h2>
 
-        <div class="flex justify-between">
-          <button type="button" id="backBtn2" class="bg-gray-400 text-white px-4 py-2 rounded">Back</button>
-          <button type="button" id="nextBtn2" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
-        </div>
-      </div>
+  <!-- Dropdown -->
+  <select id="facultySelect" class="w-full border p-2 rounded mb-4">
+    <option value="">-- Select Faculty --</option>
+  </select>
+
+  <!-- OR Cards -->
+  <div id="facultyCards" class="grid grid-cols-2 gap-4"></div>
+
+  <div class="flex justify-between mt-4">
+    <button type="button" id="backBtn2" class="bg-gray-400 text-white px-4 py-2 rounded">Back</button>
+    <button type="button" id="nextBtn2" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
+  </div>
+</div>
 
       <!-- ================= PAGE 3: FEEDBACK ================= -->
       <div class="form-page" id="page3">
@@ -154,14 +161,29 @@
     document.getElementById("nextBtn3").onclick = () => { calculateScores(); showPage(3); };
     document.getElementById("backBtn4").onclick = () => showPage(2);
 
-    // ========== FACULTY LOOP ==========
-    let faculties = ["Faculty 1","Faculty 2","Faculty 3","Faculty 4","Faculty 5","Faculty 6","Faculty 7"];
-    function refreshFacultyDropdown() {
-      const select = document.getElementById("facultyName");
-      select.innerHTML = '<option value="">-- Select Faculty --</option>';
-      faculties.forEach(f => { const opt = document.createElement("option"); opt.value = f; opt.textContent = f; select.appendChild(opt); });
-    }
-    refreshFacultyDropdown();
+const faculties = ["Faculty 1","Faculty 2","Faculty 3","Faculty 4","Faculty 5","Faculty 6","Faculty 7"];
+
+// Populate dropdown
+const facultySelect = document.getElementById("facultySelect");
+faculties.forEach(name => {
+  const option = document.createElement("option");
+  option.value = name;
+  option.textContent = name;
+  facultySelect.appendChild(option);
+});
+
+// Populate cards (optional)
+const facultyCards = document.getElementById("facultyCards");
+faculties.forEach(name => {
+  const card = document.createElement("div");
+  card.className = "p-3 border rounded cursor-pointer text-center hover:bg-blue-100";
+  card.textContent = name;
+  card.addEventListener("click", () => {
+    // Select this faculty
+    facultySelect.value = name;
+  });
+  facultyCards.appendChild(card);
+});
 
     // ========== SCORE CALCULATION ==========
     function calculateScores() {
@@ -197,4 +219,5 @@
   </script>
 </body>
 </html>
+
 
