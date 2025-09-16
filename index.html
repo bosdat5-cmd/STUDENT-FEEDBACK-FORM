@@ -44,16 +44,71 @@
         <h2 class="text-lg font-semibold mb-4">Feedback</h2>
         <input name="batchId" placeholder="Batch ID" class="w-full border p-2 rounded mb-4" required>
 
-        <div id="questionsContainer" class="space-y-4"></div>
+        <!-- QUESTIONS (all 19 as dropdowns 1-5) -->
+        <div id="questionsContainer" class="space-y-4">
+          <select name="Attendance & Punctuality" class="w-full border p-2 rounded" required>
+            <option value="">Attendance & Punctuality</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Professional Image & Engagement" class="w-full border p-2 rounded" required>
+            <option value="">Professional Image & Engagement</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Discipline" class="w-full border p-2 rounded" required>
+            <option value="">Discipline</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Active Participation" class="w-full border p-2 rounded" required>
+            <option value="">Active Participation</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Group Activities & Teamwork" class="w-full border p-2 rounded" required>
+            <option value="">Group Activities & Teamwork</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Presentation - Content" class="w-full border p-2 rounded" required>
+            <option value="">Presentation - Content</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Presentation - Delivery" class="w-full border p-2 rounded" required>
+            <option value="">Presentation - Delivery</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Communication Skills" class="w-full border p-2 rounded" required>
+            <option value="">Communication Skills</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Analytical Thinking" class="w-full border p-2 rounded" required>
+            <option value="">Analytical Thinking</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Creativity & Innovation" class="w-full border p-2 rounded" required>
+            <option value="">Creativity & Innovation</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Professional Ethics Awareness" class="w-full border p-2 rounded" required>
+            <option value="">Professional Ethics Awareness</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Student-Faculty Interaction Quality" class="w-full border p-2 rounded" required>
+            <option value="">Student-Faculty Interaction Quality</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Overall Engagement" class="w-full border p-2 rounded" required>
+            <option value="">Overall Engagement</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Politeness & Courtesy" class="w-full border p-2 rounded" required>
+            <option value="">Politeness & Courtesy</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Use of Real-World Examples" class="w-full border p-2 rounded" required>
+            <option value="">Use of Real-World Examples</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Ease of Asking Questions" class="w-full border p-2 rounded" required>
+            <option value="">Ease of Asking Questions</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Individual Attention to Students" class="w-full border p-2 rounded" required>
+            <option value="">Individual Attention to Students</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Encourages and Motivates Students" class="w-full border p-2 rounded" required>
+            <option value="">Encourages and Motivates Students</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
 
+        <!-- SCORES -->
         <input name="quizMarks" id="quizMarks" type="number" placeholder="Quiz Marks (out of 100)" class="w-full border p-2 rounded mt-4" required>
-
         <div class="mt-4 p-3 border rounded bg-gray-50">
           <p><b>Average Score:</b> <span id="avgScore">0</span></p>
           <p><b>Weighted Score:</b> <span id="weightedScore">0</span></p>
           <p><b>Grade:</b> <span id="grade">-</span></p>
         </div>
-
         <textarea name="comments" placeholder="Comments" class="w-full border p-2 rounded mt-4"></textarea>
 
         <div class="flex justify-between mt-4">
@@ -85,16 +140,13 @@
       </div>
 
     </form>
-
     <p id="status" class="mt-4 text-center text-gray-700"></p>
   </div>
 
   <script>
     // ========== PAGE HANDLING ==========
     const pages = document.querySelectorAll(".form-page");
-    function showPage(index) {
-      pages.forEach((p, i) => p.classList.toggle("active", i === index));
-    }
+    function showPage(index) { pages.forEach((p, i) => p.classList.toggle("active", i === index)); }
 
     document.getElementById("nextBtn1").onclick = () => {
       const mobile = document.getElementById("mobile").value.trim();
@@ -114,46 +166,20 @@
     function refreshFacultyDropdown() {
       const select = document.getElementById("facultyName");
       select.innerHTML = '<option value="">-- Select Faculty --</option>';
-      faculties.forEach(f => {
-        const opt = document.createElement("option");
-        opt.value = f; opt.textContent = f;
-        select.appendChild(opt);
-      });
+      faculties.forEach(f => { const opt = document.createElement("option"); opt.value = f; opt.textContent = f; select.appendChild(opt); });
     }
     refreshFacultyDropdown();
 
-    // ========== FEEDBACK QUESTIONS ==========
-    const questions = [
-      "Attendance & Punctuality","Professional Image & Engagement","Discipline","Active Participation",
-      "Group Activities & Teamwork","Presentation - Content","Presentation - Delivery","Communication Skills",
-      "Analytical Thinking","Creativity & Innovation","Professional Ethics Awareness","Student-Faculty Interaction Quality",
-      "Overall Engagement","Politeness & Courtesy","Use of Real-World Examples","Ease of Asking Questions",
-      "Individual Attention to Students","Encourages and Motivates Students"
-    ];
-    const container = document.getElementById("questionsContainer");
-    questions.forEach((q, i) => {
-      const select = document.createElement("select");
-      select.name = "Q" + (i+1);
-      select.className = "w-full border p-2 rounded";
-      select.innerHTML = `<option value="">${q}</option>` + [1,2,3,4,5].map(n => `<option>${n}</option>`).join("");
-      container.appendChild(select);
-    });
-
     // ========== SCORE CALCULATION ==========
     function calculateScores() {
-      const qScores = Array.from(document.querySelectorAll("[name^=Q]")).map(el => Number(el.value) || 0);
+      const qScores = Array.from(document.querySelectorAll("#questionsContainer select")).map(el => Number(el.value) || 0);
       const quiz = Number(document.getElementById("quizMarks").value) || 0;
       const avg = qScores.reduce((a,b)=>a+b,0) / qScores.length;
-      const weighted = (avg*20 + quiz) / 2; // scale to 100
-      let grade = "D";
-      if (weighted >= 85) grade = "A";
-      else if (weighted >= 70) grade = "B";
-      else if (weighted >= 50) grade = "C";
-
+      const weighted = (avg*20 + quiz) / 2;
+      let grade = "D"; if (weighted >= 85) grade = "A"; else if (weighted >= 70) grade = "B"; else if (weighted >= 50) grade = "C";
       document.getElementById("avgScore").innerText = avg.toFixed(2);
       document.getElementById("weightedScore").innerText = weighted.toFixed(2);
       document.getElementById("grade").innerText = grade;
-
       document.getElementById("avgScoreFinal").innerText = avg.toFixed(2);
       document.getElementById("weightedScoreFinal").innerText = weighted.toFixed(2);
       document.getElementById("gradeFinal").innerText = grade;
@@ -167,20 +193,11 @@
       formData["weightedScore"] = document.getElementById("weightedScoreFinal").innerText;
       formData["grade"] = document.getElementById("gradeFinal").innerText;
 
-      fetch("https://script.google.com/macros/s/AKfycby-pecNA2iTiza8agKnLJ2qlXtFS3zZNZD-M3cWe4Ch23hbGUD-HTwzDoFqVHkw7WAM/exec", {
-        method: "POST",
-        body: JSON.stringify(formData)
-      })
+      fetch("https://script.google.com/macros/s/AKfycby-pecNA2iTiza8agKnLJ2qlXtFS3zZNZD-M3cWe4Ch23hbGUD-HTwzDoFqVHkw7WAM/exec", { method: "POST", body: JSON.stringify(formData) })
       .then(() => {
-        // Remove submitted faculty
         faculties = faculties.filter(f => f !== formData["facultyName"]);
-        if (faculties.length > 0) {
-          refreshFacultyDropdown();
-          document.getElementById("feedbackForm").reset();
-          showPage(1); // back to faculty selection
-        } else {
-          showPage(4); // thank you
-        }
+        if (faculties.length > 0) { refreshFacultyDropdown(); document.getElementById("feedbackForm").reset(); showPage(1); }
+        else { showPage(4); }
       })
       .catch(err => alert("Failed: " + err.message));
     };
