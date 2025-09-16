@@ -170,19 +170,49 @@
     refreshFacultyDropdown();
 
     // ========== SCORE CALCULATION ==========
-    function calculateScores() {
-      const qScores = Array.from(document.querySelectorAll("#questionsContainer select")).map(el => Number(el.value) || 0);
-      const quiz = Number(document.getElementById("quizMarks").value) || 0;
-      const avg = qScores.reduce((a,b)=>a+b,0) / qScores.length;
-      const weighted = (avg*20 + quiz) / 2;
-      let grade = "D"; if (weighted >= 85) grade = "A"; else if (weighted >= 70) grade = "B"; else if (weighted >= 50) grade = "C";
-      document.getElementById("avgScore").innerText = avg.toFixed(2);
-      document.getElementById("weightedScore").innerText = weighted.toFixed(2);
-      document.getElementById("grade").innerText = grade;
-      document.getElementById("avgScoreFinal").innerText = avg.toFixed(2);
-      document.getElementById("weightedScoreFinal").innerText = weighted.toFixed(2);
-      document.getElementById("gradeFinal").innerText = grade;
+<script>
+function calculateScores() {
+  const selects = document.querySelectorAll("select[name]");
+  let sum = 0, count = 0;
+
+  selects.forEach(sel => {
+    if (sel.value) {
+      sum += parseInt(sel.value);
+      count++;
     }
+  });
+
+  const avg = count > 0 ? (sum / count).toFixed(2) : 0;
+
+  // Get quiz marks
+  const quizMarks = parseFloat(document.querySelector("input[name='quizMarks']").value) || 0;
+
+  // Weighted score (you can adjust formula if needed)
+  const weighted = ((parseFloat(avg) + quizMarks) / 2).toFixed(2);
+
+  // Grade logic
+  let grade = "F";
+  if (weighted >= 90) grade = "A+";
+  else if (weighted >= 80) grade = "A";
+  else if (weighted >= 70) grade = "B";
+  else if (weighted >= 60) grade = "C";
+  else if (weighted >= 50) grade = "D";
+
+  // Push values to inputs
+  document.querySelector("input[name='averageScore']").value = avg;
+  document.querySelector("input[name='weightedScore']").value = weighted;
+  document.querySelector("input[name='grade']").value = grade;
+}
+
+// 🔹 Attach event listeners
+document.addEventListener("DOMContentLoaded", () => {
+  const selects = document.querySelectorAll("select[name]");
+  const quizInput = document.querySelector("input[name='quizMarks']");
+
+  selects.forEach(sel => sel.addEventListener("change", calculateScores));
+  quizInput.addEventListener("input", calculateScores);
+});
+</script>
 
     // ========== SUBMIT HANDLER ==========
     document.getElementById("submitBtn").onclick = () => {
@@ -203,4 +233,5 @@
   </script>
 </body>
 </html>
+
 
