@@ -5,136 +5,208 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Feedback Form</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .form-page { display: none; }
+    .form-page.active { display: block; }
+  </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
   <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-3xl">
     <h1 class="text-2xl font-bold mb-6 text-center">📋 Student Feedback Form</h1>
 
-    <form id="feedbackForm" class="space-y-4">
-      <input name="studentName" placeholder="Student Name" class="w-full border p-2 rounded" required>
-      <input name="regNumber" placeholder="Registration Number" class="w-full border p-2 rounded" required>
-      <input name="email" type="email" placeholder="Email" class="w-full border p-2 rounded">
-      <input name="mobile" type="tel" placeholder="Mobile" class="w-full border p-2 rounded">
-      <input name="facultyName" placeholder="Faculty Name" class="w-full border p-2 rounded">
-      <input name="batchId" placeholder="Batch ID" class="w-full border p-2 rounded">
+    <form id="feedbackForm" class="space-y-6">
 
-      <h2 class="text-lg font-semibold mt-6">Feedback Criteria (Rate 1–5)</h2>
+      <!-- ================= PAGE 1: BASIC INFO ================= -->
+      <div class="form-page active" id="page1">
+        <h2 class="text-lg font-semibold mb-4">Basic Information</h2>
+        <input name="studentName" id="studentName" placeholder="Student Name" class="w-full border p-2 rounded mb-2" required>
+        <input name="regNumber" id="regNumber" placeholder="Registration Number" class="w-full border p-2 rounded mb-2" required>
+        <input name="mobile" id="mobile" type="tel" placeholder="Mobile (10 digits, starts with 6-9)" class="w-full border p-2 rounded mb-2" required>
+        <input name="email" id="email" type="email" placeholder="Email" class="w-full border p-2 rounded mb-2" required>
 
-      <select name="Attendance & Punctuality" class="w-full border p-2 rounded" required>
-        <option value="">Attendance & Punctuality</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Professional Image & Engagement" class="w-full border p-2 rounded" required>
-        <option value="">Professional Image & Engagement</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Discipline" class="w-full border p-2 rounded" required>
-        <option value="">Discipline</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Active Participation" class="w-full border p-2 rounded" required>
-        <option value="">Active Participation</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Group Activities & Teamwork" class="w-full border p-2 rounded" required>
-        <option value="">Group Activities & Teamwork</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Presentation - Content" class="w-full border p-2 rounded" required>
-        <option value="">Presentation - Content</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Presentation - Delivery" class="w-full border p-2 rounded" required>
-        <option value="">Presentation - Delivery</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Communication Skills" class="w-full border p-2 rounded" required>
-        <option value="">Communication Skills</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Analytical Thinking" class="w-full border p-2 rounded" required>
-        <option value="">Analytical Thinking</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Creativity & Innovation" class="w-full border p-2 rounded" required>
-        <option value="">Creativity & Innovation</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Professional Ethics Awareness" class="w-full border p-2 rounded" required>
-        <option value="">Professional Ethics Awareness</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Student-Faculty Interaction Quality" class="w-full border p-2 rounded" required>
-        <option value="">Student-Faculty Interaction Quality</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Overall Engagement" class="w-full border p-2 rounded" required>
-        <option value="">Overall Engagement</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Politeness & Courtesy" class="w-full border p-2 rounded" required>
-        <option value="">Politeness & Courtesy</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Use of Real-World Examples" class="w-full border p-2 rounded" required>
-        <option value="">Use of Real-World Examples</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Ease of Asking Questions" class="w-full border p-2 rounded" required>
-        <option value="">Ease of Asking Questions</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Individual Attention to Students" class="w-full border p-2 rounded" required>
-        <option value="">Individual Attention to Students</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
-      <select name="Encourages and Motivates Students" class="w-full border p-2 rounded" required>
-        <option value="">Encourages and Motivates Students</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select>
+        <button type="button" onclick="nextPage(1)" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
+      </div>
 
-      <input name="averageScore" placeholder="Average Score" class="w-full border p-2 rounded">
-      <input name="quizMarks" placeholder="Quiz Marks" class="w-full border p-2 rounded">
-      <input name="weightedScore" placeholder="Weighted Score" class="w-full border p-2 rounded">
-      <input name="grade" placeholder="Grade" class="w-full border p-2 rounded">
+      <!-- ================= PAGE 2: FACULTY ================= -->
+      <div class="form-page" id="page2">
+        <h2 class="text-lg font-semibold mb-4">Select Faculty</h2>
+        <select name="facultyName" id="facultyName" class="w-full border p-2 rounded mb-4" required>
+          <option value="">-- Select Faculty --</option>
+          <option>Faculty 1</option>
+          <option>Faculty 2</option>
+          <option>Faculty 3</option>
+          <option>Faculty 4</option>
+          <option>Faculty 5</option>
+          <option>Faculty 6</option>
+          <option>Faculty 7</option>
+        </select>
 
-      <textarea name="comments" placeholder="Comments" class="w-full border p-2 rounded"></textarea>
+        <div class="flex justify-between">
+          <button type="button" onclick="prevPage(2)" class="bg-gray-400 text-white px-4 py-2 rounded">Back</button>
+          <button type="button" onclick="nextPage(2)" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
+        </div>
+      </div>
 
-      <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-        Submit
-      </button>
+      <!-- ================= PAGE 3: FEEDBACK ================= -->
+      <div class="form-page" id="page3">
+        <h2 class="text-lg font-semibold mb-4">Feedback</h2>
+        <input name="batchId" placeholder="Batch ID" class="w-full border p-2 rounded mb-4" required>
+
+        <div id="questionsContainer" class="space-y-4">
+          <!-- Feedback questions auto generated -->
+        </div>
+
+        <input name="quizMarks" id="quizMarks" type="number" placeholder="Quiz Marks (out of 100)" class="w-full border p-2 rounded mt-4" required readonly>
+
+        <div class="mt-4 p-3 border rounded bg-gray-50">
+          <p><b>Average Score:</b> <span id="avgScoreDisplay">0</span></p>
+          <p><b>Weighted Score:</b> <span id="weightedDisplay">0</span></p>
+          <p><b>Grade:</b> <span id="gradeDisplay">-</span></p>
+        </div>
+
+        <textarea name="comments" placeholder="Comments" class="w-full border p-2 rounded mt-4"></textarea>
+
+        <div class="flex justify-between mt-4">
+          <button type="button" onclick="prevPage(3)" class="bg-gray-400 text-white px-4 py-2 rounded">Back</button>
+          <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Submit</button>
+        </div>
+      </div>
+
     </form>
 
     <p id="status" class="mt-4 text-center text-gray-700"></p>
   </div>
 
   <script>
+    let currentPage = 1;
+    let usedFaculties = new Set();
+
+    const questions = [
+      "Attendance & Punctuality",
+      "Professional Image & Engagement",
+      "Discipline",
+      "Active Participation",
+      "Group Activities & Teamwork",
+      "Presentation - Content",
+      "Presentation - Delivery",
+      "Communication Skills",
+      "Analytical Thinking",
+      "Creativity & Innovation",
+      "Professional Ethics Awareness",
+      "Student-Faculty Interaction Quality",
+      "Overall Engagement",
+      "Politeness & Courtesy",
+      "Use of Real-World Examples",
+      "Ease of Asking Questions",
+      "Individual Attention to Students",
+      "Encourages and Motivates Students"
+    ];
+
+    // Generate feedback questions
+    const container = document.getElementById("questionsContainer");
+    questions.forEach(q => {
+      const select = document.createElement("select");
+      select.name = q;
+      select.className = "w-full border p-2 rounded";
+      select.required = true;
+      select.innerHTML = `<option value="">${q}</option>` +
+        [1,2,3,4,5].map(n => `<option>${n}</option>`).join("");
+      container.appendChild(select);
+    });
+
+    function showPage(page) {
+      document.querySelectorAll(".form-page").forEach(div => div.classList.remove("active"));
+      document.getElementById("page" + page).classList.add("active");
+      currentPage = page;
+    }
+
+    function nextPage(page) {
+      if (page === 1) {
+        // validate mobile
+        const mobile = document.getElementById("mobile").value.trim();
+        if (!/^[6-9]\d{9}$/.test(mobile)) {
+          alert("Mobile number must be 10 digits and start with 6,7,8,9");
+          return;
+        }
+        // validate email
+        const email = document.getElementById("email").value.trim();
+        if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+          alert("Enter valid email (must contain @ and .)");
+          return;
+        }
+      }
+
+      if (page === 2) {
+        const faculty = document.getElementById("facultyName").value;
+        if (usedFaculties.has(faculty)) {
+          alert("You already reviewed this faculty. Please choose another.");
+          return;
+        }
+        usedFaculties.add(faculty);
+      }
+      showPage(page + 1);
+    }
+
+    function prevPage(page) {
+      showPage(page - 1);
+    }
+
+    // Auto calculate scores
+    document.getElementById("questionsContainer").addEventListener("change", calcScores);
+    document.getElementById("quizMarks").addEventListener("input", calcScores);
+
+    function calcScores() {
+      const ratings = questions.map(q => parseInt(document.querySelector(`[name="${q}"]`).value) || 0);
+      const answered = ratings.filter(v => v > 0);
+      if (answered.length === 0) return;
+
+      const avgScore = (ratings.reduce((a,b) => a+b,0) / ratings.length) * 20; // out of 100
+      const quiz = parseInt(document.getElementById("quizMarks").value) || 0;
+      const weighted = (avgScore + quiz) / 2;
+
+      let grade = "-";
+      if (weighted >= 80) grade = "A";
+      else if (weighted >= 60) grade = "B";
+      else if (weighted >= 40) grade = "C";
+      else grade = "D";
+
+      document.getElementById("avgScoreDisplay").textContent = avgScore.toFixed(2);
+      document.getElementById("weightedDisplay").textContent = weighted.toFixed(2);
+      document.getElementById("gradeDisplay").textContent = grade;
+
+      // Fill hidden fields for submission
+      document.getElementById("quizMarks").readOnly = false;
+    }
+
+    // Submit form
     document.getElementById("feedbackForm").addEventListener("submit", async function(e) {
       e.preventDefault();
 
       const form = e.target;
-      const data = Object.fromEntries(new FormData(form).entries());
+      const data = new FormData(form);
+
+      // Append calculated values
+      data.append("averageScore", document.getElementById("avgScoreDisplay").textContent);
+      data.append("weightedScore", document.getElementById("weightedDisplay").textContent);
+      data.append("grade", document.getElementById("gradeDisplay").textContent);
 
       document.getElementById("status").textContent = "⏳ Submitting...";
 
       try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycby-pecNA2iTiza8agKnLJ2qlXtFS3zZNZD-M3cWe4Ch23hbGUD-HTwzDoFqVHkw7WAM/exec", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        });
-
+        const res = await fetch("YOUR_WEB_APP_URL", { method: "POST", body: data });
         const result = await res.json();
 
         if (result.result === "success") {
           document.getElementById("status").textContent = "✅ Submitted successfully!";
           form.reset();
+          usedFaculties.clear();
+          showPage(1);
         } else {
           document.getElementById("status").textContent = "❌ Error: " + result.message;
         }
       } catch (err) {
-        document.getElementById("status").textContent = "⚠️ Failed to submit: " + err.message;
+        document.getElementById("status").textContent = "⚠️ Failed: " + err.message;
       }
     });
   </script>
