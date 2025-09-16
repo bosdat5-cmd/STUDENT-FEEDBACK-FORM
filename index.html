@@ -11,10 +11,8 @@
   </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
-
   <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-3xl">
     <h1 class="text-2xl font-bold mb-6 text-center">📋 Student Feedback Form</h1>
-
     <form id="feedbackForm" class="space-y-6">
 
       <!-- ================= PAGE 1: BASIC INFO ================= -->
@@ -24,181 +22,217 @@
         <input name="regNumber" id="regNumber" placeholder="Registration Number" class="w-full border p-2 rounded mb-2" required>
         <input name="mobile" id="mobile" type="tel" placeholder="Mobile (10 digits, starts with 6-9)" class="w-full border p-2 rounded mb-2" required>
         <input name="email" id="email" type="email" placeholder="Email" class="w-full border p-2 rounded mb-2" required>
-
         <button type="button" id="nextBtn1" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
       </div>
 
-<!-- ================= PAGE 2: FACULTY SELECTION ================= -->
-<div class="form-page" id="page2">
-  <h2 class="text-lg font-semibold mb-4">Select Faculty</h2>
+      <!-- ================= PAGE 2: FACULTY SELECTION ================= -->
+      <div class="form-page" id="page2">
+        <h2 class="text-lg font-semibold mb-4">Select Faculty</h2>
+        <select id="facultySelect" class="w-full border p-2 rounded mb-4">
+          <option value="">-- Select Faculty --</option>
+        </select>
+        <div id="facultyCards" class="grid grid-cols-2 gap-4 mb-4"></div>
+        <div class="flex justify-between mt-4">
+          <button type="button" id="backBtn2" class="bg-gray-400 text-white px-4 py-2 rounded">Back</button>
+          <button type="button" id="nextBtn2" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
+        </div>
+      </div>
 
-  <!-- Dropdown -->
-  <select id="facultySelect" class="w-full border p-2 rounded mb-4">
-    <option value="">-- Select Faculty --</option>
-  </select>
-
-  <!-- OR Cards -->
-  <div id="facultyCards" class="grid grid-cols-2 gap-4"></div>
-
-  <div class="flex justify-between mt-4">
-    <button type="button" id="backBtn2" class="bg-gray-400 text-white px-4 py-2 rounded">Back</button>
-    <button type="button" id="nextBtn2" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
-  </div>
-</div>
-
-      <!-- ================= PAGE 3: FEEDBACK ================= -->
+      <!-- ================= PAGE 3: FEEDBACK + QUIZ ================= -->
       <div class="form-page" id="page3">
-        <h2 class="text-lg font-semibold mb-4">Feedback</h2>
-        <input name="batchId" placeholder="Batch ID" class="w-full border p-2 rounded mb-4" required>
+        <h2 class="text-lg font-semibold mb-4">Feedback & Quiz</h2>
+        <input name="batchId" id="batchId" placeholder="Batch ID" class="w-full border p-2 rounded mb-4" required>
 
-        <!-- QUESTIONS (all 19 as dropdowns 1-5) -->
         <div id="questionsContainer" class="space-y-4">
-          <select name="Attendance & Punctuality" class="w-full border p-2 rounded" required>
-            <option value="">Attendance & Punctuality</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Attendance & Punctuality" required>
+            <option value="">Attendance & Punctuality</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Professional Image & Engagement" class="w-full border p-2 rounded" required>
-            <option value="">Professional Image & Engagement</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Professional Image & Engagement" required>
+            <option value="">Professional Image & Engagement</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Discipline" class="w-full border p-2 rounded" required>
-            <option value="">Discipline</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Discipline" required>
+            <option value="">Discipline</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Active Participation" class="w-full border p-2 rounded" required>
-            <option value="">Active Participation</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Active Participation" required>
+            <option value="">Active Participation</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Group Activities & Teamwork" class="w-full border p-2 rounded" required>
-            <option value="">Group Activities & Teamwork</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Group Activities & Teamwork" required>
+            <option value="">Group Activities & Teamwork</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Presentation - Content" class="w-full border p-2 rounded" required>
-            <option value="">Presentation - Content</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Presentation - Content" required>
+            <option value="">Presentation - Content</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Presentation - Delivery" class="w-full border p-2 rounded" required>
-            <option value="">Presentation - Delivery</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Presentation - Delivery" required>
+            <option value="">Presentation - Delivery</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Communication Skills" class="w-full border p-2 rounded" required>
-            <option value="">Communication Skills</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Communication Skills" required>
+            <option value="">Communication Skills</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Analytical Thinking" class="w-full border p-2 rounded" required>
-            <option value="">Analytical Thinking</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Analytical Thinking" required>
+            <option value="">Analytical Thinking</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Creativity & Innovation" class="w-full border p-2 rounded" required>
-            <option value="">Creativity & Innovation</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Creativity & Innovation" required>
+            <option value="">Creativity & Innovation</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Professional Ethics Awareness" class="w-full border p-2 rounded" required>
-            <option value="">Professional Ethics Awareness</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Professional Ethics Awareness" required>
+            <option value="">Professional Ethics Awareness</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Student-Faculty Interaction Quality" class="w-full border p-2 rounded" required>
-            <option value="">Student-Faculty Interaction Quality</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Student-Faculty Interaction Quality" required>
+            <option value="">Student-Faculty Interaction Quality</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Overall Engagement" class="w-full border p-2 rounded" required>
-            <option value="">Overall Engagement</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Overall Engagement" required>
+            <option value="">Overall Engagement</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Politeness & Courtesy" class="w-full border p-2 rounded" required>
-            <option value="">Politeness & Courtesy</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Politeness & Courtesy" required>
+            <option value="">Politeness & Courtesy</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Use of Real-World Examples" class="w-full border p-2 rounded" required>
-            <option value="">Use of Real-World Examples</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Use of Real-World Examples" required>
+            <option value="">Use of Real-World Examples</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Ease of Asking Questions" class="w-full border p-2 rounded" required>
-            <option value="">Ease of Asking Questions</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Ease of Asking Questions" required>
+            <option value="">Ease of Asking Questions</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Individual Attention to Students" class="w-full border p-2 rounded" required>
-            <option value="">Individual Attention to Students</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Individual Attention to Students" required>
+            <option value="">Individual Attention to Students</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
-          <select name="Encourages and Motivates Students" class="w-full border p-2 rounded" required>
-            <option value="">Encourages and Motivates Students</option><option>Poor</option><option>Below Average</option><option>Average</option><option>Good</option><option>Excellent</option>
+          <select name="Encourages and Motivates Students" required>
+            <option value="">Encourages and Motivates Students</option>
+            <option value="1">Poor</option><option value="2">Below Average</option>
+            <option value="3">Average</option><option value="4">Good</option>
+            <option value="5">Excellent</option>
           </select>
         </div>
 
-      <!-- ================= PAGE 3: SCORES ================= -->
-<div class="form-page" id="page3">
-  <h2 class="text-lg font-semibold mb-4">Enter Quiz Marks</h2>
+        <!-- QUIZ MARKS -->
+        <input name="quizMarks" id="quizMarks" type="number" placeholder="Quiz Marks (out of 100)" class="w-full border p-2 rounded mt-4" required>
 
-  <input name="quizMarks" id="quizMarks" type="number" placeholder="Quiz Marks (out of 100)" class="w-full border p-2 rounded mt-4" required>
+        <div class="mt-4 p-3 border rounded bg-gray-50">
+          <p><b>Weighted Score:</b> <span id="weightedScore">0</span></p>
+          <p><b>Grade:</b> <span id="grade">-</span></p>
+        </div>
 
-  <div class="mt-4 p-3 border rounded bg-gray-50">
-    <p><b>Weighted Score:</b> <span id="weightedScore">0</span></p>
-    <p><b>Grade:</b> <span id="grade">-</span></p>
-  </div>
-
-  <textarea name="comments" placeholder="Comments" class="w-full border p-2 rounded mt-4"></textarea>
-
-  <div class="flex justify-between mt-4">
-    <button type="button" id="backBtn3" class="bg-gray-400 text-white px-4 py-2 rounded">Back</button>
-  </div>
-</div>
+        <textarea name="comments" placeholder="Comments" class="w-full border p-2 rounded mt-4"></textarea>
 
         <div class="flex justify-between mt-4">
-          <button type="button" id="backBtn4" class="bg-gray-400 text-white px-4 py-2 rounded">Back</button>
+          <button type="button" id="backBtn3" class="bg-gray-400 text-white px-4 py-2 rounded">Back</button>
           <button type="button" id="submitBtn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Submit</button>
         </div>
       </div>
 
-      <!-- ================= PAGE 5: THANK YOU ================= -->
-      <div class="form-page" id="page5">
+      <!-- ================= PAGE 4: THANK YOU ================= -->
+      <div class="form-page" id="page4">
         <h2 class="text-xl font-bold text-center mb-4">🎉 Thank You!</h2>
         <p class="text-center">You have successfully completed feedback for all faculties.</p>
       </div>
 
     </form>
-    <p id="status" class="mt-4 text-center text-gray-700"></p>
   </div>
 
-  <script>
-    // ========== PAGE HANDLING ==========
-    const pages = document.querySelectorAll(".form-page");
-    function showPage(index) { pages.forEach((p, i) => p.classList.toggle("active", i === index)); }
+<script>
+  // ===== PAGE HANDLING =====
+  const pages = document.querySelectorAll(".form-page");
+  function showPage(index){pages.forEach((p,i)=>p.classList.toggle("active",i===index));}
 
-    document.getElementById("nextBtn1").onclick = () => {
-      const mobile = document.getElementById("mobile").value.trim();
-      if (!/^[6-9]\d{9}$/.test(mobile)) return alert("Invalid mobile number!");
-      const email = document.getElementById("email").value.trim();
-      if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) return alert("Invalid email!");
-      showPage(1);
-    };
-    document.getElementById("backBtn2").onclick = () => showPage(0);
-    document.getElementById("nextBtn2").onclick = () => showPage(2);
-    document.getElementById("backBtn3").onclick = () => showPage(1);
-    document.getElementById("nextBtn3").onclick = () => { calculateScores(); showPage(3); };
-    document.getElementById("backBtn4").onclick = () => showPage(2);
+  document.getElementById("nextBtn1").onclick = () => {
+    const mobile = document.getElementById("mobile").value.trim();
+    if(!/^[6-9]\d{9}$/.test(mobile)) return alert("Invalid mobile number!");
+    const email = document.getElementById("email").value.trim();
+    if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)) return alert("Invalid email!");
+    showPage(1);
+  };
+  document.getElementById("backBtn2").onclick = () => showPage(0);
+  document.getElementById("nextBtn2").onclick = () => {
+    if(!document.getElementById("facultySelect").value) return alert("Please select a faculty");
+    showPage(2);
+  };
+  document.getElementById("backBtn3").onclick = () => showPage(1);
 
-const faculties = ["Faculty 1","Faculty 2","Faculty 3","Faculty 4","Faculty 5","Faculty 6","Faculty 7"];
-
-// Populate dropdown
-const facultySelect = document.getElementById("facultySelect");
-faculties.forEach(name => {
-  const option = document.createElement("option");
-  option.value = name;
-  option.textContent = name;
-  facultySelect.appendChild(option);
-});
-
-// Populate cards (optional)
-const facultyCards = document.getElementById("facultyCards");
-faculties.forEach(name => {
-  const card = document.createElement("div");
-  card.className = "p-3 border rounded cursor-pointer text-center hover:bg-blue-100";
-  card.textContent = name;
-  card.addEventListener("click", () => {
-    // Select this faculty
-    facultySelect.value = name;
+  // ===== FACULTY DROPDOWN & CARDS =====
+  const faculties=["Faculty 1","Faculty 2","Faculty 3","Faculty 4","Faculty 5","Faculty 6","Faculty 7"];
+  const facultySelect=document.getElementById("facultySelect");
+  const facultyCards=document.getElementById("facultyCards");
+  faculties.forEach(name=>{
+    const option=document.createElement("option"); option.value=name; option.textContent=name;
+    facultySelect.appendChild(option);
+    const card=document.createElement("div");
+    card.className="p-3 border rounded cursor-pointer text-center hover:bg-blue-100";
+    card.textContent=name;
+    card.addEventListener("click",()=>facultySelect.value=name);
+    facultyCards.appendChild(card);
   });
-  facultyCards.appendChild(card);
-});
 
-    // ========== SCORE CALCULATION ==========
-    function calculateScores() {
-      const qScores = Array.from(document.querySelectorAll("#questionsContainer select")).map(el => Number(el.value) || 0);
-      const quiz = Number(document.getElementById("quizMarks").value) || 0;
-      const avg = qScores.reduce((a,b)=>a+b,0) / qScores.length;
-      const weighted = (avg*20 + quiz) / 2;
-      let grade = "D"; if (weighted >= 85) grade = "A"; else if (weighted >= 70) grade = "B"; else if (weighted >= 50) grade = "C";
-      document.getElementById("avgScore").innerText = avg.toFixed(2);
-      document.getElementById("weightedScore").innerText = weighted.toFixed(2);
-      document.getElementById("grade").innerText = grade;
-      document.getElementById("avgScoreFinal").innerText = avg.toFixed(2);
-      document.getElementById("weightedScoreFinal").innerText = weighted.toFixed(2);
-      document.getElementById("gradeFinal").innerText = grade;
-    }
+  // ===== REAL-TIME SCORE CALCULATION =====
+  const quizInput=document.getElementById("quizMarks");
+  const weightedScoreEl=document.getElementById("weightedScore");
+  const gradeEl=document.getElementById("grade");
+
+  function calculateWeighted(){
+    const qScores=Array.from(document.querySelectorAll("#questionsContainer select")).map(el=>Number(el.value)||0);
+    const avg=qScores.reduce((a,b)=>a+b,0)/qScores.length;
+    const quiz=Number(quizInput.value)||0;
+    const weighted=((avg*20 + quiz)/2).toFixed(2);
+    weightedScoreEl.textContent=weighted;
+    let grade="D";
+    if(weighted>=85) grade="A";
+    else if(weighted>=70) grade="B";
+    else if(weighted>=50) grade="C";
+    gradeEl.textContent=grade;
+  }
+
+  quizInput.addEventListener("input",calculateWeighted);
+  document.querySelectorAll("#questionsContainer select").forEach(el=>el.addEventListener("change",calculateWeighted));
+
 
     // ========== SUBMIT HANDLER ==========
     document.getElementById("submitBtn").onclick = () => {
@@ -219,5 +253,6 @@ faculties.forEach(name => {
   </script>
 </body>
 </html>
+
 
 
