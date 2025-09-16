@@ -10,188 +10,180 @@
     .form-page.active { display: block; }
   </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-xl">
-    <h1 class="text-2xl font-bold mb-6 text-center">📝 Student Feedback Form</h1>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
-    <!-- ================= PAGE 1: BASIC INFO ================= -->
-    <div class="form-page active" id="page1">
-      <h2 class="text-xl font-semibold mb-4">Basic Information</h2>
+  <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-3xl">
+    <h1 class="text-2xl font-bold mb-6 text-center">📋 Student Feedback Form</h1>
 
-      <label class="block mb-2">Student Name *</label>
-      <input type="text" name="studentName" id="studentName"
-             class="w-full p-2 border rounded mb-4" required>
+    <form id="feedbackForm" class="space-y-6">
 
-      <label class="block mb-2">Registration Number *</label>
-      <input type="text" name="regNumber" id="regNumber"
-             class="w-full p-2 border rounded mb-4" required>
+      <!-- ================= PAGE 1: BASIC INFO ================= -->
+      <div class="form-page active" id="page1">
+        <h2 class="text-lg font-semibold mb-4">Basic Information</h2>
+        <input name="studentName" id="studentName" placeholder="Student Name" class="w-full border p-2 rounded mb-2" required>
+        <input name="regNumber" id="regNumber" placeholder="Registration Number" class="w-full border p-2 rounded mb-2" required>
+        <input name="mobile" id="mobile" type="tel" placeholder="Mobile (10 digits, starts with 6-9)" class="w-full border p-2 rounded mb-2" required>
+        <input name="email" id="email" type="email" placeholder="Email" class="w-full border p-2 rounded mb-2" required>
 
-      <label class="block mb-2">Mobile Number *</label>
-      <input type="text" name="mobile" id="mobile"
-             placeholder="10 digits, starts with 6-9"
-             class="w-full p-2 border rounded mb-4" required>
-
-      <label class="block mb-2">Email ID *</label>
-      <input type="email" name="email" id="email"
-             class="w-full p-2 border rounded mb-4" required>
-
-      <button type="button" id="nextBtn1"
-              class="px-4 py-2 bg-blue-500 text-white rounded">Next</button>
-    </div>
-
-    <!-- ================= PAGE 2: FACULTY SELECTION ================= -->
-    <div class="form-page" id="page2">
-      <h2 class="text-xl font-semibold mb-4">Faculty Selection</h2>
-
-      <label class="block mb-2">Select Faculty *</label>
-      <select name="facultyName" id="facultyName"
-              class="w-full p-2 border rounded mb-4" required>
-        <option value="">-- Select Faculty --</option>
-        <option value="Faculty 1">Faculty 1</option>
-        <option value="Faculty 2">Faculty 2</option>
-        <option value="Faculty 3">Faculty 3</option>
-        <option value="Faculty 4">Faculty 4</option>
-        <option value="Faculty 5">Faculty 5</option>
-        <option value="Faculty 6">Faculty 6</option>
-        <option value="Faculty 7">Faculty 7</option>
-      </select>
-
-      <label class="block mb-2">Batch ID *</label>
-      <input type="text" name="batchId" id="batchId"
-             class="w-full p-2 border rounded mb-4" required>
-
-      <div class="flex justify-between">
-        <button type="button" id="backBtn2"
-                class="px-4 py-2 bg-gray-400 text-white rounded">Back</button>
-        <button type="button" id="nextBtn2"
-                class="px-4 py-2 bg-blue-500 text-white rounded">Next</button>
-      </div>
-    </div>
-
-    <!-- ================= PAGE 3: FEEDBACK QUESTIONS ================= -->
-    <div class="form-page" id="page3">
-      <h2 class="text-xl font-semibold mb-4">Feedback Questions</h2>
-
-      <div class="space-y-4">
-        <label>Q1. Attendance & Punctuality</label>
-        <input type="number" name="Q1" min="0" max="10"
-               class="w-full p-2 border rounded">
-
-        <label>Q2. Professional Image & Engagement</label>
-        <input type="number" name="Q2" min="0" max="10"
-               class="w-full p-2 border rounded">
-
-        <label>Q3. Subject Knowledge</label>
-        <input type="number" name="Q3" min="0" max="10"
-               class="w-full p-2 border rounded">
-
-        <label>Q4. Teaching Effectiveness</label>
-        <input type="number" name="Q4" min="0" max="10"
-               class="w-full p-2 border rounded">
-
-        <label>Q5. Use of Teaching Aids</label>
-        <input type="number" name="Q5" min="0" max="10"
-               class="w-full p-2 border rounded">
-
-        <label>Q6. Student Interaction</label>
-        <input type="number" name="Q6" min="0" max="10"
-               class="w-full p-2 border rounded">
-
-        <label>Q7. Responsiveness to Queries</label>
-        <input type="number" name="Q7" min="0" max="10"
-               class="w-full p-2 border rounded">
+        <button type="button" id="nextBtn1" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
       </div>
 
-      <label class="block mb-2 mt-4">Quiz Marks (out of 100)</label>
-      <input type="number" name="quizMarks" id="quizMarks"
-             class="w-full p-2 border rounded">
+      <!-- ================= PAGE 2: FACULTY ================= -->
+      <div class="form-page" id="page2">
+        <h2 class="text-lg font-semibold mb-4">Select Faculty</h2>
+        <select name="facultyName" id="facultyName" class="w-full border p-2 rounded mb-4" required></select>
 
-      <div class="flex justify-between mt-6">
-        <button type="button" id="backBtn3"
-                class="px-4 py-2 bg-gray-400 text-white rounded">Back</button>
-        <button type="button" id="nextBtn3"
-                class="px-4 py-2 bg-blue-500 text-white rounded">Next</button>
+        <div class="flex justify-between">
+          <button type="button" id="backBtn2" class="bg-gray-400 text-white px-4 py-2 rounded">Back</button>
+          <button type="button" id="nextBtn2" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
+        </div>
       </div>
-    </div>
 
-    <!-- ================= PAGE 4: SCORE & SUBMIT ================= -->
-    <div class="form-page" id="page4">
-      <h2 class="text-xl font-semibold mb-4">Result & Submit</h2>
+      <!-- ================= PAGE 3: FEEDBACK ================= -->
+      <div class="form-page" id="page3">
+        <h2 class="text-lg font-semibold mb-4">Feedback</h2>
+        <input name="batchId" placeholder="Batch ID" class="w-full border p-2 rounded mb-4" required>
 
-      <p><strong>Average Score:</strong> <span id="avgScore">0</span></p>
-      <p><strong>Weighted Score:</strong> <span id="weightedScore">0</span></p>
-      <p><strong>Grade:</strong> <span id="grade">N/A</span></p>
+        <div id="questionsContainer" class="space-y-4"></div>
 
-      <div class="flex justify-between mt-6">
-        <button type="button" id="backBtn4"
-                class="px-4 py-2 bg-gray-400 text-white rounded">Back</button>
-        <button type="button" id="submitBtn"
-                class="px-4 py-2 bg-green-500 text-white rounded">Submit</button>
+        <input name="quizMarks" id="quizMarks" type="number" placeholder="Quiz Marks (out of 100)" class="w-full border p-2 rounded mt-4" required>
+
+        <div class="mt-4 p-3 border rounded bg-gray-50">
+          <p><b>Average Score:</b> <span id="avgScore">0</span></p>
+          <p><b>Weighted Score:</b> <span id="weightedScore">0</span></p>
+          <p><b>Grade:</b> <span id="grade">-</span></p>
+        </div>
+
+        <textarea name="comments" placeholder="Comments" class="w-full border p-2 rounded mt-4"></textarea>
+
+        <div class="flex justify-between mt-4">
+          <button type="button" id="backBtn3" class="bg-gray-400 text-white px-4 py-2 rounded">Back</button>
+          <button type="button" id="nextBtn3" class="bg-blue-500 text-white px-4 py-2 rounded">Calculate</button>
+        </div>
       </div>
-    </div>
 
-    <!-- ================= RESULT ================= -->
-    <div class="form-page" id="thankyouPage">
-      <h2 class="text-xl font-bold text-center text-green-600">✅ Thank You!</h2>
-      <p class="text-center mt-4">Your feedback has been submitted successfully.</p>
-    </div>
+      <!-- ================= PAGE 4: CONFIRMATION ================= -->
+      <div class="form-page" id="page4">
+        <h2 class="text-lg font-semibold mb-4">Confirm Submission</h2>
+        <p>Please review your scores before submitting.</p>
+        <div class="mt-4 p-3 border rounded bg-gray-50">
+          <p><b>Average Score:</b> <span id="avgScoreFinal">0</span></p>
+          <p><b>Weighted Score:</b> <span id="weightedScoreFinal">0</span></p>
+          <p><b>Grade:</b> <span id="gradeFinal">-</span></p>
+        </div>
+
+        <div class="flex justify-between mt-4">
+          <button type="button" id="backBtn4" class="bg-gray-400 text-white px-4 py-2 rounded">Back</button>
+          <button type="button" id="submitBtn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Submit</button>
+        </div>
+      </div>
+
+      <!-- ================= PAGE 5: THANK YOU ================= -->
+      <div class="form-page" id="page5">
+        <h2 class="text-xl font-bold text-center mb-4">🎉 Thank You!</h2>
+        <p class="text-center">You have successfully completed feedback for all faculties.</p>
+      </div>
+
+    </form>
+
+    <p id="status" class="mt-4 text-center text-gray-700"></p>
   </div>
 
   <script>
-    // Switch pages
+    // ========== PAGE HANDLING ==========
     const pages = document.querySelectorAll(".form-page");
-    let currentPage = 0;
     function showPage(index) {
-      pages.forEach((page, i) => page.classList.toggle("active", i === index));
-      currentPage = index;
+      pages.forEach((p, i) => p.classList.toggle("active", i === index));
     }
 
-    document.getElementById("nextBtn1").onclick = () => showPage(1);
+    document.getElementById("nextBtn1").onclick = () => {
+      const mobile = document.getElementById("mobile").value.trim();
+      if (!/^[6-9]\d{9}$/.test(mobile)) return alert("Invalid mobile number!");
+      const email = document.getElementById("email").value.trim();
+      if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) return alert("Invalid email!");
+      showPage(1);
+    };
     document.getElementById("backBtn2").onclick = () => showPage(0);
     document.getElementById("nextBtn2").onclick = () => showPage(2);
     document.getElementById("backBtn3").onclick = () => showPage(1);
-    document.getElementById("nextBtn3").onclick = () => {
-      calculateScores();
-      showPage(3);
-    };
+    document.getElementById("nextBtn3").onclick = () => { calculateScores(); showPage(3); };
     document.getElementById("backBtn4").onclick = () => showPage(2);
 
-    // Calculate average, weighted score, grade
+    // ========== FACULTY LOOP ==========
+    let faculties = ["Faculty 1","Faculty 2","Faculty 3","Faculty 4","Faculty 5","Faculty 6","Faculty 7"];
+    function refreshFacultyDropdown() {
+      const select = document.getElementById("facultyName");
+      select.innerHTML = '<option value="">-- Select Faculty --</option>';
+      faculties.forEach(f => {
+        const opt = document.createElement("option");
+        opt.value = f; opt.textContent = f;
+        select.appendChild(opt);
+      });
+    }
+    refreshFacultyDropdown();
+
+    // ========== FEEDBACK QUESTIONS ==========
+    const questions = [
+      "Attendance & Punctuality","Professional Image & Engagement","Discipline","Active Participation",
+      "Group Activities & Teamwork","Presentation - Content","Presentation - Delivery","Communication Skills",
+      "Analytical Thinking","Creativity & Innovation","Professional Ethics Awareness","Student-Faculty Interaction Quality",
+      "Overall Engagement","Politeness & Courtesy","Use of Real-World Examples","Ease of Asking Questions",
+      "Individual Attention to Students","Encourages and Motivates Students"
+    ];
+    const container = document.getElementById("questionsContainer");
+    questions.forEach((q, i) => {
+      const select = document.createElement("select");
+      select.name = "Q" + (i+1);
+      select.className = "w-full border p-2 rounded";
+      select.innerHTML = `<option value="">${q}</option>` + [1,2,3,4,5].map(n => `<option>${n}</option>`).join("");
+      container.appendChild(select);
+    });
+
+    // ========== SCORE CALCULATION ==========
     function calculateScores() {
       const qScores = Array.from(document.querySelectorAll("[name^=Q]")).map(el => Number(el.value) || 0);
       const quiz = Number(document.getElementById("quizMarks").value) || 0;
       const avg = qScores.reduce((a,b)=>a+b,0) / qScores.length;
-      const weighted = (avg * 10 + quiz) / 2; // simple weighting example
-      let grade = "F";
+      const weighted = (avg*20 + quiz) / 2; // scale to 100
+      let grade = "D";
       if (weighted >= 85) grade = "A";
       else if (weighted >= 70) grade = "B";
       else if (weighted >= 50) grade = "C";
-      else grade = "D";
 
       document.getElementById("avgScore").innerText = avg.toFixed(2);
       document.getElementById("weightedScore").innerText = weighted.toFixed(2);
       document.getElementById("grade").innerText = grade;
+
+      document.getElementById("avgScoreFinal").innerText = avg.toFixed(2);
+      document.getElementById("weightedScoreFinal").innerText = weighted.toFixed(2);
+      document.getElementById("gradeFinal").innerText = grade;
     }
 
-    // Submit to Google Apps Script
+    // ========== SUBMIT HANDLER ==========
     document.getElementById("submitBtn").onclick = () => {
       const formData = {};
-      document.querySelectorAll("input, select").forEach(el => {
-        formData[el.name] = el.value;
-      });
-      formData["averageScore"] = document.getElementById("avgScore").innerText;
-      formData["weightedScore"] = document.getElementById("weightedScore").innerText;
-      formData["grade"] = document.getElementById("grade").innerText;
+      document.querySelectorAll("input, select, textarea").forEach(el => { if (el.name) formData[el.name] = el.value; });
+      formData["averageScore"] = document.getElementById("avgScoreFinal").innerText;
+      formData["weightedScore"] = document.getElementById("weightedScoreFinal").innerText;
+      formData["grade"] = document.getElementById("gradeFinal").innerText;
 
       fetch("https://script.google.com/macros/s/AKfycby-pecNA2iTiza8agKnLJ2qlXtFS3zZNZD-M3cWe4Ch23hbGUD-HTwzDoFqVHkw7WAM/exec", {
         method: "POST",
         body: JSON.stringify(formData)
       })
-      .then(res => res.text())
-      .then(() => showPage(4))
+      .then(() => {
+        // Remove submitted faculty
+        faculties = faculties.filter(f => f !== formData["facultyName"]);
+        if (faculties.length > 0) {
+          refreshFacultyDropdown();
+          document.getElementById("feedbackForm").reset();
+          showPage(1); // back to faculty selection
+        } else {
+          showPage(4); // thank you
+        }
+      })
       .catch(err => alert("Failed: " + err.message));
     };
   </script>
 </body>
 </html>
-
