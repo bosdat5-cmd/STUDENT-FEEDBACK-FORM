@@ -183,7 +183,7 @@
       formData["weightedScore"] = document.getElementById("weightedScore").innerText;
       formData["grade"] = document.getElementById("grade").innerText;
 
-      fetch("YOUR_SCRIPT_URL_HERE", {
+      fetch("https://script.google.com/macros/s/AKfycby-pecNA2iTiza8agKnLJ2qlXtFS3zZNZD-M3cWe4Ch23hbGUD-HTwzDoFqVHkw7WAM/exec", {
         method: "POST",
         body: JSON.stringify(formData)
       })
@@ -194,3 +194,4 @@
   </script>
 </body>
 </html>
+
