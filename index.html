@@ -11,30 +11,22 @@
   </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
-  <div class="bg-white shadow-lg rounded-xl p-6 w-full max-w-md">
-    <h1 class="text-2xl font-bold mb-4 flex items-center">
-      <span class="mr-2">📝</span> Student Feedback Form
-    </h1>
 
-    <!-- ================= PAGE 1: BASIC INFO ================= -->
-    <div class="form-page active" id="page1">
-      <h2 class="text-lg font-semibold mb-4">Basic Information</h2>
-      <label class="block mb-2">Student Name</label>
-      <input name="studentName" id="studentName" placeholder="Student Name" class="w-full border p-2 rounded mb-2" required>
-      
-      <label class="block mb-2">Registration Number</label>
-      <input name="regNumber" id="regNumber" placeholder="Registration Number" class="w-full border p-2 rounded mb-2" required>
-      
-      <label class="block mb-2">Mobile (10 digits, starts with 6-9)</label>
-      <input name="mobile" id="mobile" type="tel" placeholder="Mobile (10 digits, starts with 6-9)" class="w-full border p-2 rounded mb-2" required>
-      
-      <label class="block mb-2">Email</label>
-      <input name="email" id="email" type="email" placeholder="Email" class="w-full border p-2 rounded mb-2" required>
+  <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-3xl">
+    <h1 class="text-2xl font-bold mb-6 text-center">📋 Student Feedback Form</h1>
 
-      <button type="button" id="nextBtn1" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
-    </div>
-  </div>
-</body>
+    <form id="feedbackForm" class="space-y-6">
+
+      <!-- ================= PAGE 1: BASIC INFO ================= -->
+      <div class="form-page active" id="page1">
+        <h2 class="text-lg font-semibold mb-4">Basic Information</h2>
+        <input name="studentName" id="studentName" placeholder="Student Name" class="w-full border p-2 rounded mb-2" required>
+        <input name="regNumber" id="regNumber" placeholder="Registration Number" class="w-full border p-2 rounded mb-2" required>
+        <input name="mobile" id="mobile" type="tel" placeholder="Mobile (10 digits, starts with 6-9)" class="w-full border p-2 rounded mb-2" required>
+        <input name="email" id="email" type="email" placeholder="Email" class="w-full border p-2 rounded mb-2" required>
+
+        <button type="button" id="nextBtn1" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
+      </div>
 
       <!-- ================= PAGE 2: FACULTY ================= -->
       <div class="form-page" id="page2">
@@ -47,195 +39,73 @@
         </div>
       </div>
 
-  <!-- QUESTIONS (all 19 with descriptive options) -->
-  <div id="questionsContainer" class="space-y-4">
+      <!-- ================= PAGE 3: FEEDBACK ================= -->
+      <div class="form-page" id="page3">
+        <h2 class="text-lg font-semibold mb-4">Feedback</h2>
+        <input name="batchId" placeholder="Batch ID" class="w-full border p-2 rounded mb-4" required>
 
-    <label>Attendance & Punctuality</label>
-    <select name="Attendance & Punctuality" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Professional Image & Engagement</label>
-    <select name="Professional Image & Engagement" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Discipline</label>
-    <select name="Discipline" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Active Participation</label>
-    <select name="Active Participation" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Group Activities & Teamwork</label>
-    <select name="Group Activities & Teamwork" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Presentation - Content</label>
-    <select name="Presentation - Content" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Presentation - Delivery</label>
-    <select name="Presentation - Delivery" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Communication Skills</label>
-    <select name="Communication Skills" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Analytical Thinking</label>
-    <select name="Analytical Thinking" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Creativity & Innovation</label>
-    <select name="Creativity & Innovation" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Professional Ethics Awareness</label>
-    <select name="Professional Ethics Awareness" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Student-Faculty Interaction Quality</label>
-    <select name="Student-Faculty Interaction Quality" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Overall Engagement</label>
-    <select name="Overall Engagement" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Politeness & Courtesy</label>
-    <select name="Politeness & Courtesy" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Use of Real-World Examples</label>
-    <select name="Use of Real-World Examples" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Ease of Asking Questions</label>
-    <select name="Ease of Asking Questions" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Individual Attention to Students</label>
-    <select name="Individual Attention to Students" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-    <label>Encourages and Motivates Students</label>
-    <select name="Encourages and Motivates Students" class="w-full border p-2 rounded" required>
-      <option value="">Select</option>
-      <option value="1">Poor</option>
-      <option value="2">Below Average</option>
-      <option value="3">Average</option>
-      <option value="4">Good</option>
-      <option value="5">Excellent</option>
-    </select>
-
-  </div>
-</div>
+        <!-- QUESTIONS (all 19 as dropdowns 1-5) -->
+        <div id="questionsContainer" class="space-y-4">
+          <select name="Attendance & Punctuality" class="w-full border p-2 rounded" required>
+            <option value="">Attendance & Punctuality</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Professional Image & Engagement" class="w-full border p-2 rounded" required>
+            <option value="">Professional Image & Engagement</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Discipline" class="w-full border p-2 rounded" required>
+            <option value="">Discipline</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Active Participation" class="w-full border p-2 rounded" required>
+            <option value="">Active Participation</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Group Activities & Teamwork" class="w-full border p-2 rounded" required>
+            <option value="">Group Activities & Teamwork</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Presentation - Content" class="w-full border p-2 rounded" required>
+            <option value="">Presentation - Content</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Presentation - Delivery" class="w-full border p-2 rounded" required>
+            <option value="">Presentation - Delivery</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Communication Skills" class="w-full border p-2 rounded" required>
+            <option value="">Communication Skills</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Analytical Thinking" class="w-full border p-2 rounded" required>
+            <option value="">Analytical Thinking</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Creativity & Innovation" class="w-full border p-2 rounded" required>
+            <option value="">Creativity & Innovation</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Professional Ethics Awareness" class="w-full border p-2 rounded" required>
+            <option value="">Professional Ethics Awareness</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Student-Faculty Interaction Quality" class="w-full border p-2 rounded" required>
+            <option value="">Student-Faculty Interaction Quality</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Overall Engagement" class="w-full border p-2 rounded" required>
+            <option value="">Overall Engagement</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Politeness & Courtesy" class="w-full border p-2 rounded" required>
+            <option value="">Politeness & Courtesy</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Use of Real-World Examples" class="w-full border p-2 rounded" required>
+            <option value="">Use of Real-World Examples</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Ease of Asking Questions" class="w-full border p-2 rounded" required>
+            <option value="">Ease of Asking Questions</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Individual Attention to Students" class="w-full border p-2 rounded" required>
+            <option value="">Individual Attention to Students</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+          <select name="Encourages and Motivates Students" class="w-full border p-2 rounded" required>
+            <option value="">Encourages and Motivates Students</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
 
         <!-- SCORES -->
         <input name="quizMarks" id="quizMarks" type="number" placeholder="Quiz Marks (out of 100)" class="w-full border p-2 rounded mt-4" required>
         <div class="mt-4 p-3 border rounded bg-gray-50">
+          <p><b>Average Score:</b> <span id="avgScore">0</span></p>
           <p><b>Weighted Score:</b> <span id="weightedScore">0</span></p>
           <p><b>Grade:</b> <span id="grade">-</span></p>
         </div>
@@ -301,50 +171,20 @@
     refreshFacultyDropdown();
 
     // ========== SCORE CALCULATION ==========
-<script>
-function calculateScores() {
-  const selects = document.querySelectorAll("select[name]");
-  let sum = 0, count = 0;
-
-  selects.forEach(sel => {
-    if (sel.value) {
-      sum += parseInt(sel.value);
-      count++;
+    function calculateScores() {
+      const qScores = Array.from(document.querySelectorAll("#questionsContainer select")).map(el => Number(el.value) || 0);
+      const quiz = Number(document.getElementById("quizMarks").value) || 0;
+      const avg = qScores.reduce((a,b)=>a+b,0) / qScores.length;
+      const weighted = (avg*20 + quiz) / 2;
+      let grade = "D"; if (weighted >= 85) grade = "A"; else if (weighted >= 70) grade = "B"; else if (weighted >= 50) grade = "C";
+      document.getElementById("avgScore").innerText = avg.toFixed(2);
+      document.getElementById("weightedScore").innerText = weighted.toFixed(2);
+      document.getElementById("grade").innerText = grade;
+      document.getElementById("avgScoreFinal").innerText = avg.toFixed(2);
+      document.getElementById("weightedScoreFinal").innerText = weighted.toFixed(2);
+      document.getElementById("gradeFinal").innerText = grade;
     }
-  });
 
-  const avg = count > 0 ? (sum / count).toFixed(2) : 0;
-
-  // Get quiz marks
-  const quizMarks = parseFloat(document.querySelector("input[name='quizMarks']").value) || 0;
-
-  // Weighted score (you can adjust formula if needed)
-  const weighted = ((parseFloat(avg) + quizMarks) / 2).toFixed(2);
-
-  // Grade logic
-  let grade = "F";
-  if (weighted >= 90) grade = "A+";
-  else if (weighted >= 80) grade = "A";
-  else if (weighted >= 70) grade = "B";
-  else if (weighted >= 60) grade = "C";
-  else if (weighted >= 50) grade = "D";
-
-  // Push values to inputs
-  document.querySelector("input[name='averageScore']").value = avg;
-  document.querySelector("input[name='weightedScore']").value = weighted;
-  document.querySelector("input[name='grade']").value = grade;
-}
-
-// 🔹 Attach event listeners
-document.addEventListener("DOMContentLoaded", () => {
-  const selects = document.querySelectorAll("select[name]");
-  const quizInput = document.querySelector("input[name='quizMarks']");
-
-  selects.forEach(sel => sel.addEventListener("change", calculateScores));
-  quizInput.addEventListener("input", calculateScores);
-});
-</script>
-<script>
     // ========== SUBMIT HANDLER ==========
     document.getElementById("submitBtn").onclick = () => {
       const formData = {};
@@ -364,5 +204,3 @@ document.addEventListener("DOMContentLoaded", () => {
   </script>
 </body>
 </html>
-
-
